@@ -1,1 +1,78 @@
 <!doctype html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,900" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        *, *::after, *::before {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family: Montserrat, sans-serif;
+        }
+
+        html, a {
+            color: #333333;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            margin: 0;
+            padding: calc(10px + 2vw);
+        }
+
+        h1 {
+            flex-grow: 1;
+            font-weight: 900;
+            font-size: calc(7.6vw + 3.8vh);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        footer {
+            flex-grow: 0;
+        }
+
+        footer p {
+            --logo-margin: 1.24em;
+            font-size: calc(6px + 1.5vh);
+            font-weight: 300;
+            padding-left: var(--logo-margin);
+            margin: 0;
+        }
+
+        .footer-logo {
+            width: auto;
+            height: 1.9em;
+            vertical-align: bottom;
+            margin-bottom: -0.36em;
+            margin-left: calc(-1 * var(--logo-margin));
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body>
+    <h1>simplify.</h1>
+    <footer>
+        <p>
+            <img class="footer-logo" src="logo.svg" alt="Spacey" />
+            is in private alpha. Get in touch at
+            <a href="mailto:hello@spacey.ai">hello@spacey.ai</a>
+            to learn about our AI architecture plaform.
+        </p>
+    </footer>
+</body>
