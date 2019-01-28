@@ -11466,15 +11466,28 @@ var elm$url$Url$Parser$s = function (str) {
 			}
 		});
 };
-var elm$url$Url$Parser$top = elm$url$Url$Parser$Parser(
-	function (state) {
-		return _List_fromArray(
-			[state]);
+var elm$url$Url$Parser$slash = F2(
+	function (_n0, _n1) {
+		var parseBefore = _n0.a;
+		var parseAfter = _n1.a;
+		return elm$url$Url$Parser$Parser(
+			function (state) {
+				return A2(
+					elm$core$List$concatMap,
+					parseAfter,
+					parseBefore(state));
+			});
 	});
 var author$project$Route$route = elm$url$Url$Parser$oneOf(
 	_List_fromArray(
 		[
-			A2(elm$url$Url$Parser$map, author$project$Route$Interior, elm$url$Url$Parser$top),
+			A2(
+			elm$url$Url$Parser$map,
+			author$project$Route$Interior,
+			A2(
+				elm$url$Url$Parser$slash,
+				elm$url$Url$Parser$s('customize'),
+				elm$url$Url$Parser$s('rtck-loft'))),
 			A2(
 			elm$url$Url$Parser$map,
 			author$project$Route$Layout,
@@ -22106,9 +22119,9 @@ var author$project$Pages$Interior$ContextMenu$view = F2(
 	});
 var author$project$Route$toString = function (routeToConvert) {
 	if (routeToConvert.$ === 'Layout') {
-		return '/layout';
+		return '/layout/';
 	} else {
-		return '/';
+		return '/customize/rtck-loft/';
 	}
 };
 var author$project$Session$RtckLoft$costPaneEnabled = true;
