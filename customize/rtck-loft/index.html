@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600|Open+Sans+Condensed:700" rel="stylesheet">
+  <script type="text/javascript" src="//localhost:35729/livereload.js?snipver=1" async defer></script>
+</head>
+
+<body>
+  <script src="/bundle.js"></script>
+  <script>
+    (() => {
+      const app = Elm.Main.init({flags: {
+        viewport: {
+          width: document.documentElement.clientWidth,
+          height: document.documentElement.clientHeight,
+        },
+        seed: crypto.getRandomValues(new Uint32Array(1))[0],
+      }});
+
+      const ifcContentReadyCallbacks = [];
+      app.ports.ifcContentReady.subscribe(content => {
+        let callback;
+        while (callback = ifcContentReadyCallbacks.pop()) {
+          callback(content);
+        }
+      });
+      const saveIfc = () => new Promise(resolve => {
+        ifcContentReadyCallbacks.push(ifcContent => {
+          const anchor = document.createElement('a');
+          anchor.download = "spacey.ifc";
+          anchor.href = window.URL.createObjectURL(
+            new Blob([ifcContent], {type: 'text/plain'})
+          );
+          anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+          anchor.click();
+          resolve();
+        });
+        app.ports.requestIfc.send(null);
+      });
+
+      window.saveIfc = saveIfc;
+    })()
+  </script>
+</body>

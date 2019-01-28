@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="300"
+   height="300"
+   viewBox="0 0 300 300"
+   id="svg3386"
+   version="1.1"
+   inkscape:version="0.91+devel+osxmenu r12922"
+   sodipodi:docname="watermark.svg">
+  <defs
+     id="defs3388">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4154">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0"
+         id="stop4156" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0"
+         offset="1"
+         id="stop4158" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4154"
+       id="radialGradient4160"
+       cx="11.92502"
+       cy="961.23224"
+       fx="11.92502"
+       fy="961.23224"
+       r="79.5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-5.711542e-8,3.2075469,-3.245284,-5.7787389e-8,3161.4715,979.1122)" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-972.36218)">
+    <rect
+       style="opacity:0.72100004;fill:url(#radialGradient4160);fill-opacity:1;stroke:none;stroke-width:9.43396282;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4152"
+       width="300"
+       height="300"
+       x="0"
+       y="972.36218" />
+    <g
+       id="g8850"
+       transform="matrix(-0.31986843,0,0,0.32058801,117.92658,918.2474)"
+       style="fill:rgb(119, 119, 119)">
+      <path
+         d="m 237.36816,227.79365 -59.39941,56.62282 0,18.51066 59.39941,0 0,-75.13348 z"
+      />
+      <path
+         d="m 259.25216,212.49859 0,74.8322 59.1283,0 0,-18.43644 -59.1283,-56.39576 z"
+      />
+      <path
+         d="m 177.96875,309.16566 0,56.14684 59.39941,0 0,-56.14684 -59.39941,0 z"
+      />
+      <path
+         d="m 243.62073,309.16566 0,56.14684 59.39941,0 0,-56.14684 -59.39941,0 z"
+      />
+    </g>
+  </g>
+</svg>
