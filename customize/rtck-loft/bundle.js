@@ -7510,8 +7510,6 @@ var author$project$TypedSvg$Types$FillNone = {$: 'FillNone'};
 var author$project$TypedSvg$Types$Opacity = function (a) {
 	return {$: 'Opacity', a: a};
 };
-var elm$core$Basics$sqrt = _Basics_sqrt;
-var elm$core$Basics$tan = _Basics_tan;
 var elm$core$List$append = F2(
 	function (xs, ys) {
 		if (!ys.b) {
@@ -8608,15 +8606,12 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 			var pulledAwayLength = (lengthOverWindow / 7) | 0;
 			var numberOfFolds = (lengthAcrossRoom / 4) | 0;
 			var foldIndices = A2(elm$core$List$range, 0, numberOfFolds - 1);
-			var exactTurnRadius = 400;
 			var exactPulledAwayLength = author$project$Grid$Units$toMillimeters(pulledAwayLength);
 			var exactPulledAwayFoldLength = exactPulledAwayLength / numberOfFolds;
 			var exactLengthOverWindow = author$project$Grid$Units$toMillimeters(lengthOverWindow);
 			var exactLengthAcrossRoom = author$project$Grid$Units$toMillimeters(lengthAcrossRoom);
 			var exactFoldLengthOverWindow = exactLengthOverWindow / numberOfFolds;
-			var exactFoldLengthAcrossRoom = (exactTurnRadius / (1 + (elm$core$Basics$sqrt(2) / 2))) * 2;
-			var exactFoldControlPointOffset = (elm$core$Basics$tan(
-				elm$core$Basics$degrees(90 / 4)) * exactFoldLengthAcrossRoom) / 2;
+			var exactFoldLengthAcrossRoom = exactLengthAcrossRoom / numberOfFolds;
 			var enoughToDrawCurtain = 4;
 			var windowAccessBoundary = lengthAcrossRoom - enoughToDrawCurtain;
 			var curtainThickness = 1;
@@ -8638,8 +8633,8 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 										[
 											A3(
 											author$project$Svg$Path$cubicBy,
-											_Utils_Tuple2(exactFoldLengthAcrossRoom / 2, -exactFoldControlPointOffset),
-											_Utils_Tuple2(exactFoldLengthAcrossRoom / 2, exactFoldControlPointOffset),
+											_Utils_Tuple2(exactFoldLengthAcrossRoom / 2, -100),
+											_Utils_Tuple2(exactFoldLengthAcrossRoom / 2, 100),
 											_Utils_Tuple2(exactFoldLengthAcrossRoom, 0))
 										])))),
 							author$project$TypedSvg$Attributes$fill(author$project$TypedSvg$Types$FillNone)
@@ -8716,31 +8711,7 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 				availableRotations: turboMaCk$any_set$Set$Any$empty(author$project$Grid$Rotation$rotationKey),
 				locationPreposition: 'beside',
 				name: 'curtain',
-				rawEdgeAccessAlternatives: _List_fromArray(
-					[
-						A2(
-						elm$core$List$cons,
-						{
-							edgeDirection: author$project$Grid$Direction$SouthEastToWest,
-							exceptions: elm$core$Maybe$Nothing,
-							length: windowAccessBoundary,
-							locationLabel: toDrawCurtain,
-							spaceRequired: enoughToDrawCurtain,
-							start: A2(author$project$Grid$Point$gridPoint, windowAccessBoundary, curtainThickness)
-						},
-						accessToPullCurtainAway),
-						A2(
-						elm$core$List$cons,
-						{
-							edgeDirection: author$project$Grid$Direction$NorthWestToEast,
-							exceptions: elm$core$Maybe$Nothing,
-							length: lengthAcrossRoom,
-							locationLabel: toDrawCurtain,
-							spaceRequired: enoughToDrawCurtain,
-							start: A2(author$project$Grid$Point$gridPoint, 0, 0)
-						},
-						accessToPullCurtainAway)
-					]),
+				rawEdgeAccessAlternatives: _List_Nil,
 				rawFootprint: author$project$Grid$Footprint$footprint(
 					_List_fromArray(
 						[
@@ -12309,30 +12280,30 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 		author$project$Architecture$Item$withEquipment,
 		A3(
 			author$project$Architecture$Equipment$equipment,
-			author$project$Architecture$Equipment$Shelving(42),
+			author$project$Architecture$Equipment$Shelving(41),
 			elm$core$Maybe$Nothing,
-			A2(author$project$Grid$Vector$gridVector, 72, -38)),
+			A2(author$project$Grid$Vector$gridVector, 72, -39)),
 		A2(
 			author$project$Architecture$Item$withEquipment,
 			A3(
 				author$project$Architecture$Equipment$equipment,
 				author$project$Architecture$Equipment$Shelving(24),
 				elm$core$Maybe$Nothing,
-				A2(author$project$Grid$Vector$gridVector, 72, 8)),
+				A2(author$project$Grid$Vector$gridVector, 72, 7)),
 			A2(
 				author$project$Architecture$Item$withEquipment,
 				A3(
 					author$project$Architecture$Equipment$equipment,
 					author$project$Architecture$Equipment$Shelving(24),
 					elm$core$Maybe$Nothing,
-					A2(author$project$Grid$Vector$gridVector, 72, 45)),
+					A2(author$project$Grid$Vector$gridVector, 72, 44)),
 				A2(
 					author$project$Architecture$Item$withEquipment,
 					A3(
 						author$project$Architecture$Equipment$equipment,
-						author$project$Architecture$Equipment$Shelving(14),
+						author$project$Architecture$Equipment$Shelving(15),
 						elm$core$Maybe$Nothing,
-						A2(author$project$Grid$Vector$gridVector, 72, 77)),
+						A2(author$project$Grid$Vector$gridVector, 72, 76)),
 					A2(
 						author$project$Architecture$Item$withEquipment,
 						A3(
@@ -12347,7 +12318,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 									width: 7
 								}),
 							elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
-							A2(author$project$Grid$Vector$gridVector, 28, 77)),
+							A2(author$project$Grid$Vector$gridVector, 28, 76)),
 						A2(
 							author$project$Architecture$Item$withEquipment,
 							A3(
@@ -12362,7 +12333,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 										width: 7
 									}),
 								elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
-								A2(author$project$Grid$Vector$gridVector, 52, 77)),
+								A2(author$project$Grid$Vector$gridVector, 52, 76)),
 							A2(
 								author$project$Architecture$Item$withEquipment,
 								A3(
@@ -12377,7 +12348,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 											width: 7
 										}),
 									elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
-									A2(author$project$Grid$Vector$gridVector, 19, 57)),
+									A2(author$project$Grid$Vector$gridVector, 19, 56)),
 								A2(
 									author$project$Architecture$Item$withEquipment,
 									A3(
@@ -12392,7 +12363,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 												width: 7
 											}),
 										elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
-										A2(author$project$Grid$Vector$gridVector, 43, 57)),
+										A2(author$project$Grid$Vector$gridVector, 43, 56)),
 									A2(
 										author$project$Architecture$Item$withEquipment,
 										A3(
@@ -12407,7 +12378,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 													width: 7
 												}),
 											elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnCounterclockwise),
-											A2(author$project$Grid$Vector$gridVector, 57, 50)),
+											A2(author$project$Grid$Vector$gridVector, 57, 49)),
 										A2(
 											author$project$Architecture$Item$withEquipment,
 											A3(
@@ -12422,7 +12393,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 														width: 7
 													}),
 												elm$core$Maybe$Nothing,
-												A2(author$project$Grid$Vector$gridVector, 19, 43)),
+												A2(author$project$Grid$Vector$gridVector, 19, 42)),
 											A2(
 												author$project$Architecture$Item$withEquipment,
 												A3(
@@ -12437,7 +12408,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 															width: 7
 														}),
 													elm$core$Maybe$Nothing,
-													A2(author$project$Grid$Vector$gridVector, 43, 43)),
+													A2(author$project$Grid$Vector$gridVector, 43, 42)),
 												A2(
 													author$project$Architecture$Item$withEquipment,
 													A3(
@@ -12452,7 +12423,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																width: 7
 															}),
 														elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
-														A2(author$project$Grid$Vector$gridVector, 28, 20)),
+														A2(author$project$Grid$Vector$gridVector, 28, 19)),
 													A2(
 														author$project$Architecture$Item$withEquipment,
 														A3(
@@ -12467,7 +12438,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																	width: 7
 																}),
 															elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
-															A2(author$project$Grid$Vector$gridVector, 52, 20)),
+															A2(author$project$Grid$Vector$gridVector, 52, 19)),
 														A2(
 															author$project$Architecture$Item$withEquipment,
 															A3(
@@ -12482,7 +12453,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																		width: 7
 																	}),
 																elm$core$Maybe$Nothing,
-																A2(author$project$Grid$Vector$gridVector, 52, 6)),
+																A2(author$project$Grid$Vector$gridVector, 52, 5)),
 															A2(
 																author$project$Architecture$Item$withEquipment,
 																A3(
@@ -12497,7 +12468,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																			width: 7
 																		}),
 																	elm$core$Maybe$Nothing,
-																	A2(author$project$Grid$Vector$gridVector, 28, 6)),
+																	A2(author$project$Grid$Vector$gridVector, 28, 5)),
 																A2(
 																	author$project$Architecture$Item$withEquipment,
 																	A3(
@@ -12519,7 +12490,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																					width: 7
 																				}),
 																			elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
-																			A2(author$project$Grid$Vector$gridVector, 45, -17)),
+																			A2(author$project$Grid$Vector$gridVector, 45, -18)),
 																		A2(
 																			author$project$Architecture$Item$withEquipment,
 																			A3(
@@ -12534,7 +12505,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																						width: 7
 																					}),
 																				elm$core$Maybe$Nothing,
-																				A2(author$project$Grid$Vector$gridVector, 45, -31)),
+																				A2(author$project$Grid$Vector$gridVector, 45, -32)),
 																			A2(
 																				author$project$Architecture$Item$withEquipment,
 																				A3(
@@ -12549,37 +12520,37 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																							width: 7
 																						}),
 																					elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnCounterclockwise),
-																					A2(author$project$Grid$Vector$gridVector, 59, -24)),
+																					A2(author$project$Grid$Vector$gridVector, 59, -25)),
 																				A2(
 																					author$project$Architecture$Item$withEquipment,
 																					A3(
 																						author$project$Architecture$Equipment$equipment,
 																						A2(
 																							author$project$Architecture$Equipment$Curtain,
-																							{lengthAcrossRoom: 63, lengthOverWindow: 37},
+																							{lengthAcrossRoom: 67, lengthOverWindow: 37},
 																							author$project$Architecture$Equipment$DrawnAcrossRoom),
 																						elm$core$Maybe$Nothing,
-																						A2(author$project$Grid$Vector$gridVector, 38, 68)),
+																						A2(author$project$Grid$Vector$gridVector, 40, 67)),
 																					A2(
 																						author$project$Architecture$Item$withEquipment,
 																						A3(
 																							author$project$Architecture$Equipment$equipment,
 																							A2(
 																								author$project$Architecture$Equipment$Curtain,
-																								{lengthAcrossRoom: 63, lengthOverWindow: 37},
+																								{lengthAcrossRoom: 67, lengthOverWindow: 37},
 																								author$project$Architecture$Equipment$DrawnAcrossRoom),
 																							elm$core$Maybe$Nothing,
-																							A2(author$project$Grid$Vector$gridVector, 38, 31)),
+																							A2(author$project$Grid$Vector$gridVector, 40, 30)),
 																						A2(
 																							author$project$Architecture$Item$withEquipment,
 																							A3(
 																								author$project$Architecture$Equipment$equipment,
 																								A2(
 																									author$project$Architecture$Equipment$Curtain,
-																									{lengthAcrossRoom: 63, lengthOverWindow: 50},
+																									{lengthAcrossRoom: 67, lengthOverWindow: 50},
 																									author$project$Architecture$Equipment$DrawnAcrossRoom),
 																								elm$core$Maybe$Nothing,
-																								A2(author$project$Grid$Vector$gridVector, 38, -6)),
+																								A2(author$project$Grid$Vector$gridVector, 40, -7)),
 																							A2(
 																								author$project$Architecture$Item$withEquipment,
 																								A3(
@@ -20824,7 +20795,6 @@ var author$project$Pages$Interior$viewBox = function (_n0) {
 		' ',
 		A2(elm$core$List$map, elm$core$String$fromFloat, viewBoxNumbers));
 };
-var author$project$Architecture$Equipment$DrawnOverWindow = {$: 'DrawnOverWindow'};
 var author$project$Architecture$Equipment$PulledAway = {$: 'PulledAway'};
 var author$project$Architecture$Equipment$SetCurtainStatus = function (a) {
 	return {$: 'SetCurtainStatus', a: a};
@@ -20864,10 +20834,6 @@ var author$project$Views$Icon$clockwiseDownwardArrow = author$project$Views$Icon
 var author$project$Views$Icon$clockwiseLeftwardArrow = author$project$Views$Icon$icon('M 25 5 C 25 13.296875 18.296875 20 10 20 L 8.8125 20 L 13.09375 15.71875 L 11.65625 14.28125 L 5.65625 20.28125 L 4.96875 21 L 5.65625 21.71875 L 11.65625 27.71875 L 13.09375 26.28125 L 8.8125 22 L 10 22 C 19.378906 22 27 14.378906 27 5 Z');
 var author$project$Views$Icon$clockwiseRightwardArrow = author$project$Views$Icon$icon('M 20.34375 4.28125 L 18.90625 5.71875 L 23.1875 10 L 22 10 C 12.621094 10 5 17.621094 5 27 L 7 27 C 7 18.703125 13.703125 12 22 12 L 23.1875 12 L 18.90625 16.28125 L 20.34375 17.71875 L 26.34375 11.71875 L 27.03125 11 L 26.34375 10.28125 Z');
 var author$project$Views$Icon$clockwiseUpwardArrow = author$project$Views$Icon$icon('M 11 4.96875 L 10.28125 5.65625 L 4.28125 11.65625 L 5.71875 13.09375 L 10 8.8125 L 10 10 C 10 19.378906 17.621094 27 27 27 L 27 25 C 18.703125 25 12 18.296875 12 10 L 12 8.8125 L 16.28125 13.09375 L 17.71875 11.65625 L 11.71875 5.65625 Z');
-var author$project$Views$Icon$downArrow = author$project$Views$Icon$icon('M 15 4 L 15 24.0625 L 8.21875 17.28125 L 6.78125 18.71875 L 15.28125 27.21875 L 16 27.90625 L 16.71875 27.21875 L 25.21875 18.71875 L 23.78125 17.28125 L 17 24.0625 L 17 4 Z');
-var author$project$Views$Icon$leftArrow = author$project$Views$Icon$icon('M 13.28125 6.78125 L 4.78125 15.28125 L 4.09375 16 L 4.78125 16.71875 L 13.28125 25.21875 L 14.71875 23.78125 L 7.9375 17 L 28 17 L 28 15 L 7.9375 15 L 14.71875 8.21875 Z');
-var author$project$Views$Icon$rightArrow = author$project$Views$Icon$icon('M 18.71875 6.78125 L 17.28125 8.21875 L 24.0625 15 L 4 15 L 4 17 L 24.0625 17 L 17.28125 23.78125 L 18.71875 25.21875 L 27.21875 16.71875 L 27.90625 16 L 27.21875 15.28125 Z');
-var author$project$Views$Icon$upArrow = author$project$Views$Icon$icon('M 16 4.09375 L 15.28125 4.78125 L 6.78125 13.28125 L 8.21875 14.71875 L 15 7.9375 L 15 28 L 17 28 L 17 7.9375 L 23.78125 14.71875 L 25.21875 13.28125 L 16.71875 4.78125 Z');
 var elm$core$Dict$sizeHelp = F2(
 	function (n, dict) {
 		sizeHelp:
@@ -20900,17 +20866,17 @@ var author$project$Architecture$Equipment$options = F2(
 	function (toMessage, _n0) {
 		var data = _n0.a;
 		var rotationIcon = function () {
-			var _n5 = data.rotation;
-			if (_n5.$ === 'Just') {
-				switch (_n5.a.$) {
+			var _n2 = data.rotation;
+			if (_n2.$ === 'Just') {
+				switch (_n2.a.$) {
 					case 'QuarterTurnClockwise':
-						var _n6 = _n5.a;
+						var _n3 = _n2.a;
 						return author$project$Views$Icon$clockwiseLeftwardArrow;
 					case 'HalfTurn':
-						var _n7 = _n5.a;
+						var _n4 = _n2.a;
 						return author$project$Views$Icon$clockwiseUpwardArrow;
 					default:
-						var _n8 = _n5.a;
+						var _n5 = _n2.a;
 						return author$project$Views$Icon$clockwiseRightwardArrow;
 				}
 			} else {
@@ -20944,49 +20910,7 @@ var author$project$Architecture$Equipment$options = F2(
 		};
 		var equipmentOptions = function () {
 			var _n1 = data.equipmentType;
-			if (_n1.$ === 'Curtain') {
-				switch (_n1.b.$) {
-					case 'PulledAway':
-						var _n2 = _n1.b;
-						return _List_fromArray(
-							[
-								A3(
-								author$project$ContextMenuOption$Option,
-								author$project$Views$Icon$leftArrow,
-								elm$core$Maybe$Just(
-									toMessage(
-										author$project$Architecture$Equipment$SetCurtainStatus(author$project$Architecture$Equipment$DrawnAcrossRoom))),
-								_List_fromArray(
-									[
-										mdgriffith$style_elements$Element$text('draw across room')
-									])),
-								A3(
-								author$project$ContextMenuOption$Option,
-								author$project$Views$Icon$downArrow,
-								elm$core$Maybe$Just(
-									toMessage(
-										author$project$Architecture$Equipment$SetCurtainStatus(author$project$Architecture$Equipment$DrawnOverWindow))),
-								_List_fromArray(
-									[
-										mdgriffith$style_elements$Element$text('draw over window')
-									]))
-							]);
-					case 'DrawnAcrossRoom':
-						var _n3 = _n1.b;
-						return _List_fromArray(
-							[
-								pullCurtainAway(author$project$Views$Icon$rightArrow)
-							]);
-					default:
-						var _n4 = _n1.b;
-						return _List_fromArray(
-							[
-								pullCurtainAway(author$project$Views$Icon$upArrow)
-							]);
-				}
-			} else {
-				return _List_Nil;
-			}
+			return _List_Nil;
 		}();
 		return _Utils_ap(equipmentOptions, rotationOptions);
 	});
@@ -22686,12 +22610,11 @@ var mdgriffith$style_elements$Style$prop = F2(
 		return A2(mdgriffith$style_elements$Style$Internal$Model$Exact, name, val);
 	});
 var author$project$Styles$Style$acrylicBlur = function (radius) {
+	var value = 'blur(' + (elm$core$String$fromFloat(radius) + 'px)');
 	return _List_fromArray(
 		[
-			A2(
-			mdgriffith$style_elements$Style$prop,
-			'backdrop-filter',
-			'blur(' + (elm$core$String$fromFloat(radius) + 'px)'))
+			A2(mdgriffith$style_elements$Style$prop, 'backdrop-filter', value),
+			A2(mdgriffith$style_elements$Style$prop, '-webkit-backdrop-filter', value)
 		]);
 };
 var author$project$Styles$Style$nonSelectable = _List_fromArray(
@@ -29025,6 +28948,7 @@ var author$project$Views$Icon$magnifyingGlassMinus = author$project$Views$Icon$i
 var author$project$Views$Icon$plus = author$project$Views$Icon$icon('m 17,10 0,5 5,0 0,2 -5,0 0,5 -2,0 0,-5 -5,0 0,-2 5,0 0,-5 z M 16,3 C 8.832031,3 3,8.832031 3,16 3,23.167969 8.832031,29 16,29 23.167969,29 29,23.167969 29,16 29,8.832031 23.167969,3 16,3 Z');
 var author$project$Views$Icon$radioButtonDeselected = author$project$Views$Icon$icon('M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z');
 var author$project$Views$Icon$radioButtonSelected = author$project$Views$Icon$icon('M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 13 C 14.34375 13 13 14.34375 13 16 C 13 17.65625 14.34375 19 16 19 C 17.65625 19 19 17.65625 19 16 C 19 14.34375 17.65625 13 16 13 Z');
+var author$project$Views$Icon$rightArrow = author$project$Views$Icon$icon('M 18.71875 6.78125 L 17.28125 8.21875 L 24.0625 15 L 4 15 L 4 17 L 24.0625 17 L 17.28125 23.78125 L 18.71875 25.21875 L 27.21875 16.71875 L 27.90625 16 L 27.21875 15.28125 Z');
 var author$project$Views$Icon$stairsDown = author$project$Views$Icon$icon('M 20 5 L 20 10 L 15 10 L 15 15 L 10 15 L 10 20 L 5 20 L 5 27 L 7 27 L 7 22 L 12 22 L 12 17 L 17 17 L 17 12 L 22 12 L 22 7 L 27 7 L 27 5 Z M 25.28125 18.28125 L 20 23.5625 L 20 20 L 18 20 L 18 27 L 25 27 L 25 25 L 21.4375 25 L 26.71875 19.71875 Z');
 var author$project$Views$Icon$stairsUp = author$project$Views$Icon$icon('M 20 5 L 20 10 L 15 10 L 15 15 L 10 15 L 10 20 L 5 20 L 5 27 L 7 27 L 7 22 L 12 22 L 12 17 L 17 17 L 17 12 L 22 12 L 22 7 L 27 7 L 27 5 Z M 20 18 L 20 20 L 23.5625 20 L 18.28125 25.28125 L 19.71875 26.71875 L 25 21.4375 L 25 25 L 27 25 L 27 18 Z');
 var author$project$Views$Icon$tapeMeasure = author$project$Views$Icon$icon('M 16 5 C 12.578125 5 9.464844 5.546875 7.09375 6.65625 C 4.722656 7.765625 3 9.601563 3 12 L 3 21 C 3 22.015625 3.511719 22.929688 4.25 23.65625 C 4.988281 24.382813 5.957031 24.980469 7.125 25.46875 C 9.464844 26.441406 12.574219 27 16 27 C 19.425781 27 22.535156 26.441406 24.875 25.46875 C 26.042969 24.980469 27.011719 24.382813 27.75 23.65625 C 28.488281 22.929688 29 22.015625 29 21 L 29 11 L 27 11 L 27 12 C 27 12.890625 26.546875 13.492188 25.59375 14.09375 C 24.640625 14.695313 23.246094 15.144531 21.8125 15.4375 C 18.945313 16.019531 16 16 16 16 C 12.800781 16 9.910156 15.460938 7.90625 14.625 C 6.902344 14.207031 6.132813 13.6875 5.65625 13.21875 C 5.179688 12.75 5 12.367188 5 12 C 5 10.523438 5.964844 9.359375 7.9375 8.4375 C 9.910156 7.515625 12.792969 7 16 7 C 19.207031 7 21.035156 7.515625 21.96875 8.0625 C 22.902344 8.609375 23 9.082031 23 9.40625 C 23 9.867188 22.898438 10.175781 22.65625 10.46875 C 22.414063 10.761719 22.003906 11.042969 21.40625 11.28125 C 20.210938 11.757813 18.289063 12 16 12 C 16 12 14.566406 11.996094 13.1875 11.71875 C 12.5 11.578125 11.835938 11.359375 11.4375 11.125 C 11.132813 10.945313 11.125 10.859375 11.09375 10.75 C 11.285156 10.636719 11.664063 10.496094 12.15625 10.375 C 13.167969 10.128906 14.613281 9.980469 16 10 L 16 8 C 14.46875 7.976563 12.914063 8.101563 11.65625 8.40625 C 11.027344 8.558594 10.484375 8.765625 10 9.0625 C 9.515625 9.359375 9 9.878906 9 10.625 C 9 11.636719 9.710938 12.414063 10.4375 12.84375 C 11.164063 13.273438 12 13.492188 12.8125 13.65625 C 14.433594 13.984375 16 14 16 14 C 18.417969 14 20.5 13.773438 22.125 13.125 C 22.9375 12.800781 23.664063 12.378906 24.1875 11.75 C 24.710938 11.121094 25 10.277344 25 9.40625 C 25 8.394531 24.410156 7.171875 23 6.34375 C 21.589844 5.515625 19.417969 5 16 5 Z M 5 15.28125 C 5.609375 15.734375 6.3125 16.128906 7.125 16.46875 C 9.464844 17.441406 12.574219 18 16 18 C 16 18 19.054688 18.042969 22.1875 17.40625 C 23.753906 17.089844 25.359375 16.597656 26.65625 15.78125 C 26.773438 15.707031 26.886719 15.613281 27 15.53125 L 27 21 C 27 21.367188 26.820313 21.75 26.34375 22.21875 C 26.023438 22.535156 25.570313 22.871094 25 23.1875 L 25 19 L 23 19 L 23 24 C 22.378906 24.1875 21.71875 24.355469 21 24.5 L 21 22 L 19 22 L 19 24.8125 C 18.351563 24.882813 17.691406 24.945313 17 24.96875 L 17 20 L 15 20 L 15 24.96875 C 14.3125 24.945313 13.648438 24.882813 13 24.8125 L 13 22 L 11 22 L 11 24.53125 C 10.269531 24.390625 9.621094 24.199219 9 24 L 9 19 L 7 19 L 7 23.1875 C 6.429688 22.871094 5.976563 22.535156 5.65625 22.21875 C 5.179688 21.75 5 21.367188 5 21 Z');
