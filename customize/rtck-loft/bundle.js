@@ -5379,202 +5379,238 @@ var author$project$Architecture$Equipment$normalizeOrigin = function (properties
 		viewBoundary: author$project$Grid$Footprint$toBoundary(computedFootprint)
 	};
 };
-var author$project$Architecture$Equipment$accessToWashbasin = function (_n0) {
-	var start = _n0.start;
-	var edgeDirection = _n0.edgeDirection;
-	var length = _n0.length;
-	return _List_fromArray(
-		[
-			{edgeDirection: edgeDirection, exceptions: elm$core$Maybe$Nothing, length: length, locationLabel: 'to wash comfortably', spaceRequired: 8, start: start}
-		]);
+var author$project$Architecture$Curtain$footprint = function (_n0) {
+	var data = _n0.a;
+	return data.footprint;
 };
-var author$project$Grid$Rotation$HalfTurn = {$: 'HalfTurn'};
+var author$project$Grid$Rotation$NoRotation = {$: 'NoRotation'};
 var author$project$Grid$Rotation$QuarterTurnClockwise = {$: 'QuarterTurnClockwise'};
-var author$project$Grid$Rotation$QuarterTurnCounterclockwise = {$: 'QuarterTurnCounterclockwise'};
-var author$project$Grid$Rotation$rotationKey = function (rotation) {
-	switch (rotation.$) {
-		case 'QuarterTurnClockwise':
-			return 0;
-		case 'HalfTurn':
-			return 1;
-		default:
-			return 2;
+var author$project$Architecture$Curtain$axisOrientationToRotation = function (orientation) {
+	if (orientation.$ === 'OnEastWestAxis') {
+		return author$project$Grid$Rotation$NoRotation;
+	} else {
+		return author$project$Grid$Rotation$QuarterTurnClockwise;
 	}
 };
-var elm$core$Basics$composeL = F3(
-	function (g, f, x) {
-		return g(
-			f(x));
-	});
-var elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
-var elm$core$Dict$empty = elm$core$Dict$RBEmpty_elm_builtin;
-var elm$core$Dict$Black = {$: 'Black'};
-var elm$core$Dict$RBNode_elm_builtin = F5(
-	function (a, b, c, d, e) {
-		return {$: 'RBNode_elm_builtin', a: a, b: b, c: c, d: d, e: e};
-	});
-var elm$core$Basics$compare = _Utils_compare;
-var elm$core$Dict$Red = {$: 'Red'};
-var elm$core$Dict$balance = F5(
-	function (color, key, value, left, right) {
-		if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Red')) {
-			var _n1 = right.a;
-			var rK = right.b;
-			var rV = right.c;
-			var rLeft = right.d;
-			var rRight = right.e;
-			if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
-				var _n3 = left.a;
-				var lK = left.b;
-				var lV = left.c;
-				var lLeft = left.d;
-				var lRight = left.e;
-				return A5(
-					elm$core$Dict$RBNode_elm_builtin,
-					elm$core$Dict$Red,
-					key,
-					value,
-					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, lK, lV, lLeft, lRight),
-					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, rK, rV, rLeft, rRight));
-			} else {
-				return A5(
-					elm$core$Dict$RBNode_elm_builtin,
-					color,
-					rK,
-					rV,
-					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Red, key, value, left, rLeft),
-					rRight);
-			}
-		} else {
-			if ((((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) && (left.d.$ === 'RBNode_elm_builtin')) && (left.d.a.$ === 'Red')) {
-				var _n5 = left.a;
-				var lK = left.b;
-				var lV = left.c;
-				var _n6 = left.d;
-				var _n7 = _n6.a;
-				var llK = _n6.b;
-				var llV = _n6.c;
-				var llLeft = _n6.d;
-				var llRight = _n6.e;
-				var lRight = left.e;
-				return A5(
-					elm$core$Dict$RBNode_elm_builtin,
-					elm$core$Dict$Red,
-					lK,
-					lV,
-					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, llK, llV, llLeft, llRight),
-					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, key, value, lRight, right));
-			} else {
-				return A5(elm$core$Dict$RBNode_elm_builtin, color, key, value, left, right);
-			}
-		}
-	});
-var elm$core$Dict$insertHelp = F3(
-	function (key, value, dict) {
-		if (dict.$ === 'RBEmpty_elm_builtin') {
-			return A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Red, key, value, elm$core$Dict$RBEmpty_elm_builtin, elm$core$Dict$RBEmpty_elm_builtin);
-		} else {
-			var nColor = dict.a;
-			var nKey = dict.b;
-			var nValue = dict.c;
-			var nLeft = dict.d;
-			var nRight = dict.e;
-			var _n1 = A2(elm$core$Basics$compare, key, nKey);
-			switch (_n1.$) {
-				case 'LT':
-					return A5(
-						elm$core$Dict$balance,
-						nColor,
-						nKey,
-						nValue,
-						A3(elm$core$Dict$insertHelp, key, value, nLeft),
-						nRight);
-				case 'EQ':
-					return A5(elm$core$Dict$RBNode_elm_builtin, nColor, nKey, value, nLeft, nRight);
-				default:
-					return A5(
-						elm$core$Dict$balance,
-						nColor,
-						nKey,
-						nValue,
-						nLeft,
-						A3(elm$core$Dict$insertHelp, key, value, nRight));
-			}
-		}
-	});
-var elm$core$Dict$insert = F3(
-	function (key, value, dict) {
-		var _n0 = A3(elm$core$Dict$insertHelp, key, value, dict);
-		if ((_n0.$ === 'RBNode_elm_builtin') && (_n0.a.$ === 'Red')) {
-			var _n1 = _n0.a;
-			var k = _n0.b;
-			var v = _n0.c;
-			var l = _n0.d;
-			var r = _n0.e;
-			return A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, k, v, l, r);
-		} else {
-			var x = _n0;
-			return x;
-		}
-	});
-var elm$core$Dict$fromList = function (assocs) {
-	return A3(
-		elm$core$List$foldl,
-		F2(
-			function (_n0, dict) {
-				var key = _n0.a;
-				var value = _n0.b;
-				return A3(elm$core$Dict$insert, key, value, dict);
-			}),
-		elm$core$Dict$empty,
-		assocs);
+var author$project$Architecture$Curtain$halfCurtainThickness = 1;
+var author$project$Architecture$Curtain$turnRadius = function (radius) {
+	if (radius.$ === 'Radius690') {
+		return 7;
+	} else {
+		return 4;
+	}
 };
-var turboMaCk$any_dict$Dict$Any$AnyDict = function (a) {
-	return {$: 'AnyDict', a: a};
+var author$project$Grid$Boundary$flip = F2(
+	function (boundaryFlip, boundary) {
+		var _n0 = boundary;
+		var data = _n0.a;
+		switch (boundaryFlip.$) {
+			case 'NoFlip':
+				return boundary;
+			case 'HorizontalFlip':
+				return author$project$Grid$Boundary$GridBoundary(
+					_Utils_update(
+						data,
+						{east: -data.west, west: -data.east}));
+			default:
+				return author$project$Grid$Boundary$GridBoundary(
+					_Utils_update(
+						data,
+						{north: -data.south, south: -data.north}));
+		}
+	});
+var author$project$Grid$Point$coordinates = function (_n0) {
+	var x = _n0.a;
+	var y = _n0.b;
+	return _Utils_Tuple2(x, y);
 };
-var turboMaCk$any_dict$Dict$Any$fromList = F2(
-	function (f, xs) {
-		return turboMaCk$any_dict$Dict$Any$AnyDict(
+var author$project$Grid$Boundary$gridBoundary = F2(
+	function (point1, point2) {
+		var _n0 = author$project$Grid$Point$coordinates(point2);
+		var x2 = _n0.a;
+		var y2 = _n0.b;
+		var _n1 = author$project$Grid$Point$coordinates(point1);
+		var x1 = _n1.a;
+		var y1 = _n1.b;
+		return author$project$Grid$Boundary$GridBoundary(
 			{
-				dict: elm$core$Dict$fromList(
-					A2(
-						elm$core$List$map,
-						function (_n0) {
-							var k = _n0.a;
-							var v = _n0.b;
-							return _Utils_Tuple2(
-								f(k),
-								_Utils_Tuple2(k, v));
-						},
-						xs)),
-				toKey: f
+				east: A2(elm$core$Basics$max, x1, x2),
+				north: A2(elm$core$Basics$max, y1, y2),
+				south: A2(elm$core$Basics$min, y1, y2),
+				west: A2(elm$core$Basics$min, x1, x2)
 			});
 	});
-var turboMaCk$any_set$Set$Any$AnySet = function (a) {
-	return {$: 'AnySet', a: a};
+var author$project$Grid$Boundary$rotate = F2(
+	function (rotation, boundary) {
+		var _n0 = boundary;
+		var data = _n0.a;
+		switch (rotation.$) {
+			case 'NoRotation':
+				return boundary;
+			case 'QuarterTurnClockwise':
+				return author$project$Grid$Boundary$GridBoundary(
+					{east: data.north, north: -data.west, south: -data.east, west: data.south});
+			case 'HalfTurn':
+				return author$project$Grid$Boundary$GridBoundary(
+					{east: -data.west, north: -data.south, south: -data.north, west: -data.east});
+			default:
+				return author$project$Grid$Boundary$GridBoundary(
+					{east: -data.south, north: data.east, south: data.west, west: -data.north});
+		}
+	});
+var author$project$Grid$Flip$NoFlip = {$: 'NoFlip'};
+var author$project$Architecture$Curtain$segmentBoundaries = function (_n0) {
+	var segmentType = _n0.a.segmentType;
+	var translation = _n0.a.translation;
+	var straightSegmentBoundary = F3(
+		function (segmentLength, flip, orientation) {
+			return _List_fromArray(
+				[
+					A2(
+					author$project$Grid$Boundary$translate,
+					translation,
+					A2(
+						author$project$Grid$Boundary$flip,
+						flip,
+						A2(
+							author$project$Grid$Boundary$rotate,
+							author$project$Architecture$Curtain$axisOrientationToRotation(orientation),
+							A2(
+								author$project$Grid$Boundary$gridBoundary,
+								A2(author$project$Grid$Point$gridPoint, 0, -author$project$Architecture$Curtain$halfCurtainThickness),
+								A2(author$project$Grid$Point$gridPoint, segmentLength, author$project$Architecture$Curtain$halfCurtainThickness)))))
+				]);
+		});
+	switch (segmentType.$) {
+		case 'StraightSegment':
+			var segmentLength = segmentType.a;
+			var flip = segmentType.b;
+			var orientation = segmentType.c;
+			return A3(straightSegmentBoundary, segmentLength, flip, orientation);
+		case 'AsymetricalStraightSegment':
+			var segmentLength = segmentType.a;
+			var flip = segmentType.b;
+			var orientation = segmentType.c;
+			return A3(straightSegmentBoundary, segmentLength, flip, orientation);
+		case 'TurnSegment':
+			var radius = segmentType.a;
+			var rotation = segmentType.b;
+			return A2(
+				elm$core$List$map,
+				author$project$Grid$Boundary$translate(translation),
+				A2(
+					elm$core$List$map,
+					author$project$Grid$Boundary$rotate(rotation),
+					_List_fromArray(
+						[
+							A2(
+							author$project$Grid$Boundary$gridBoundary,
+							A2(author$project$Grid$Point$gridPoint, 0, -author$project$Architecture$Curtain$halfCurtainThickness),
+							A2(
+								author$project$Grid$Point$gridPoint,
+								author$project$Architecture$Curtain$turnRadius(radius),
+								author$project$Architecture$Curtain$halfCurtainThickness)),
+							A2(
+							author$project$Grid$Boundary$gridBoundary,
+							A2(
+								author$project$Grid$Point$gridPoint,
+								author$project$Architecture$Curtain$turnRadius(radius) - author$project$Architecture$Curtain$halfCurtainThickness,
+								0),
+							A2(
+								author$project$Grid$Point$gridPoint,
+								author$project$Architecture$Curtain$turnRadius(radius) + author$project$Architecture$Curtain$halfCurtainThickness,
+								author$project$Architecture$Curtain$turnRadius(radius)))
+						])));
+		case 'FoldedSegment':
+			var segmentLength = segmentType.a;
+			var orientation = segmentType.b;
+			return A3(straightSegmentBoundary, segmentLength, author$project$Grid$Flip$NoFlip, orientation);
+		default:
+			return _List_Nil;
+	}
 };
-var turboMaCk$any_set$Set$Any$fromList = function (toComparable) {
-	return A2(
-		elm$core$Basics$composeL,
-		A2(
-			elm$core$Basics$composeL,
-			turboMaCk$any_set$Set$Any$AnySet,
-			turboMaCk$any_dict$Dict$Any$fromList(toComparable)),
-		elm$core$List$map(
-			function (a) {
-				return _Utils_Tuple2(a, _Utils_Tuple0);
-			}));
+var author$project$Architecture$Curtain$turnOffset = 5;
+var author$project$Architecture$Curtain$turnOffsetSegmentLength = 8;
+var author$project$TypedSvg$Types$Scale = F2(
+	function (a, b) {
+		return {$: 'Scale', a: a, b: b};
+	});
+var author$project$Grid$Flip$toSvgTransforms = function (flip) {
+	switch (flip.$) {
+		case 'NoFlip':
+			return _List_Nil;
+		case 'HorizontalFlip':
+			return _List_fromArray(
+				[
+					A2(author$project$TypedSvg$Types$Scale, -1, 1)
+				]);
+		default:
+			return _List_fromArray(
+				[
+					A2(author$project$TypedSvg$Types$Scale, 1, -1)
+				]);
+	}
 };
-var author$project$Architecture$Equipment$allRotations = A2(
-	turboMaCk$any_set$Set$Any$fromList,
-	author$project$Grid$Rotation$rotationKey,
-	_List_fromArray(
-		[author$project$Grid$Rotation$QuarterTurnClockwise, author$project$Grid$Rotation$HalfTurn, author$project$Grid$Rotation$QuarterTurnCounterclockwise]));
-var author$project$Architecture$Equipment$exactBasinCornerRadius = 70;
-var author$project$Svg$Path$Internal$LineRelative = function (a) {
-	return {$: 'LineRelative', a: a};
+var author$project$TypedSvg$Types$Rotate = F3(
+	function (a, b, c) {
+		return {$: 'Rotate', a: a, b: b, c: c};
+	});
+var author$project$Grid$Rotation$toSvgTransforms = function (rotation) {
+	switch (rotation.$) {
+		case 'NoRotation':
+			return _List_Nil;
+		case 'QuarterTurnClockwise':
+			return _List_fromArray(
+				[
+					A3(author$project$TypedSvg$Types$Rotate, 270, 0, 0)
+				]);
+		case 'HalfTurn':
+			return _List_fromArray(
+				[
+					A3(author$project$TypedSvg$Types$Rotate, 180, 0, 0)
+				]);
+		default:
+			return _List_fromArray(
+				[
+					A3(author$project$TypedSvg$Types$Rotate, 90, 0, 0)
+				]);
+	}
 };
-var author$project$Svg$Path$lineBy = author$project$Svg$Path$Internal$LineRelative;
+var author$project$Svg$Path$Internal$ArcBy = F4(
+	function (a, b, c, d) {
+		return {$: 'ArcBy', a: a, b: b, c: c, d: d};
+	});
+var author$project$Svg$Path$arcBy = F4(
+	function (radius, xstartangle, _n0, point) {
+		var largeArcFlag = _n0.a;
+		var direction = _n0.b;
+		return A4(
+			author$project$Svg$Path$Internal$ArcBy,
+			radius,
+			xstartangle,
+			_Utils_Tuple2(largeArcFlag, direction),
+			point);
+	});
+var author$project$Svg$Path$Internal$Clockwise = {$: 'Clockwise'};
+var author$project$Svg$Path$clockwise = author$project$Svg$Path$Internal$Clockwise;
+var author$project$Svg$Path$Internal$CubicRelative = F3(
+	function (a, b, c) {
+		return {$: 'CubicRelative', a: a, b: b, c: c};
+	});
+var author$project$Svg$Path$cubicBy = F3(
+	function (dcontrol1, dcontrol2, dpoint) {
+		return A3(author$project$Svg$Path$Internal$CubicRelative, dcontrol1, dcontrol2, dpoint);
+	});
+var author$project$Svg$Path$Internal$CubicRelativeMany = F4(
+	function (a, b, c, d) {
+		return {$: 'CubicRelativeMany', a: a, b: b, c: c, d: d};
+	});
+var author$project$Svg$Path$cubicByMany = author$project$Svg$Path$Internal$CubicRelativeMany;
+var author$project$Svg$Path$Internal$CubiRelative = F2(
+	function (a, b) {
+		return {$: 'CubiRelative', a: a, b: b};
+	});
+var author$project$Svg$Path$cubicContinueBy = author$project$Svg$Path$Internal$CubiRelative;
 var author$project$Svg$Path$CloseOption = function (a) {
 	return {$: 'CloseOption', a: a};
 };
@@ -5582,10 +5618,6 @@ var author$project$Svg$Path$open = author$project$Svg$Path$CloseOption(false);
 var author$project$Svg$Path$Internal$CubicAbsolute = F3(
 	function (a, b, c) {
 		return {$: 'CubicAbsolute', a: a, b: b, c: c};
-	});
-var author$project$Svg$Path$Internal$CubicRelative = F3(
-	function (a, b, c) {
-		return {$: 'CubicRelative', a: a, b: b, c: c};
 	});
 var author$project$Svg$Path$Internal$QuadraticAbsolute = F2(
 	function (a, b) {
@@ -5838,6 +5870,11 @@ var author$project$Svg$Path$Internal$formatInstruction = F2(
 					_Utils_Tuple2(x, y))))))))));
 		}
 	});
+var elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
 var author$project$Svg$Path$instructionsToString = function (maxNumOfDecimals) {
 	return A2(
 		elm$core$Basics$composeL,
@@ -5866,6 +5903,12 @@ var author$project$Svg$Path$pathToAttribute = function (path) {
 			elm$core$Maybe$Nothing,
 			A3(elm$core$List$foldr, author$project$Svg$Path$subPathToInstructions, _List_Nil, path)));
 };
+var author$project$Svg$Path$quadraticBy = F2(
+	function (dcontrol, dpoint) {
+		return A2(author$project$Svg$Path$Internal$QuadraticRelative, dcontrol, dpoint);
+	});
+var author$project$Svg$Path$Internal$Smallest = {$: 'Smallest'};
+var author$project$Svg$Path$smallestArc = author$project$Svg$Path$Internal$Smallest;
 var author$project$Svg$Path$StartingPoint = function (a) {
 	return {$: 'StartingPoint', a: a};
 };
@@ -5879,6 +5922,634 @@ var author$project$Svg$Path$Subpath = F3(
 	});
 var author$project$Svg$Path$subpath = author$project$Svg$Path$Subpath;
 var author$project$TypedSvg$path = author$project$TypedSvg$Core$node('path');
+var elm$core$Basics$modBy = _Basics_modBy;
+var author$project$Color$fmod = F2(
+	function (f, n) {
+		var integer = elm$core$Basics$floor(f);
+		return (A2(elm$core$Basics$modBy, n, integer) + f) - integer;
+	});
+var elm$core$Basics$abs = function (n) {
+	return (n < 0) ? (-n) : n;
+};
+var elm$core$Basics$pi = _Basics_pi;
+var elm$core$Basics$degrees = function (angleInDegrees) {
+	return (angleInDegrees * elm$core$Basics$pi) / 180;
+};
+var author$project$Color$hslToRgb = F3(
+	function (hue, saturation, lightness) {
+		var normHue = hue / elm$core$Basics$degrees(60);
+		var chroma = (1 - elm$core$Basics$abs((2 * lightness) - 1)) * saturation;
+		var m = lightness - (chroma / 2);
+		var x = chroma * (1 - elm$core$Basics$abs(
+			A2(author$project$Color$fmod, normHue, 2) - 1));
+		var _n0 = (normHue < 0) ? _Utils_Tuple3(0, 0, 0) : ((normHue < 1) ? _Utils_Tuple3(chroma, x, 0) : ((normHue < 2) ? _Utils_Tuple3(x, chroma, 0) : ((normHue < 3) ? _Utils_Tuple3(0, chroma, x) : ((normHue < 4) ? _Utils_Tuple3(0, x, chroma) : ((normHue < 5) ? _Utils_Tuple3(x, 0, chroma) : ((normHue < 6) ? _Utils_Tuple3(chroma, 0, x) : _Utils_Tuple3(0, 0, 0)))))));
+		var r = _n0.a;
+		var g = _n0.b;
+		var b = _n0.c;
+		return _Utils_Tuple3(r + m, g + m, b + m);
+	});
+var author$project$Color$toRgb = function (color) {
+	if (color.$ === 'RGBA') {
+		var r = color.a;
+		var g = color.b;
+		var b = color.c;
+		var a = color.d;
+		return {alpha: a, blue: b, green: g, red: r};
+	} else {
+		var h = color.a;
+		var s = color.b;
+		var l = color.c;
+		var a = color.d;
+		var _n1 = A3(author$project$Color$hslToRgb, h, s, l);
+		var r = _n1.a;
+		var g = _n1.b;
+		var b = _n1.c;
+		return {
+			alpha: a,
+			blue: elm$core$Basics$round(255 * b),
+			green: elm$core$Basics$round(255 * g),
+			red: elm$core$Basics$round(255 * r)
+		};
+	}
+};
+var author$project$Color$Convert$cssColorString = F2(
+	function (kind, values) {
+		return kind + ('(' + (A2(elm$core$String$join, ', ', values) + ')'));
+	});
+var author$project$Color$Convert$colorToCssRgba = function (cl) {
+	var _n0 = author$project$Color$toRgb(cl);
+	var red = _n0.red;
+	var green = _n0.green;
+	var blue = _n0.blue;
+	var alpha = _n0.alpha;
+	return A2(
+		author$project$Color$Convert$cssColorString,
+		'rgba',
+		_List_fromArray(
+			[
+				elm$core$String$fromInt(red),
+				elm$core$String$fromInt(green),
+				elm$core$String$fromInt(blue),
+				elm$core$String$fromFloat(alpha)
+			]));
+};
+var author$project$TypedSvg$TypesToStrings$fillToString = function (fill) {
+	if (fill.$ === 'Fill') {
+		var color = fill.a;
+		return author$project$Color$Convert$colorToCssRgba(color);
+	} else {
+		return 'none';
+	}
+};
+var author$project$TypedSvg$Attributes$fill = A2(
+	elm$core$Basics$composeL,
+	author$project$TypedSvg$Core$attribute('fill'),
+	author$project$TypedSvg$TypesToStrings$fillToString);
+var author$project$TypedSvg$Types$FillNone = {$: 'FillNone'};
+var elm$core$Basics$cos = _Basics_cos;
+var elm$core$Basics$sin = _Basics_sin;
+var elm$core$Basics$tan = _Basics_tan;
+var elm$core$List$repeatHelp = F3(
+	function (result, n, value) {
+		repeatHelp:
+		while (true) {
+			if (n <= 0) {
+				return result;
+			} else {
+				var $temp$result = A2(elm$core$List$cons, value, result),
+					$temp$n = n - 1,
+					$temp$value = value;
+				result = $temp$result;
+				n = $temp$n;
+				value = $temp$value;
+				continue repeatHelp;
+			}
+		}
+	});
+var elm$core$List$repeat = F2(
+	function (n, value) {
+		return A3(elm$core$List$repeatHelp, _List_Nil, n, value);
+	});
+var elm$core$List$singleton = function (value) {
+	return _List_fromArray(
+		[value]);
+};
+var author$project$Architecture$Curtain$segmentTypeMarkup = function (segmentType) {
+	var foldAngle = elm$core$Basics$degrees(38);
+	var desiredFoldLength = author$project$Grid$Units$toMillimeters(4);
+	switch (segmentType.$) {
+		case 'StraightSegment':
+			var segmentLength = segmentType.a;
+			var flip = segmentType.b;
+			var axisOrientation = segmentType.c;
+			var exactSegmentLength = author$project$Grid$Units$toMillimeters(segmentLength);
+			var numberOfFolds = elm$core$Basics$floor(exactSegmentLength / desiredFoldLength);
+			var exactFoldLength = exactSegmentLength / numberOfFolds;
+			var exactFoldControlPointOffset = (elm$core$Basics$tan(foldAngle) * exactFoldLength) / 2;
+			return _List_fromArray(
+				[
+					A2(
+					author$project$TypedSvg$path,
+					_List_fromArray(
+						[
+							author$project$Svg$Path$pathToAttribute(
+							elm$core$List$singleton(
+								A3(
+									author$project$Svg$Path$subpath,
+									author$project$Svg$Path$startAt(
+										_Utils_Tuple2(0, 0)),
+									author$project$Svg$Path$open,
+									A2(
+										elm$core$List$repeat,
+										numberOfFolds,
+										A3(
+											author$project$Svg$Path$cubicBy,
+											_Utils_Tuple2(exactFoldLength / 2, -exactFoldControlPointOffset),
+											_Utils_Tuple2(exactFoldLength / 2, exactFoldControlPointOffset),
+											_Utils_Tuple2(exactFoldLength, 0)))))),
+							author$project$TypedSvg$Attributes$fill(author$project$TypedSvg$Types$FillNone),
+							author$project$TypedSvg$Attributes$transform(
+							_Utils_ap(
+								author$project$Grid$Flip$toSvgTransforms(flip),
+								author$project$Grid$Rotation$toSvgTransforms(
+									author$project$Architecture$Curtain$axisOrientationToRotation(axisOrientation))))
+						]),
+					_List_Nil)
+				]);
+		case 'AsymetricalStraightSegment':
+			var segmentLength = segmentType.a;
+			var flip = segmentType.b;
+			var axisOrientation = segmentType.c;
+			var exactSegmentLength = author$project$Grid$Units$toMillimeters(segmentLength);
+			var numberOfFolds = elm$core$Basics$floor((exactSegmentLength - (desiredFoldLength / 2)) / desiredFoldLength);
+			var exactFoldLength = exactSegmentLength / (numberOfFolds + 0.5);
+			var exactFoldControlPointOffset = (elm$core$Basics$tan(foldAngle) * exactFoldLength) / 2;
+			return _List_fromArray(
+				[
+					A2(
+					author$project$TypedSvg$path,
+					_List_fromArray(
+						[
+							author$project$Svg$Path$pathToAttribute(
+							elm$core$List$singleton(
+								A3(
+									author$project$Svg$Path$subpath,
+									author$project$Svg$Path$startAt(
+										_Utils_Tuple2(0, 0)),
+									author$project$Svg$Path$open,
+									_Utils_ap(
+										A2(
+											elm$core$List$repeat,
+											numberOfFolds,
+											A3(
+												author$project$Svg$Path$cubicBy,
+												_Utils_Tuple2(exactFoldLength / 2, -exactFoldControlPointOffset),
+												_Utils_Tuple2(exactFoldLength / 2, exactFoldControlPointOffset),
+												_Utils_Tuple2(exactFoldLength, 0))),
+										_List_fromArray(
+											[
+												A2(
+												author$project$Svg$Path$quadraticBy,
+												_Utils_Tuple2(exactFoldLength / 4, (-exactFoldControlPointOffset) / 2),
+												_Utils_Tuple2(exactFoldLength / 2, 0))
+											]))))),
+							author$project$TypedSvg$Attributes$fill(author$project$TypedSvg$Types$FillNone),
+							author$project$TypedSvg$Attributes$transform(
+							_Utils_ap(
+								author$project$Grid$Flip$toSvgTransforms(flip),
+								author$project$Grid$Rotation$toSvgTransforms(
+									author$project$Architecture$Curtain$axisOrientationToRotation(axisOrientation))))
+						]),
+					_List_Nil)
+				]);
+		case 'TurnSegment':
+			var radius = segmentType.a;
+			var rotation = segmentType.b;
+			var exactTurnRadius = author$project$Grid$Units$toMillimeters(
+				author$project$Architecture$Curtain$turnRadius(radius));
+			var turnRadiusWithFold = exactTurnRadius / (elm$core$Basics$cos(foldAngle) + elm$core$Basics$sin(foldAngle));
+			return _List_fromArray(
+				[
+					A2(
+					author$project$TypedSvg$path,
+					_List_fromArray(
+						[
+							author$project$Svg$Path$pathToAttribute(
+							elm$core$List$singleton(
+								A3(
+									author$project$Svg$Path$subpath,
+									author$project$Svg$Path$startAt(
+										_Utils_Tuple2(0, 0)),
+									author$project$Svg$Path$open,
+									_List_fromArray(
+										[
+											A4(
+											author$project$Svg$Path$arcBy,
+											_Utils_Tuple2(turnRadiusWithFold, turnRadiusWithFold),
+											0,
+											_Utils_Tuple2(author$project$Svg$Path$smallestArc, author$project$Svg$Path$clockwise),
+											_Utils_Tuple2(exactTurnRadius, exactTurnRadius))
+										])))),
+							author$project$TypedSvg$Attributes$fill(author$project$TypedSvg$Types$FillNone),
+							author$project$TypedSvg$Attributes$transform(
+							author$project$Grid$Rotation$toSvgTransforms(rotation))
+						]),
+					_List_Nil)
+				]);
+		case 'TurnOffsetSegment':
+			var flip = segmentType.a;
+			var axisOrientation = segmentType.b;
+			var halfYDimension = author$project$Grid$Units$toMillimeters(author$project$Architecture$Curtain$turnOffset) / 2;
+			var halfXDimension = author$project$Grid$Units$toMillimeters(author$project$Architecture$Curtain$turnOffsetSegmentLength) / 2;
+			var foldControlPointX = halfXDimension * 0.4;
+			var foldControlPointY = foldControlPointX * elm$core$Basics$tan(foldAngle);
+			return _List_fromArray(
+				[
+					A2(
+					author$project$TypedSvg$path,
+					_List_fromArray(
+						[
+							author$project$Svg$Path$pathToAttribute(
+							elm$core$List$singleton(
+								A3(
+									author$project$Svg$Path$subpath,
+									author$project$Svg$Path$startAt(
+										_Utils_Tuple2(0, 0)),
+									author$project$Svg$Path$open,
+									_List_fromArray(
+										[
+											A4(
+											author$project$Svg$Path$cubicByMany,
+											_Utils_Tuple2(foldControlPointX, foldControlPointY),
+											_Utils_Tuple2(halfXDimension * 0.5, halfYDimension * 1.6),
+											_Utils_Tuple2(halfXDimension, halfYDimension),
+											_List_fromArray(
+												[
+													A2(
+													author$project$Svg$Path$cubicContinueBy,
+													_Utils_Tuple2(halfXDimension - foldControlPointX, halfYDimension - foldControlPointY),
+													_Utils_Tuple2(halfXDimension, halfYDimension))
+												]))
+										])))),
+							author$project$TypedSvg$Attributes$fill(author$project$TypedSvg$Types$FillNone),
+							author$project$TypedSvg$Attributes$transform(
+							_Utils_ap(
+								author$project$Grid$Flip$toSvgTransforms(flip),
+								author$project$Grid$Rotation$toSvgTransforms(
+									author$project$Architecture$Curtain$axisOrientationToRotation(axisOrientation))))
+						]),
+					_List_Nil)
+				]);
+		default:
+			var segmentLength = segmentType.a;
+			var axisOrientation = segmentType.b;
+			var exactSegmentLength = author$project$Grid$Units$toMillimeters(segmentLength);
+			var numberOfFolds = elm$core$Basics$floor(exactSegmentLength / (desiredFoldLength * 0.175));
+			var exactFoldLength = exactSegmentLength / numberOfFolds;
+			var exactFoldControlPointOffset = desiredFoldLength;
+			return _List_fromArray(
+				[
+					A2(
+					author$project$TypedSvg$path,
+					_List_fromArray(
+						[
+							author$project$Svg$Path$pathToAttribute(
+							elm$core$List$singleton(
+								A3(
+									author$project$Svg$Path$subpath,
+									author$project$Svg$Path$startAt(
+										_Utils_Tuple2(0, 0)),
+									author$project$Svg$Path$open,
+									A2(
+										elm$core$List$repeat,
+										numberOfFolds,
+										A3(
+											author$project$Svg$Path$cubicBy,
+											_Utils_Tuple2(exactFoldLength / 2, -exactFoldControlPointOffset),
+											_Utils_Tuple2(exactFoldLength / 2, exactFoldControlPointOffset),
+											_Utils_Tuple2(exactFoldLength, 0)))))),
+							author$project$TypedSvg$Attributes$fill(author$project$TypedSvg$Types$FillNone),
+							author$project$TypedSvg$Attributes$transform(
+							author$project$Grid$Rotation$toSvgTransforms(
+								author$project$Architecture$Curtain$axisOrientationToRotation(axisOrientation)))
+						]),
+					_List_Nil)
+				]);
+	}
+};
+var ianmackenzie$elm_geometry$Geometry$Types$BoundingBox2d = function (a) {
+	return {$: 'BoundingBox2d', a: a};
+};
+var ianmackenzie$elm_geometry$BoundingBox2d$fromExtrema = function (extrema_) {
+	return ((_Utils_cmp(extrema_.minX, extrema_.maxX) < 1) && (_Utils_cmp(extrema_.minY, extrema_.maxY) < 1)) ? ianmackenzie$elm_geometry$Geometry$Types$BoundingBox2d(extrema_) : ianmackenzie$elm_geometry$Geometry$Types$BoundingBox2d(
+		{
+			maxX: A2(elm$core$Basics$max, extrema_.minX, extrema_.maxX),
+			maxY: A2(elm$core$Basics$max, extrema_.minY, extrema_.maxY),
+			minX: A2(elm$core$Basics$min, extrema_.minX, extrema_.maxX),
+			minY: A2(elm$core$Basics$min, extrema_.minY, extrema_.maxY)
+		});
+};
+var author$project$Grid$Boundary$toBoundingBox2d = function (_n0) {
+	var data = _n0.a;
+	return ianmackenzie$elm_geometry$BoundingBox2d$fromExtrema(
+		{
+			maxX: author$project$Grid$Units$toMillimeters(data.east),
+			maxY: author$project$Grid$Units$toMillimeters(data.south),
+			minX: author$project$Grid$Units$toMillimeters(data.west),
+			minY: author$project$Grid$Units$toMillimeters(data.north)
+		});
+};
+var elm$core$Basics$composeR = F3(
+	function (f, g, x) {
+		return g(
+			f(x));
+	});
+var elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
+var elm$svg$Svg$rect = elm$svg$Svg$trustedNode('rect');
+var elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
+var elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
+var elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
+var elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
+var ianmackenzie$elm_geometry$BoundingBox2d$extrema = function (_n0) {
+	var extrema_ = _n0.a;
+	return extrema_;
+};
+var ianmackenzie$elm_geometry_svg$Geometry$Svg$boundingBox2d = F2(
+	function (attributes, boundingBox) {
+		var _n0 = ianmackenzie$elm_geometry$BoundingBox2d$extrema(boundingBox);
+		var minX = _n0.minX;
+		var minY = _n0.minY;
+		var maxX = _n0.maxX;
+		var maxY = _n0.maxY;
+		var width = elm$svg$Svg$Attributes$width(
+			elm$core$String$fromFloat(maxX - minX));
+		var x = elm$svg$Svg$Attributes$x(
+			elm$core$String$fromFloat(minX));
+		var height = elm$svg$Svg$Attributes$height(
+			elm$core$String$fromFloat(maxY - minY));
+		var y = elm$svg$Svg$Attributes$y(
+			elm$core$String$fromFloat(minY));
+		return A2(
+			elm$svg$Svg$rect,
+			A2(
+				elm$core$List$cons,
+				x,
+				A2(
+					elm$core$List$cons,
+					y,
+					A2(
+						elm$core$List$cons,
+						width,
+						A2(elm$core$List$cons, height, attributes)))),
+			_List_Nil);
+	});
+var author$project$Grid$Boundary$toSvg = function (attributes) {
+	return A2(
+		elm$core$Basics$composeR,
+		author$project$Grid$Boundary$toBoundingBox2d,
+		ianmackenzie$elm_geometry_svg$Geometry$Svg$boundingBox2d(attributes));
+};
+var author$project$Grid$Vector$toSvgTransform = A2(elm$core$Basics$composeR, author$project$Grid$Vector$toVector2d, author$project$Utilities$translate);
+var author$project$TypedSvg$TypesToStrings$opacityToString = function (opacity) {
+	if (opacity.$ === 'Opacity') {
+		var n = opacity.a;
+		return elm$core$String$fromFloat(n);
+	} else {
+		return 'inherit';
+	}
+};
+var author$project$TypedSvg$Attributes$opacity = A2(
+	elm$core$Basics$composeL,
+	author$project$TypedSvg$Core$attribute('opacity'),
+	author$project$TypedSvg$TypesToStrings$opacityToString);
+var author$project$TypedSvg$Types$Opacity = function (a) {
+	return {$: 'Opacity', a: a};
+};
+var elm$svg$Svg$g = elm$svg$Svg$trustedNode('g');
+var author$project$Architecture$Curtain$viewSegment = function (segment) {
+	var _n0 = segment;
+	var segmentType = _n0.a.segmentType;
+	var translation = _n0.a.translation;
+	return A2(
+		elm$svg$Svg$g,
+		_List_fromArray(
+			[
+				author$project$TypedSvg$Attributes$transform(
+				_List_fromArray(
+					[
+						author$project$Grid$Vector$toSvgTransform(translation)
+					]))
+			]),
+		_Utils_ap(
+			A2(
+				elm$core$List$map,
+				author$project$Grid$Boundary$toSvg(
+					_List_fromArray(
+						[
+							author$project$TypedSvg$Attributes$opacity(
+							author$project$TypedSvg$Types$Opacity(0))
+						])),
+				author$project$Architecture$Curtain$segmentBoundaries(segment)),
+			author$project$Architecture$Curtain$segmentTypeMarkup(segmentType)));
+};
+var author$project$Architecture$Curtain$view = function (_n0) {
+	var statusesLeftwardsOfCurrent = _n0.a.statusesLeftwardsOfCurrent;
+	var currentStatus = _n0.a.currentStatus;
+	var statusesRightwardsOfCurrent = _n0.a.statusesRightwardsOfCurrent;
+	return A2(elm$core$List$map, author$project$Architecture$Curtain$viewSegment, currentStatus);
+};
+var author$project$Architecture$Equipment$accessToWashbasin = function (_n0) {
+	var start = _n0.start;
+	var edgeDirection = _n0.edgeDirection;
+	var length = _n0.length;
+	return _List_fromArray(
+		[
+			{edgeDirection: edgeDirection, exceptions: elm$core$Maybe$Nothing, length: length, locationLabel: 'to wash comfortably', spaceRequired: 8, start: start}
+		]);
+};
+var author$project$Grid$Rotation$HalfTurn = {$: 'HalfTurn'};
+var author$project$Grid$Rotation$QuarterTurnCounterclockwise = {$: 'QuarterTurnCounterclockwise'};
+var author$project$Grid$Rotation$rotationKey = function (rotation) {
+	switch (rotation.$) {
+		case 'NoRotation':
+			return 0;
+		case 'QuarterTurnClockwise':
+			return 1;
+		case 'HalfTurn':
+			return 2;
+		default:
+			return 3;
+	}
+};
+var elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
+var elm$core$Dict$empty = elm$core$Dict$RBEmpty_elm_builtin;
+var elm$core$Dict$Black = {$: 'Black'};
+var elm$core$Dict$RBNode_elm_builtin = F5(
+	function (a, b, c, d, e) {
+		return {$: 'RBNode_elm_builtin', a: a, b: b, c: c, d: d, e: e};
+	});
+var elm$core$Basics$compare = _Utils_compare;
+var elm$core$Dict$Red = {$: 'Red'};
+var elm$core$Dict$balance = F5(
+	function (color, key, value, left, right) {
+		if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Red')) {
+			var _n1 = right.a;
+			var rK = right.b;
+			var rV = right.c;
+			var rLeft = right.d;
+			var rRight = right.e;
+			if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
+				var _n3 = left.a;
+				var lK = left.b;
+				var lV = left.c;
+				var lLeft = left.d;
+				var lRight = left.e;
+				return A5(
+					elm$core$Dict$RBNode_elm_builtin,
+					elm$core$Dict$Red,
+					key,
+					value,
+					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, lK, lV, lLeft, lRight),
+					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, rK, rV, rLeft, rRight));
+			} else {
+				return A5(
+					elm$core$Dict$RBNode_elm_builtin,
+					color,
+					rK,
+					rV,
+					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Red, key, value, left, rLeft),
+					rRight);
+			}
+		} else {
+			if ((((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) && (left.d.$ === 'RBNode_elm_builtin')) && (left.d.a.$ === 'Red')) {
+				var _n5 = left.a;
+				var lK = left.b;
+				var lV = left.c;
+				var _n6 = left.d;
+				var _n7 = _n6.a;
+				var llK = _n6.b;
+				var llV = _n6.c;
+				var llLeft = _n6.d;
+				var llRight = _n6.e;
+				var lRight = left.e;
+				return A5(
+					elm$core$Dict$RBNode_elm_builtin,
+					elm$core$Dict$Red,
+					lK,
+					lV,
+					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, llK, llV, llLeft, llRight),
+					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, key, value, lRight, right));
+			} else {
+				return A5(elm$core$Dict$RBNode_elm_builtin, color, key, value, left, right);
+			}
+		}
+	});
+var elm$core$Dict$insertHelp = F3(
+	function (key, value, dict) {
+		if (dict.$ === 'RBEmpty_elm_builtin') {
+			return A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Red, key, value, elm$core$Dict$RBEmpty_elm_builtin, elm$core$Dict$RBEmpty_elm_builtin);
+		} else {
+			var nColor = dict.a;
+			var nKey = dict.b;
+			var nValue = dict.c;
+			var nLeft = dict.d;
+			var nRight = dict.e;
+			var _n1 = A2(elm$core$Basics$compare, key, nKey);
+			switch (_n1.$) {
+				case 'LT':
+					return A5(
+						elm$core$Dict$balance,
+						nColor,
+						nKey,
+						nValue,
+						A3(elm$core$Dict$insertHelp, key, value, nLeft),
+						nRight);
+				case 'EQ':
+					return A5(elm$core$Dict$RBNode_elm_builtin, nColor, nKey, value, nLeft, nRight);
+				default:
+					return A5(
+						elm$core$Dict$balance,
+						nColor,
+						nKey,
+						nValue,
+						nLeft,
+						A3(elm$core$Dict$insertHelp, key, value, nRight));
+			}
+		}
+	});
+var elm$core$Dict$insert = F3(
+	function (key, value, dict) {
+		var _n0 = A3(elm$core$Dict$insertHelp, key, value, dict);
+		if ((_n0.$ === 'RBNode_elm_builtin') && (_n0.a.$ === 'Red')) {
+			var _n1 = _n0.a;
+			var k = _n0.b;
+			var v = _n0.c;
+			var l = _n0.d;
+			var r = _n0.e;
+			return A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, k, v, l, r);
+		} else {
+			var x = _n0;
+			return x;
+		}
+	});
+var elm$core$Dict$fromList = function (assocs) {
+	return A3(
+		elm$core$List$foldl,
+		F2(
+			function (_n0, dict) {
+				var key = _n0.a;
+				var value = _n0.b;
+				return A3(elm$core$Dict$insert, key, value, dict);
+			}),
+		elm$core$Dict$empty,
+		assocs);
+};
+var turboMaCk$any_dict$Dict$Any$AnyDict = function (a) {
+	return {$: 'AnyDict', a: a};
+};
+var turboMaCk$any_dict$Dict$Any$fromList = F2(
+	function (f, xs) {
+		return turboMaCk$any_dict$Dict$Any$AnyDict(
+			{
+				dict: elm$core$Dict$fromList(
+					A2(
+						elm$core$List$map,
+						function (_n0) {
+							var k = _n0.a;
+							var v = _n0.b;
+							return _Utils_Tuple2(
+								f(k),
+								_Utils_Tuple2(k, v));
+						},
+						xs)),
+				toKey: f
+			});
+	});
+var turboMaCk$any_set$Set$Any$AnySet = function (a) {
+	return {$: 'AnySet', a: a};
+};
+var turboMaCk$any_set$Set$Any$fromList = function (toComparable) {
+	return A2(
+		elm$core$Basics$composeL,
+		A2(
+			elm$core$Basics$composeL,
+			turboMaCk$any_set$Set$Any$AnySet,
+			turboMaCk$any_dict$Dict$Any$fromList(toComparable)),
+		elm$core$List$map(
+			function (a) {
+				return _Utils_Tuple2(a, _Utils_Tuple0);
+			}));
+};
+var author$project$Architecture$Equipment$allRotations = A2(
+	turboMaCk$any_set$Set$Any$fromList,
+	author$project$Grid$Rotation$rotationKey,
+	_List_fromArray(
+		[author$project$Grid$Rotation$QuarterTurnClockwise, author$project$Grid$Rotation$HalfTurn, author$project$Grid$Rotation$QuarterTurnCounterclockwise]));
+var author$project$Architecture$Equipment$exactBasinCornerRadius = 70;
+var author$project$Svg$Path$Internal$LineRelative = function (a) {
+	return {$: 'LineRelative', a: a};
+};
+var author$project$Svg$Path$lineBy = author$project$Svg$Path$Internal$LineRelative;
 var author$project$TypedSvg$rect = author$project$TypedSvg$Core$node('rect');
 var author$project$TypedSvg$TypesToStrings$lengthToString = function (length) {
 	switch (length.$) {
@@ -6089,50 +6760,6 @@ var author$project$Architecture$Equipment$exactBowlLength = 550;
 var author$project$Architecture$Equipment$setDepth = 7;
 var author$project$Architecture$Equipment$exactEnclosureDepth = author$project$Grid$Units$toMillimeters(author$project$Architecture$Equipment$setDepth) - author$project$Architecture$Equipment$exactBowlLength;
 var author$project$Architecture$Equipment$fridgeWidth = 6;
-var author$project$Grid$Point$coordinates = function (_n0) {
-	var x = _n0.a;
-	var y = _n0.b;
-	return _Utils_Tuple2(x, y);
-};
-var author$project$Grid$Boundary$gridBoundary = F2(
-	function (point1, point2) {
-		var _n0 = author$project$Grid$Point$coordinates(point2);
-		var x2 = _n0.a;
-		var y2 = _n0.b;
-		var _n1 = author$project$Grid$Point$coordinates(point1);
-		var x1 = _n1.a;
-		var y1 = _n1.b;
-		return author$project$Grid$Boundary$GridBoundary(
-			{
-				east: A2(elm$core$Basics$max, x1, x2),
-				north: A2(elm$core$Basics$max, y1, y2),
-				south: A2(elm$core$Basics$min, y1, y2),
-				west: A2(elm$core$Basics$min, x1, x2)
-			});
-	});
-var author$project$Grid$Boundary$rotate = F2(
-	function (rotation, boundary) {
-		var _n0 = boundary;
-		var data = _n0.a;
-		if (rotation.$ === 'Just') {
-			switch (rotation.a.$) {
-				case 'QuarterTurnClockwise':
-					var _n2 = rotation.a;
-					return author$project$Grid$Boundary$GridBoundary(
-						{east: data.north, north: -data.west, south: -data.east, west: data.south});
-				case 'HalfTurn':
-					var _n3 = rotation.a;
-					return author$project$Grid$Boundary$GridBoundary(
-						{east: -data.west, north: -data.south, south: -data.north, west: -data.east});
-				default:
-					var _n4 = rotation.a;
-					return author$project$Grid$Boundary$GridBoundary(
-						{east: -data.south, north: data.east, south: data.west, west: -data.north});
-			}
-		} else {
-			return boundary;
-		}
-	});
 var author$project$Architecture$Equipment$kitchenEquipmentBoundary = F2(
 	function (_n0, kitchenEquipment) {
 		var counterWidth = _n0.counterWidth;
@@ -6178,42 +6805,6 @@ var author$project$Architecture$Equipment$stoveDepth = 480;
 var author$project$Styles$SvgStyle$strokeWidthOnPlan = 20;
 var author$project$Architecture$Equipment$stoveFrameOffset = 30 + (author$project$Styles$SvgStyle$strokeWidthOnPlan / 2);
 var author$project$Architecture$Equipment$thingToCounterEdge = 60;
-var author$project$TypedSvg$Types$Rotate = F3(
-	function (a, b, c) {
-		return {$: 'Rotate', a: a, b: b, c: c};
-	});
-var author$project$Grid$Rotation$toSvgTransforms = function (rotation) {
-	if (rotation.$ === 'Just') {
-		switch (rotation.a.$) {
-			case 'QuarterTurnClockwise':
-				var _n1 = rotation.a;
-				return _List_fromArray(
-					[
-						A3(author$project$TypedSvg$Types$Rotate, 270, 0, 0)
-					]);
-			case 'HalfTurn':
-				var _n2 = rotation.a;
-				return _List_fromArray(
-					[
-						A3(author$project$TypedSvg$Types$Rotate, 180, 0, 0)
-					]);
-			default:
-				var _n3 = rotation.a;
-				return _List_fromArray(
-					[
-						A3(author$project$TypedSvg$Types$Rotate, 90, 0, 0)
-					]);
-		}
-	} else {
-		return _List_Nil;
-	}
-};
-var elm$core$Basics$composeR = F3(
-	function (f, g, x) {
-		return g(
-			f(x));
-	});
-var author$project$Grid$Vector$toSvgTransform = A2(elm$core$Basics$composeR, author$project$Grid$Vector$toVector2d, author$project$Utilities$translate);
 var author$project$Styles$SvgStyle$className = function (original) {
 	return original + '-329874629';
 };
@@ -6243,15 +6834,11 @@ var author$project$Svg$Path$arcTo = F4(
 			_Utils_Tuple2(largeArcFlag, sweepFlag),
 			point);
 	});
-var author$project$Svg$Path$Internal$Clockwise = {$: 'Clockwise'};
-var author$project$Svg$Path$clockwise = author$project$Svg$Path$Internal$Clockwise;
 var author$project$Svg$Path$closed = author$project$Svg$Path$CloseOption(true);
 var author$project$Svg$Path$Internal$LineAbsolute = function (a) {
 	return {$: 'LineAbsolute', a: a};
 };
 var author$project$Svg$Path$lineTo = author$project$Svg$Path$Internal$LineAbsolute;
-var author$project$Svg$Path$Internal$Smallest = {$: 'Smallest'};
-var author$project$Svg$Path$smallestArc = author$project$Svg$Path$Internal$Smallest;
 var author$project$TypedSvg$Attributes$class = function (names) {
 	return A2(
 		author$project$TypedSvg$Core$attribute,
@@ -6259,95 +6846,8 @@ var author$project$TypedSvg$Attributes$class = function (names) {
 		A2(elm$core$String$join, ' ', names));
 };
 var author$project$TypedSvg$Attributes$d = author$project$TypedSvg$Core$attribute('d');
-var elm$core$Basics$modBy = _Basics_modBy;
-var author$project$Color$fmod = F2(
-	function (f, n) {
-		var integer = elm$core$Basics$floor(f);
-		return (A2(elm$core$Basics$modBy, n, integer) + f) - integer;
-	});
-var elm$core$Basics$abs = function (n) {
-	return (n < 0) ? (-n) : n;
-};
-var elm$core$Basics$pi = _Basics_pi;
-var elm$core$Basics$degrees = function (angleInDegrees) {
-	return (angleInDegrees * elm$core$Basics$pi) / 180;
-};
-var author$project$Color$hslToRgb = F3(
-	function (hue, saturation, lightness) {
-		var normHue = hue / elm$core$Basics$degrees(60);
-		var chroma = (1 - elm$core$Basics$abs((2 * lightness) - 1)) * saturation;
-		var m = lightness - (chroma / 2);
-		var x = chroma * (1 - elm$core$Basics$abs(
-			A2(author$project$Color$fmod, normHue, 2) - 1));
-		var _n0 = (normHue < 0) ? _Utils_Tuple3(0, 0, 0) : ((normHue < 1) ? _Utils_Tuple3(chroma, x, 0) : ((normHue < 2) ? _Utils_Tuple3(x, chroma, 0) : ((normHue < 3) ? _Utils_Tuple3(0, chroma, x) : ((normHue < 4) ? _Utils_Tuple3(0, x, chroma) : ((normHue < 5) ? _Utils_Tuple3(x, 0, chroma) : ((normHue < 6) ? _Utils_Tuple3(chroma, 0, x) : _Utils_Tuple3(0, 0, 0)))))));
-		var r = _n0.a;
-		var g = _n0.b;
-		var b = _n0.c;
-		return _Utils_Tuple3(r + m, g + m, b + m);
-	});
-var author$project$Color$toRgb = function (color) {
-	if (color.$ === 'RGBA') {
-		var r = color.a;
-		var g = color.b;
-		var b = color.c;
-		var a = color.d;
-		return {alpha: a, blue: b, green: g, red: r};
-	} else {
-		var h = color.a;
-		var s = color.b;
-		var l = color.c;
-		var a = color.d;
-		var _n1 = A3(author$project$Color$hslToRgb, h, s, l);
-		var r = _n1.a;
-		var g = _n1.b;
-		var b = _n1.c;
-		return {
-			alpha: a,
-			blue: elm$core$Basics$round(255 * b),
-			green: elm$core$Basics$round(255 * g),
-			red: elm$core$Basics$round(255 * r)
-		};
-	}
-};
-var author$project$Color$Convert$cssColorString = F2(
-	function (kind, values) {
-		return kind + ('(' + (A2(elm$core$String$join, ', ', values) + ')'));
-	});
-var author$project$Color$Convert$colorToCssRgba = function (cl) {
-	var _n0 = author$project$Color$toRgb(cl);
-	var red = _n0.red;
-	var green = _n0.green;
-	var blue = _n0.blue;
-	var alpha = _n0.alpha;
-	return A2(
-		author$project$Color$Convert$cssColorString,
-		'rgba',
-		_List_fromArray(
-			[
-				elm$core$String$fromInt(red),
-				elm$core$String$fromInt(green),
-				elm$core$String$fromInt(blue),
-				elm$core$String$fromFloat(alpha)
-			]));
-};
-var author$project$TypedSvg$TypesToStrings$fillToString = function (fill) {
-	if (fill.$ === 'Fill') {
-		var color = fill.a;
-		return author$project$Color$Convert$colorToCssRgba(color);
-	} else {
-		return 'none';
-	}
-};
-var author$project$TypedSvg$Attributes$fill = A2(
-	elm$core$Basics$composeL,
-	author$project$TypedSvg$Core$attribute('fill'),
-	author$project$TypedSvg$TypesToStrings$fillToString);
 var author$project$TypedSvg$Types$Fill = function (a) {
 	return {$: 'Fill', a: a};
-};
-var elm$core$List$singleton = function (value) {
-	return _List_fromArray(
-		[value]);
 };
 var author$project$Architecture$Equipment$kitchenEquipmentMarkup = F2(
 	function (_n0, kitchenEquipment) {
@@ -6644,13 +7144,10 @@ var author$project$Architecture$Equipment$pidgeonHoleLikeCasework = function (da
 				edgeDirection: edgeDirection,
 				exceptions: elm$core$Maybe$Just(
 					function (otherEquipmentType) {
-						switch (otherEquipmentType.$) {
-							case 'Curtain':
-								return -8;
-							case 'Desk':
-								return -8;
-							default:
-								return 0;
+						if (otherEquipmentType.$ === 'Desk') {
+							return -8;
+						} else {
+							return 0;
 						}
 					}),
 				length: data.width,
@@ -6708,10 +7205,6 @@ var author$project$Grid$Units$fromMillimeters = F2(
 	function (toInt, millimeters) {
 		return toInt(millimeters / author$project$Grid$Units$millimetersPerUnit);
 	});
-var ianmackenzie$elm_geometry$BoundingBox2d$extrema = function (_n0) {
-	var extrema_ = _n0.a;
-	return extrema_;
-};
 var author$project$Grid$Boundary$fromBoundingBox2d = function (boundingBox) {
 	var _n0 = ianmackenzie$elm_geometry$BoundingBox2d$extrema(boundingBox);
 	var minX = _n0.minX;
@@ -6724,28 +7217,6 @@ var author$project$Grid$Boundary$fromBoundingBox2d = function (boundingBox) {
 			north: A2(author$project$Grid$Units$fromMillimeters, elm$core$Basics$ceiling, maxY),
 			south: A2(author$project$Grid$Units$fromMillimeters, elm$core$Basics$floor, minY),
 			west: A2(author$project$Grid$Units$fromMillimeters, elm$core$Basics$floor, minX)
-		});
-};
-var ianmackenzie$elm_geometry$Geometry$Types$BoundingBox2d = function (a) {
-	return {$: 'BoundingBox2d', a: a};
-};
-var ianmackenzie$elm_geometry$BoundingBox2d$fromExtrema = function (extrema_) {
-	return ((_Utils_cmp(extrema_.minX, extrema_.maxX) < 1) && (_Utils_cmp(extrema_.minY, extrema_.maxY) < 1)) ? ianmackenzie$elm_geometry$Geometry$Types$BoundingBox2d(extrema_) : ianmackenzie$elm_geometry$Geometry$Types$BoundingBox2d(
-		{
-			maxX: A2(elm$core$Basics$max, extrema_.minX, extrema_.maxX),
-			maxY: A2(elm$core$Basics$max, extrema_.minY, extrema_.maxY),
-			minX: A2(elm$core$Basics$min, extrema_.minX, extrema_.maxX),
-			minY: A2(elm$core$Basics$min, extrema_.minY, extrema_.maxY)
-		});
-};
-var author$project$Grid$Boundary$toBoundingBox2d = function (_n0) {
-	var data = _n0.a;
-	return ianmackenzie$elm_geometry$BoundingBox2d$fromExtrema(
-		{
-			maxX: author$project$Grid$Units$toMillimeters(data.east),
-			maxY: author$project$Grid$Units$toMillimeters(data.south),
-			minX: author$project$Grid$Units$toMillimeters(data.west),
-			minY: author$project$Grid$Units$toMillimeters(data.north)
 		});
 };
 var author$project$Grid$RotationOffset$toDegrees = function (_n0) {
@@ -6951,8 +7422,6 @@ var ianmackenzie$elm_geometry$Direction2d$toVector = function (direction) {
 	return ianmackenzie$elm_geometry$Vector2d$fromComponents(
 		ianmackenzie$elm_geometry$Direction2d$components(direction));
 };
-var elm$core$Basics$cos = _Basics_cos;
-var elm$core$Basics$sin = _Basics_sin;
 var ianmackenzie$elm_geometry$Vector2d$rotateBy = function (angle) {
 	var sine = elm$core$Basics$sin(angle);
 	var cosine = elm$core$Basics$cos(angle);
@@ -7173,21 +7642,6 @@ var author$project$Architecture$Equipment$tableAllowedCloser = function (otherEq
 var author$project$Architecture$Equipment$toPassNextToTable = 'to pass next to the table';
 var author$project$Architecture$Equipment$toUseCupboards = 'to use cupboards under the counter';
 var author$project$Grid$Direction$SouthEastToWest = {$: 'SouthEastToWest'};
-var author$project$Svg$Path$Internal$ArcBy = F4(
-	function (a, b, c, d) {
-		return {$: 'ArcBy', a: a, b: b, c: c, d: d};
-	});
-var author$project$Svg$Path$arcBy = F4(
-	function (radius, xstartangle, _n0, point) {
-		var largeArcFlag = _n0.a;
-		var direction = _n0.b;
-		return A4(
-			author$project$Svg$Path$Internal$ArcBy,
-			radius,
-			xstartangle,
-			_Utils_Tuple2(largeArcFlag, direction),
-			point);
-	});
 var author$project$Architecture$Equipment$toiletBowl = function (offset) {
 	var toiletEnclosureDepth = A2(author$project$Grid$Units$fromMillimeters, elm$core$Basics$ceiling, -offset.y);
 	var southExtreme = A2(author$project$Grid$Units$fromMillimeters, elm$core$Basics$floor, offset.y - author$project$Architecture$Equipment$exactBowlLength);
@@ -7349,47 +7803,6 @@ var author$project$Grid$Boundary$setWest = F2(
 					west: A2(elm$core$Basics$min, newValue, data.east)
 				}));
 	});
-var elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
-var elm$svg$Svg$rect = elm$svg$Svg$trustedNode('rect');
-var elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
-var elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
-var elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
-var elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
-var ianmackenzie$elm_geometry_svg$Geometry$Svg$boundingBox2d = F2(
-	function (attributes, boundingBox) {
-		var _n0 = ianmackenzie$elm_geometry$BoundingBox2d$extrema(boundingBox);
-		var minX = _n0.minX;
-		var minY = _n0.minY;
-		var maxX = _n0.maxX;
-		var maxY = _n0.maxY;
-		var width = elm$svg$Svg$Attributes$width(
-			elm$core$String$fromFloat(maxX - minX));
-		var x = elm$svg$Svg$Attributes$x(
-			elm$core$String$fromFloat(minX));
-		var height = elm$svg$Svg$Attributes$height(
-			elm$core$String$fromFloat(maxY - minY));
-		var y = elm$svg$Svg$Attributes$y(
-			elm$core$String$fromFloat(minY));
-		return A2(
-			elm$svg$Svg$rect,
-			A2(
-				elm$core$List$cons,
-				x,
-				A2(
-					elm$core$List$cons,
-					y,
-					A2(
-						elm$core$List$cons,
-						width,
-						A2(elm$core$List$cons, height, attributes)))),
-			_List_Nil);
-	});
-var author$project$Grid$Boundary$toSvg = function (attributes) {
-	return A2(
-		elm$core$Basics$composeR,
-		author$project$Grid$Boundary$toBoundingBox2d,
-		ianmackenzie$elm_geometry_svg$Geometry$Svg$boundingBox2d(attributes));
-};
 var author$project$Grid$Direction$NorthWestToEast = {$: 'NorthWestToEast'};
 var author$project$Grid$RotationOffset$RotationOffset = function (a) {
 	return {$: 'RotationOffset', a: a};
@@ -7398,24 +7811,8 @@ var author$project$Grid$RotationOffset$rotationOffset = author$project$Grid$Rota
 var author$project$Styles$SvgStyle$wall = author$project$Styles$SvgStyle$className('wall');
 var author$project$Svg$Path$Internal$AntiClockwise = {$: 'AntiClockwise'};
 var author$project$Svg$Path$antiClockwise = author$project$Svg$Path$Internal$AntiClockwise;
-var author$project$Svg$Path$cubicBy = F3(
-	function (dcontrol1, dcontrol2, dpoint) {
-		return A3(author$project$Svg$Path$Internal$CubicRelative, dcontrol1, dcontrol2, dpoint);
-	});
 var author$project$TypedSvg$circle = author$project$TypedSvg$Core$node('circle');
 var author$project$TypedSvg$line = author$project$TypedSvg$Core$node('line');
-var author$project$TypedSvg$TypesToStrings$opacityToString = function (opacity) {
-	if (opacity.$ === 'Opacity') {
-		var n = opacity.a;
-		return elm$core$String$fromFloat(n);
-	} else {
-		return 'inherit';
-	}
-};
-var author$project$TypedSvg$Attributes$opacity = A2(
-	elm$core$Basics$composeL,
-	author$project$TypedSvg$Core$attribute('opacity'),
-	author$project$TypedSvg$TypesToStrings$opacityToString);
 var author$project$TypedSvg$Attributes$cx = function (length) {
 	return A2(
 		author$project$TypedSvg$Core$attribute,
@@ -7505,10 +7902,6 @@ var author$project$TypedSvg$Attributes$y2 = function (position) {
 var author$project$TypedSvg$Attributes$InPx$y2 = function (value) {
 	return author$project$TypedSvg$Attributes$y2(
 		author$project$TypedSvg$Types$px(value));
-};
-var author$project$TypedSvg$Types$FillNone = {$: 'FillNone'};
-var author$project$TypedSvg$Types$Opacity = function (a) {
-	return {$: 'Opacity', a: a};
 };
 var elm$core$List$append = F2(
 	function (xs, ys) {
@@ -7691,7 +8084,7 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 			var renderedArmchair = author$project$Architecture$Equipment$responsiveLoungeSeat(
 				{
 					depth: 8,
-					rotation: elm$core$Maybe$Nothing,
+					rotation: author$project$Grid$Rotation$NoRotation,
 					rotationOffset: elm$core$Maybe$Just(
 						author$project$Grid$RotationOffset$rotationOffset(2)),
 					translation: A2(author$project$Grid$Vector$gridVector, -3, -2),
@@ -7731,7 +8124,7 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 			var renderedSofa = author$project$Architecture$Equipment$responsiveLoungeSeat(
 				{
 					depth: 8,
-					rotation: elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
+					rotation: author$project$Grid$Rotation$HalfTurn,
 					rotationOffset: elm$core$Maybe$Nothing,
 					translation: A2(author$project$Grid$Vector$gridVector, 0, -22),
 					width: sofaLength
@@ -7755,7 +8148,7 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 					return author$project$Architecture$Equipment$responsiveLoungeSeat(
 						{
 							depth: 9,
-							rotation: elm$core$Maybe$Nothing,
+							rotation: author$project$Grid$Rotation$NoRotation,
 							rotationOffset: elm$core$Maybe$Just(armchairRotationOffset),
 							translation: armchairTranslation,
 							width: 8
@@ -7897,7 +8290,7 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 			var sideSofa = author$project$Architecture$Equipment$responsiveLoungeSeat(
 				{
 					depth: sofaWidth,
-					rotation: elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnCounterclockwise),
+					rotation: author$project$Grid$Rotation$QuarterTurnCounterclockwise,
 					rotationOffset: elm$core$Maybe$Nothing,
 					translation: A2(author$project$Grid$Vector$gridVector, -mainSofaLength, (-11) - sideSofaLength),
 					width: sideSofaLength
@@ -7906,7 +8299,7 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 			var mainSofa = author$project$Architecture$Equipment$responsiveLoungeSeat(
 				{
 					depth: sofaWidth,
-					rotation: elm$core$Maybe$Nothing,
+					rotation: author$project$Grid$Rotation$NoRotation,
 					rotationOffset: elm$core$Maybe$Nothing,
 					translation: A2(author$project$Grid$Vector$gridVector, -mainSofaLength, -sofaWidth),
 					width: mainSofaLength
@@ -8598,188 +8991,14 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 			var data = equipmentTypeValue.a;
 			return author$project$Architecture$Equipment$pidgeonHoleLikeCasework(data);
 		case 'Curtain':
-			var lengthAcrossRoom = equipmentTypeValue.a.lengthAcrossRoom;
-			var lengthOverWindow = equipmentTypeValue.a.lengthOverWindow;
-			var curtainStatus = equipmentTypeValue.b;
-			var toPullCurtainAway = 'to pull the curtain away';
-			var toDrawCurtain = 'to draw the curtain across the room';
-			var pulledAwayLength = (lengthOverWindow / 7) | 0;
-			var numberOfFolds = (lengthAcrossRoom / 4) | 0;
-			var foldIndices = A2(elm$core$List$range, 0, numberOfFolds - 1);
-			var exactPulledAwayLength = author$project$Grid$Units$toMillimeters(pulledAwayLength);
-			var exactPulledAwayFoldLength = exactPulledAwayLength / numberOfFolds;
-			var exactLengthOverWindow = author$project$Grid$Units$toMillimeters(lengthOverWindow);
-			var exactLengthAcrossRoom = author$project$Grid$Units$toMillimeters(lengthAcrossRoom);
-			var exactFoldLengthOverWindow = exactLengthOverWindow / numberOfFolds;
-			var exactFoldLengthAcrossRoom = exactLengthAcrossRoom / numberOfFolds;
-			var enoughToDrawCurtain = 4;
-			var windowAccessBoundary = lengthAcrossRoom - enoughToDrawCurtain;
-			var curtainThickness = 1;
-			var edgeLengthOverWindow = lengthOverWindow - curtainThickness;
-			var exactCurtainThickness = author$project$Grid$Units$toMillimeters(curtainThickness);
-			var renderFoldAcrossRoom = function (index) {
-				return A2(
-					author$project$TypedSvg$path,
-					_List_fromArray(
-						[
-							author$project$Svg$Path$pathToAttribute(
-							elm$core$List$singleton(
-								A3(
-									author$project$Svg$Path$subpath,
-									author$project$Svg$Path$startAt(
-										_Utils_Tuple2(index * exactFoldLengthAcrossRoom, exactCurtainThickness / 2)),
-									author$project$Svg$Path$open,
-									_List_fromArray(
-										[
-											A3(
-											author$project$Svg$Path$cubicBy,
-											_Utils_Tuple2(exactFoldLengthAcrossRoom / 2, -100),
-											_Utils_Tuple2(exactFoldLengthAcrossRoom / 2, 100),
-											_Utils_Tuple2(exactFoldLengthAcrossRoom, 0))
-										])))),
-							author$project$TypedSvg$Attributes$fill(author$project$TypedSvg$Types$FillNone)
-						]),
-					_List_Nil);
-			};
-			var renderFoldOverWindow = function (index) {
-				return A2(
-					author$project$TypedSvg$path,
-					_List_fromArray(
-						[
-							author$project$Svg$Path$pathToAttribute(
-							elm$core$List$singleton(
-								A3(
-									author$project$Svg$Path$subpath,
-									author$project$Svg$Path$startAt(
-										_Utils_Tuple2(exactLengthAcrossRoom - (exactCurtainThickness / 2), index * exactFoldLengthOverWindow)),
-									author$project$Svg$Path$open,
-									_List_fromArray(
-										[
-											A3(
-											author$project$Svg$Path$cubicBy,
-											_Utils_Tuple2(-150, exactFoldLengthOverWindow / 2),
-											_Utils_Tuple2(150, exactFoldLengthOverWindow / 2),
-											_Utils_Tuple2(0, exactFoldLengthOverWindow))
-										])))),
-							author$project$TypedSvg$Attributes$fill(author$project$TypedSvg$Types$FillNone)
-						]),
-					_List_Nil);
-			};
-			var renderPulledAwayFold = function (index) {
-				return A2(
-					author$project$TypedSvg$path,
-					_List_fromArray(
-						[
-							author$project$Svg$Path$pathToAttribute(
-							elm$core$List$singleton(
-								A3(
-									author$project$Svg$Path$subpath,
-									author$project$Svg$Path$startAt(
-										_Utils_Tuple2(exactLengthAcrossRoom - (exactCurtainThickness / 2), index * exactPulledAwayFoldLength)),
-									author$project$Svg$Path$open,
-									_List_fromArray(
-										[
-											A3(
-											author$project$Svg$Path$cubicBy,
-											_Utils_Tuple2(-400, exactPulledAwayFoldLength / 2),
-											_Utils_Tuple2(400, exactPulledAwayFoldLength / 2),
-											_Utils_Tuple2(0, exactPulledAwayFoldLength))
-										])))),
-							author$project$TypedSvg$Attributes$fill(author$project$TypedSvg$Types$FillNone)
-						]),
-					_List_Nil);
-			};
-			var baseBoundary = A2(
-				author$project$Grid$Boundary$gridBoundary,
-				A2(author$project$Grid$Point$gridPoint, 0, curtainThickness - lengthOverWindow),
-				A2(author$project$Grid$Point$gridPoint, lengthAcrossRoom, curtainThickness));
-			var boundaryWhenDrawnAcrossRoom = A2(author$project$Grid$Boundary$setSouth, -curtainThickness, baseBoundary);
-			var boundaryWhenDrawnOverWindow = A2(author$project$Grid$Boundary$setWest, lengthAcrossRoom - curtainThickness, baseBoundary);
-			var boundaryWhenPulledAway = A2(author$project$Grid$Boundary$setSouth, -pulledAwayLength, boundaryWhenDrawnOverWindow);
-			var accessToPullCurtainAway = _List_fromArray(
-				[
-					{
-					edgeDirection: author$project$Grid$Direction$SouthWestToNorth,
-					exceptions: elm$core$Maybe$Nothing,
-					length: edgeLengthOverWindow,
-					locationLabel: toPullCurtainAway,
-					spaceRequired: enoughToDrawCurtain,
-					start: A2(author$project$Grid$Point$gridPoint, lengthAcrossRoom, -edgeLengthOverWindow)
-				}
-				]);
+			var curtain = equipmentTypeValue.a;
 			return {
 				availableRotations: turboMaCk$any_set$Set$Any$empty(author$project$Grid$Rotation$rotationKey),
 				locationPreposition: 'beside',
 				name: 'curtain',
 				rawEdgeAccessAlternatives: _List_Nil,
-				rawFootprint: author$project$Grid$Footprint$footprint(
-					_List_fromArray(
-						[
-							function () {
-							switch (curtainStatus.$) {
-								case 'DrawnAcrossRoom':
-									return boundaryWhenDrawnAcrossRoom;
-								case 'DrawnOverWindow':
-									return boundaryWhenDrawnOverWindow;
-								default:
-									return boundaryWhenPulledAway;
-							}
-						}()
-						])),
-				rawMarkup: function () {
-					switch (curtainStatus.$) {
-						case 'DrawnAcrossRoom':
-							return _Utils_ap(
-								_List_fromArray(
-									[
-										A2(
-										author$project$TypedSvg$rect,
-										_List_fromArray(
-											[
-												author$project$TypedSvg$Attributes$InPx$width(exactLengthAcrossRoom),
-												author$project$TypedSvg$Attributes$InPx$height(exactCurtainThickness),
-												author$project$TypedSvg$Attributes$opacity(
-												author$project$TypedSvg$Types$Opacity(0))
-											]),
-										_List_Nil)
-									]),
-								A2(elm$core$List$map, renderFoldAcrossRoom, foldIndices));
-						case 'DrawnOverWindow':
-							return _Utils_ap(
-								_List_fromArray(
-									[
-										A2(
-										author$project$TypedSvg$rect,
-										_List_fromArray(
-											[
-												author$project$TypedSvg$Attributes$InPx$width(exactCurtainThickness),
-												author$project$TypedSvg$Attributes$InPx$height(exactLengthOverWindow),
-												author$project$TypedSvg$Attributes$InPx$x(exactLengthAcrossRoom - exactCurtainThickness),
-												author$project$TypedSvg$Attributes$opacity(
-												author$project$TypedSvg$Types$Opacity(0))
-											]),
-										_List_Nil)
-									]),
-								A2(elm$core$List$map, renderFoldOverWindow, foldIndices));
-						default:
-							return _Utils_ap(
-								_List_fromArray(
-									[
-										A2(
-										author$project$TypedSvg$rect,
-										_List_fromArray(
-											[
-												author$project$TypedSvg$Attributes$InPx$width(3 * exactCurtainThickness),
-												author$project$TypedSvg$Attributes$InPx$height(exactPulledAwayLength),
-												author$project$TypedSvg$Attributes$InPx$x(exactLengthAcrossRoom - (2 * exactCurtainThickness)),
-												author$project$TypedSvg$Attributes$opacity(
-												author$project$TypedSvg$Types$Opacity(0))
-											]),
-										_List_Nil)
-									]),
-								A2(elm$core$List$map, renderPulledAwayFold, foldIndices));
-					}
-				}()
+				rawFootprint: author$project$Architecture$Curtain$footprint(curtain),
+				rawMarkup: author$project$Architecture$Curtain$view(curtain)
 			};
 		case 'Desk':
 			var deskPanelType = equipmentTypeValue.a;
@@ -9268,9 +9487,9 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 				author$project$Grid$Boundary$gridBoundary,
 				A2(author$project$Grid$Point$gridPoint, 0, 0),
 				A2(author$project$Grid$Point$gridPoint, tableWidth, tableLength));
-			var inTheBack = function (_n14) {
-				var spaceRequired = _n14.a;
-				var locationLabel = _n14.b;
+			var inTheBack = function (_n12) {
+				var spaceRequired = _n12.a;
+				var locationLabel = _n12.b;
 				return {
 					edgeDirection: author$project$Grid$Direction$SouthWestToNorth,
 					exceptions: elm$core$Maybe$Nothing,
@@ -9283,9 +9502,9 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 						author$project$Grid$Boundary$south(tableBoundary) - author$project$Architecture$Equipment$enoughForChairAtDiningTable)
 				};
 			};
-			var inFront = function (_n13) {
-				var spaceRequired = _n13.a;
-				var locationLabel = _n13.b;
+			var inFront = function (_n11) {
+				var spaceRequired = _n11.a;
+				var locationLabel = _n11.b;
 				return {
 					edgeDirection: author$project$Grid$Direction$NorthEastToSouth,
 					exceptions: elm$core$Maybe$Nothing,
@@ -9737,14 +9956,14 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 			};
 		case 'BuiltInToilet':
 			var bowlWidth = A2(author$project$Grid$Units$fromMillimeters, elm$core$Basics$ceiling, author$project$Architecture$Equipment$exactBowlWidth);
-			var _n15 = author$project$Architecture$Equipment$toiletBowl(
+			var _n13 = author$project$Architecture$Equipment$toiletBowl(
 				{
 					x: (author$project$Grid$Units$toMillimeters(bowlWidth + 1) - author$project$Architecture$Equipment$exactBowlWidth) / 2,
 					y: 0
 				});
-			var bowlMarkup = _n15.a;
-			var toiletFootprint = _n15.b;
-			var toiletEdgeAccessAlternatives = _n15.c;
+			var bowlMarkup = _n13.a;
+			var toiletFootprint = _n13.b;
+			var toiletEdgeAccessAlternatives = _n13.c;
 			return {
 				availableRotations: author$project$Architecture$Equipment$allRotations,
 				locationPreposition: 'next to',
@@ -9894,9 +10113,9 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 					return (currentLength + basinLength) + offset;
 				});
 			var addBasinMarkup = F2(
-				function (offset, _n17) {
-					var currentOffset = _n17.a;
-					var currentMarkup = _n17.b;
+				function (offset, _n15) {
+					var currentOffset = _n15.a;
+					var currentMarkup = _n15.b;
 					return _Utils_Tuple2(
 						A2(addBasinLength, currentOffset, offset),
 						_Utils_ap(
@@ -9914,12 +10133,12 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 				author$project$Grid$Boundary$gridBoundary,
 				A2(author$project$Grid$Point$gridPoint, 0, -counterWidth),
 				A2(author$project$Grid$Point$gridPoint, counterLength, 0));
-			var _n16 = A3(
+			var _n14 = A3(
 				elm$core$List$foldl,
 				addBasinMarkup,
 				_Utils_Tuple2(0, _List_Nil),
 				basinOffsets);
-			var basinsMarkup = _n16.b;
+			var basinsMarkup = _n14.b;
 			return {
 				availableRotations: author$project$Architecture$Equipment$allRotations,
 				locationPreposition: 'next to',
@@ -11986,6 +12205,49 @@ var elm$url$Url$Parser$parse = F2(
 var author$project$Route$fromUrl = function (url) {
 	return A2(elm$url$Url$Parser$parse, author$project$Route$route, url);
 };
+var author$project$Architecture$Curtain$AsymetricalStraightSegment = F3(
+	function (a, b, c) {
+		return {$: 'AsymetricalStraightSegment', a: a, b: b, c: c};
+	});
+var author$project$Architecture$Curtain$FoldedSegment = F2(
+	function (a, b) {
+		return {$: 'FoldedSegment', a: a, b: b};
+	});
+var author$project$Architecture$Curtain$OnEastWestAxis = {$: 'OnEastWestAxis'};
+var author$project$Architecture$Curtain$OnSouthNorthAxis = {$: 'OnSouthNorthAxis'};
+var author$project$Architecture$Curtain$Radius400 = {$: 'Radius400'};
+var author$project$Architecture$Curtain$Radius690 = {$: 'Radius690'};
+var author$project$Architecture$Curtain$StraightSegment = F3(
+	function (a, b, c) {
+		return {$: 'StraightSegment', a: a, b: b, c: c};
+	});
+var author$project$Architecture$Curtain$TurnOffsetSegment = F2(
+	function (a, b) {
+		return {$: 'TurnOffsetSegment', a: a, b: b};
+	});
+var author$project$Architecture$Curtain$TurnSegment = F2(
+	function (a, b) {
+		return {$: 'TurnSegment', a: a, b: b};
+	});
+var author$project$Architecture$Curtain$Curtain = function (a) {
+	return {$: 'Curtain', a: a};
+};
+var author$project$Architecture$Curtain$curtain = F3(
+	function (statusesLeftwardsOfDefault, defaultStatus, statusesRightwardsOfDefault) {
+		return author$project$Architecture$Curtain$Curtain(
+			{
+				currentStatus: defaultStatus,
+				footprint: author$project$Grid$Footprint$footprint(
+					elm$core$List$concat(
+						A2(elm$core$List$map, author$project$Architecture$Curtain$segmentBoundaries, defaultStatus))),
+				statusesLeftwardsOfCurrent: statusesLeftwardsOfDefault,
+				statusesRightwardsOfCurrent: statusesRightwardsOfDefault
+			});
+	});
+var author$project$Architecture$Curtain$CurtainSegment = function (a) {
+	return {$: 'CurtainSegment', a: a};
+};
+var author$project$Architecture$Curtain$curtainSegment = author$project$Architecture$Curtain$CurtainSegment;
 var author$project$Architecture$Door$Basic = {$: 'Basic'};
 var author$project$Architecture$Door$GlassFullHeight = {$: 'GlassFullHeight'};
 var author$project$Architecture$Door$HingesOnLeft = {$: 'HingesOnLeft'};
@@ -12004,10 +12266,9 @@ var author$project$Architecture$Equipment$BuiltInFridge = F2(
 	function (a, b) {
 		return {$: 'BuiltInFridge', a: a, b: b};
 	});
-var author$project$Architecture$Equipment$Curtain = F2(
-	function (a, b) {
-		return {$: 'Curtain', a: a, b: b};
-	});
+var author$project$Architecture$Equipment$Curtain = function (a) {
+	return {$: 'Curtain', a: a};
+};
 var author$project$Architecture$Equipment$Desk = F2(
 	function (a, b) {
 		return {$: 'Desk', a: a, b: b};
@@ -12016,7 +12277,6 @@ var author$project$Architecture$Equipment$DiningTable = function (a) {
 	return {$: 'DiningTable', a: a};
 };
 var author$project$Architecture$Equipment$Dishwasher = {$: 'Dishwasher'};
-var author$project$Architecture$Equipment$DrawnAcrossRoom = {$: 'DrawnAcrossRoom'};
 var author$project$Architecture$Equipment$Kitchenette = function (a) {
 	return {$: 'Kitchenette', a: a};
 };
@@ -12235,6 +12495,8 @@ var author$project$Architecture$Wall$withDoor = F2(
 					nextDoorId: wallProperties.nextDoorId + 1
 				}));
 	});
+var author$project$Grid$Flip$HorizontalFlip = {$: 'HorizontalFlip'};
+var author$project$Grid$Flip$VerticalFlip = {$: 'VerticalFlip'};
 var author$project$Architecture$ExistingItem$ExistingSlab = function (a) {
 	return {$: 'ExistingSlab', a: a};
 };
@@ -12281,29 +12543,29 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 		A3(
 			author$project$Architecture$Equipment$equipment,
 			author$project$Architecture$Equipment$Shelving(41),
-			elm$core$Maybe$Nothing,
+			author$project$Grid$Rotation$NoRotation,
 			A2(author$project$Grid$Vector$gridVector, 72, -39)),
 		A2(
 			author$project$Architecture$Item$withEquipment,
 			A3(
 				author$project$Architecture$Equipment$equipment,
-				author$project$Architecture$Equipment$Shelving(24),
-				elm$core$Maybe$Nothing,
+				author$project$Architecture$Equipment$Shelving(23),
+				author$project$Grid$Rotation$NoRotation,
 				A2(author$project$Grid$Vector$gridVector, 72, 7)),
 			A2(
 				author$project$Architecture$Item$withEquipment,
 				A3(
 					author$project$Architecture$Equipment$equipment,
-					author$project$Architecture$Equipment$Shelving(24),
-					elm$core$Maybe$Nothing,
-					A2(author$project$Grid$Vector$gridVector, 72, 44)),
+					author$project$Architecture$Equipment$Shelving(36),
+					author$project$Grid$Rotation$NoRotation,
+					A2(author$project$Grid$Vector$gridVector, 72, 70)),
 				A2(
 					author$project$Architecture$Item$withEquipment,
 					A3(
 						author$project$Architecture$Equipment$equipment,
-						author$project$Architecture$Equipment$Shelving(15),
-						elm$core$Maybe$Nothing,
-						A2(author$project$Grid$Vector$gridVector, 72, 76)),
+						author$project$Architecture$Equipment$Shelving(14),
+						author$project$Grid$Rotation$NoRotation,
+						A2(author$project$Grid$Vector$gridVector, 72, 40)),
 					A2(
 						author$project$Architecture$Item$withEquipment,
 						A3(
@@ -12317,8 +12579,8 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 									length: 14,
 									width: 7
 								}),
-							elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
-							A2(author$project$Grid$Vector$gridVector, 28, 76)),
+							author$project$Grid$Rotation$HalfTurn,
+							A2(author$project$Grid$Vector$gridVector, 28, 39)),
 						A2(
 							author$project$Architecture$Item$withEquipment,
 							A3(
@@ -12332,8 +12594,8 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 										length: 14,
 										width: 7
 									}),
-								elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
-								A2(author$project$Grid$Vector$gridVector, 52, 76)),
+								author$project$Grid$Rotation$HalfTurn,
+								A2(author$project$Grid$Vector$gridVector, 52, 39)),
 							A2(
 								author$project$Architecture$Item$withEquipment,
 								A3(
@@ -12347,8 +12609,8 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 											length: 14,
 											width: 7
 										}),
-									elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
-									A2(author$project$Grid$Vector$gridVector, 19, 56)),
+									author$project$Grid$Rotation$HalfTurn,
+									A2(author$project$Grid$Vector$gridVector, 19, 77)),
 								A2(
 									author$project$Architecture$Item$withEquipment,
 									A3(
@@ -12362,8 +12624,8 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 												length: 14,
 												width: 7
 											}),
-										elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
-										A2(author$project$Grid$Vector$gridVector, 43, 56)),
+										author$project$Grid$Rotation$HalfTurn,
+										A2(author$project$Grid$Vector$gridVector, 43, 77)),
 									A2(
 										author$project$Architecture$Item$withEquipment,
 										A3(
@@ -12377,8 +12639,8 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 													length: 14,
 													width: 7
 												}),
-											elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnCounterclockwise),
-											A2(author$project$Grid$Vector$gridVector, 57, 49)),
+											author$project$Grid$Rotation$QuarterTurnCounterclockwise,
+											A2(author$project$Grid$Vector$gridVector, 57, 70)),
 										A2(
 											author$project$Architecture$Item$withEquipment,
 											A3(
@@ -12392,8 +12654,8 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 														length: 14,
 														width: 7
 													}),
-												elm$core$Maybe$Nothing,
-												A2(author$project$Grid$Vector$gridVector, 19, 42)),
+												author$project$Grid$Rotation$NoRotation,
+												A2(author$project$Grid$Vector$gridVector, 19, 63)),
 											A2(
 												author$project$Architecture$Item$withEquipment,
 												A3(
@@ -12407,8 +12669,8 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 															length: 14,
 															width: 7
 														}),
-													elm$core$Maybe$Nothing,
-													A2(author$project$Grid$Vector$gridVector, 43, 42)),
+													author$project$Grid$Rotation$NoRotation,
+													A2(author$project$Grid$Vector$gridVector, 43, 63)),
 												A2(
 													author$project$Architecture$Item$withEquipment,
 													A3(
@@ -12422,7 +12684,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																length: 14,
 																width: 7
 															}),
-														elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
+														author$project$Grid$Rotation$HalfTurn,
 														A2(author$project$Grid$Vector$gridVector, 28, 19)),
 													A2(
 														author$project$Architecture$Item$withEquipment,
@@ -12437,7 +12699,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																	length: 14,
 																	width: 7
 																}),
-															elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
+															author$project$Grid$Rotation$HalfTurn,
 															A2(author$project$Grid$Vector$gridVector, 52, 19)),
 														A2(
 															author$project$Architecture$Item$withEquipment,
@@ -12452,7 +12714,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																		length: 14,
 																		width: 7
 																	}),
-																elm$core$Maybe$Nothing,
+																author$project$Grid$Rotation$NoRotation,
 																A2(author$project$Grid$Vector$gridVector, 52, 5)),
 															A2(
 																author$project$Architecture$Item$withEquipment,
@@ -12467,14 +12729,14 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																			length: 14,
 																			width: 7
 																		}),
-																	elm$core$Maybe$Nothing,
+																	author$project$Grid$Rotation$NoRotation,
 																	A2(author$project$Grid$Vector$gridVector, 28, 5)),
 																A2(
 																	author$project$Architecture$Item$withEquipment,
 																	A3(
 																		author$project$Architecture$Equipment$equipment,
 																		author$project$Architecture$Equipment$LoungeWithSofaAndTwoArmchairs,
-																		elm$core$Maybe$Nothing,
+																		author$project$Grid$Rotation$NoRotation,
 																		A2(author$project$Grid$Vector$gridVector, 17, -26)),
 																	A2(
 																		author$project$Architecture$Item$withEquipment,
@@ -12489,7 +12751,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																					length: 14,
 																					width: 7
 																				}),
-																			elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
+																			author$project$Grid$Rotation$HalfTurn,
 																			A2(author$project$Grid$Vector$gridVector, 45, -18)),
 																		A2(
 																			author$project$Architecture$Item$withEquipment,
@@ -12504,7 +12766,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																						length: 14,
 																						width: 7
 																					}),
-																				elm$core$Maybe$Nothing,
+																				author$project$Grid$Rotation$NoRotation,
 																				A2(author$project$Grid$Vector$gridVector, 45, -32)),
 																			A2(
 																				author$project$Architecture$Item$withEquipment,
@@ -12519,328 +12781,529 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																							length: 14,
 																							width: 7
 																						}),
-																					elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnCounterclockwise),
+																					author$project$Grid$Rotation$QuarterTurnCounterclockwise,
 																					A2(author$project$Grid$Vector$gridVector, 59, -25)),
 																				A2(
 																					author$project$Architecture$Item$withEquipment,
 																					A3(
 																						author$project$Architecture$Equipment$equipment,
-																						A2(
-																							author$project$Architecture$Equipment$Curtain,
-																							{lengthAcrossRoom: 67, lengthOverWindow: 37},
-																							author$project$Architecture$Equipment$DrawnAcrossRoom),
-																						elm$core$Maybe$Nothing,
-																						A2(author$project$Grid$Vector$gridVector, 40, 67)),
+																						author$project$Architecture$Equipment$Curtain(
+																							function () {
+																								var lengthAcrossRoom = 21;
+																								return A3(
+																									author$project$Architecture$Curtain$curtain,
+																									_List_fromArray(
+																										[
+																											_List_fromArray(
+																											[
+																												author$project$Architecture$Curtain$curtainSegment(
+																												{
+																													segmentType: A3(author$project$Architecture$Curtain$StraightSegment, lengthAcrossRoom, author$project$Grid$Flip$VerticalFlip, author$project$Architecture$Curtain$OnEastWestAxis),
+																													translation: A2(author$project$Grid$Vector$gridVector, 0, 0)
+																												})
+																											])
+																										]),
+																									_List_fromArray(
+																										[
+																											author$project$Architecture$Curtain$curtainSegment(
+																											{
+																												segmentType: A2(author$project$Architecture$Curtain$FoldedSegment, (lengthAcrossRoom / 5) | 0, author$project$Architecture$Curtain$OnEastWestAxis),
+																												translation: A2(author$project$Grid$Vector$gridVector, 79, 0)
+																											})
+																										]),
+																									_List_Nil);
+																							}()),
+																						author$project$Grid$Rotation$NoRotation,
+																						A2(author$project$Grid$Vector$gridVector, 68, 49)),
 																					A2(
 																						author$project$Architecture$Item$withEquipment,
 																						A3(
 																							author$project$Architecture$Equipment$equipment,
-																							A2(
-																								author$project$Architecture$Equipment$Curtain,
-																								{lengthAcrossRoom: 67, lengthOverWindow: 37},
-																								author$project$Architecture$Equipment$DrawnAcrossRoom),
-																							elm$core$Maybe$Nothing,
-																							A2(author$project$Grid$Vector$gridVector, 40, 30)),
+																							author$project$Architecture$Equipment$Curtain(
+																								A3(
+																									author$project$Architecture$Curtain$curtain,
+																									_List_fromArray(
+																										[
+																											_List_fromArray(
+																											[
+																												author$project$Architecture$Curtain$curtainSegment(
+																												{
+																													segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius400, author$project$Grid$Rotation$HalfTurn),
+																													translation: A2(author$project$Grid$Vector$gridVector, 2, 0)
+																												}),
+																												author$project$Architecture$Curtain$curtainSegment(
+																												{
+																													segmentType: A3(author$project$Architecture$Curtain$StraightSegment, 14, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
+																													translation: A2(author$project$Grid$Vector$gridVector, -2, -4)
+																												})
+																											])
+																										]),
+																									_List_fromArray(
+																										[
+																											author$project$Architecture$Curtain$curtainSegment(
+																											{
+																												segmentType: A2(author$project$Architecture$Curtain$FoldedSegment, 4, author$project$Architecture$Curtain$OnEastWestAxis),
+																												translation: A2(author$project$Grid$Vector$gridVector, 0, 0)
+																											})
+																										]),
+																									_List_Nil)),
+																							author$project$Grid$Rotation$NoRotation,
+																							A2(author$project$Grid$Vector$gridVector, 72, 49)),
 																						A2(
 																							author$project$Architecture$Item$withEquipment,
 																							A3(
 																								author$project$Architecture$Equipment$equipment,
-																								A2(
-																									author$project$Architecture$Equipment$Curtain,
-																									{lengthAcrossRoom: 67, lengthOverWindow: 50},
-																									author$project$Architecture$Equipment$DrawnAcrossRoom),
-																								elm$core$Maybe$Nothing,
-																								A2(author$project$Grid$Vector$gridVector, 40, -7)),
+																								author$project$Architecture$Equipment$Curtain(
+																									function () {
+																										var windowTurn = author$project$Architecture$Curtain$curtainSegment(
+																											{
+																												segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius400, author$project$Grid$Rotation$QuarterTurnCounterclockwise),
+																												translation: A2(author$project$Grid$Vector$gridVector, 62, -4)
+																											});
+																										var lengthAlongRoom = 4;
+																										var lengthAcrossRoom = 55;
+																										var straightSegmentAcrossRoom = author$project$Architecture$Curtain$curtainSegment(
+																											{
+																												segmentType: A3(author$project$Architecture$Curtain$StraightSegment, lengthAcrossRoom, author$project$Grid$Flip$VerticalFlip, author$project$Architecture$Curtain$OnEastWestAxis),
+																												translation: A2(author$project$Grid$Vector$gridVector, 3, 0)
+																											});
+																										return A3(
+																											author$project$Architecture$Curtain$curtain,
+																											_List_fromArray(
+																												[
+																													_List_fromArray(
+																													[
+																														author$project$Architecture$Curtain$curtainSegment(
+																														{
+																															segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$HalfTurn),
+																															translation: A2(author$project$Grid$Vector$gridVector, 3, 18)
+																														}),
+																														author$project$Architecture$Curtain$curtainSegment(
+																														{
+																															segmentType: A3(author$project$Architecture$Curtain$AsymetricalStraightSegment, lengthAlongRoom, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
+																															translation: A2(author$project$Grid$Vector$gridVector, -4, 11)
+																														}),
+																														author$project$Architecture$Curtain$curtainSegment(
+																														{
+																															segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$QuarterTurnClockwise),
+																															translation: A2(author$project$Grid$Vector$gridVector, -4, 7)
+																														}),
+																														straightSegmentAcrossRoom,
+																														windowTurn
+																													])
+																												]),
+																											_List_fromArray(
+																												[straightSegmentAcrossRoom, windowTurn]),
+																											_List_fromArray(
+																												[
+																													_List_fromArray(
+																													[
+																														author$project$Architecture$Curtain$curtainSegment(
+																														{
+																															segmentType: A2(author$project$Architecture$Curtain$FoldedSegment, (((lengthAcrossRoom + lengthAlongRoom) / 5) | 0) + 4, author$project$Architecture$Curtain$OnEastWestAxis),
+																															translation: A2(author$project$Grid$Vector$gridVector, 48, 0)
+																														})
+																													]),
+																													_List_fromArray(
+																													[
+																														windowTurn,
+																														author$project$Architecture$Curtain$curtainSegment(
+																														{
+																															segmentType: A2(author$project$Architecture$Curtain$TurnOffsetSegment, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
+																															translation: A2(author$project$Grid$Vector$gridVector, 62, -4)
+																														}),
+																														author$project$Architecture$Curtain$curtainSegment(
+																														{
+																															segmentType: A3(author$project$Architecture$Curtain$StraightSegment, 25, author$project$Grid$Flip$NoFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
+																															translation: A2(author$project$Grid$Vector$gridVector, 57, -12)
+																														})
+																													])
+																												]));
+																									}()),
+																								author$project$Grid$Rotation$NoRotation,
+																								A2(author$project$Grid$Vector$gridVector, 44, 30)),
 																							A2(
 																								author$project$Architecture$Item$withEquipment,
 																								A3(
 																									author$project$Architecture$Equipment$equipment,
-																									author$project$Architecture$Equipment$TableWithoutSeatsAtHead(author$project$Architecture$Equipment$BarTable),
-																									elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnClockwise),
-																									A2(author$project$Grid$Vector$gridVector, -46, -74)),
+																									author$project$Architecture$Equipment$Curtain(
+																										function () {
+																											var windowTurn = author$project$Architecture$Curtain$curtainSegment(
+																												{
+																													segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius400, author$project$Grid$Rotation$QuarterTurnCounterclockwise),
+																													translation: A2(author$project$Grid$Vector$gridVector, 62, -4)
+																												});
+																											var lengthAlongRoom = 21;
+																											var lengthAcrossRoom = 55;
+																											var straightSegmentAcrossRoom = author$project$Architecture$Curtain$curtainSegment(
+																												{
+																													segmentType: A3(author$project$Architecture$Curtain$StraightSegment, lengthAcrossRoom, author$project$Grid$Flip$VerticalFlip, author$project$Architecture$Curtain$OnEastWestAxis),
+																													translation: A2(author$project$Grid$Vector$gridVector, 3, 0)
+																												});
+																											return A3(
+																												author$project$Architecture$Curtain$curtain,
+																												_List_fromArray(
+																													[
+																														_List_fromArray(
+																														[
+																															author$project$Architecture$Curtain$curtainSegment(
+																															{
+																																segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$HalfTurn),
+																																translation: A2(author$project$Grid$Vector$gridVector, 3, 35)
+																															}),
+																															author$project$Architecture$Curtain$curtainSegment(
+																															{
+																																segmentType: A3(author$project$Architecture$Curtain$AsymetricalStraightSegment, lengthAlongRoom, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
+																																translation: A2(author$project$Grid$Vector$gridVector, -4, 28)
+																															}),
+																															author$project$Architecture$Curtain$curtainSegment(
+																															{
+																																segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$QuarterTurnClockwise),
+																																translation: A2(author$project$Grid$Vector$gridVector, -4, 7)
+																															}),
+																															straightSegmentAcrossRoom,
+																															windowTurn
+																														])
+																													]),
+																												_List_fromArray(
+																													[straightSegmentAcrossRoom, windowTurn]),
+																												_List_fromArray(
+																													[
+																														_List_fromArray(
+																														[
+																															author$project$Architecture$Curtain$curtainSegment(
+																															{
+																																segmentType: A2(author$project$Architecture$Curtain$FoldedSegment, ((lengthAcrossRoom + lengthAlongRoom) / 5) | 0, author$project$Architecture$Curtain$OnEastWestAxis),
+																																translation: A2(author$project$Grid$Vector$gridVector, 46, 0)
+																															}),
+																															author$project$Architecture$Curtain$curtainSegment(
+																															{
+																																segmentType: A2(author$project$Architecture$Curtain$FoldedSegment, 4, author$project$Architecture$Curtain$OnSouthNorthAxis),
+																																translation: A2(author$project$Grid$Vector$gridVector, 62, 1)
+																															})
+																														]),
+																														_List_fromArray(
+																														[
+																															windowTurn,
+																															author$project$Architecture$Curtain$curtainSegment(
+																															{
+																																segmentType: A2(author$project$Architecture$Curtain$TurnOffsetSegment, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
+																																translation: A2(author$project$Grid$Vector$gridVector, 62, -4)
+																															}),
+																															author$project$Architecture$Curtain$curtainSegment(
+																															{
+																																segmentType: A3(author$project$Architecture$Curtain$StraightSegment, 43, author$project$Grid$Flip$NoFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
+																																translation: A2(author$project$Grid$Vector$gridVector, 57, -12)
+																															})
+																														])
+																													]));
+																										}()),
+																									author$project$Grid$Rotation$NoRotation,
+																									A2(author$project$Grid$Vector$gridVector, 44, -7)),
 																								A2(
 																									author$project$Architecture$Item$withEquipment,
 																									A3(
 																										author$project$Architecture$Equipment$equipment,
-																										author$project$Architecture$Equipment$Kitchenette(
-																											{
-																												counterLength: 29,
-																												kitchenEquipment: _List_fromArray(
-																													[
-																														author$project$Architecture$Equipment$Stove(
-																														_List_fromArray(
-																															[
-																																author$project$Utilities$translate(
-																																author$project$Grid$Vector$toVector2d(
-																																	A2(author$project$Grid$Vector$gridVector, 5, 0)))
-																															])),
-																														author$project$Architecture$Equipment$Sink(
-																														_List_fromArray(
-																															[
-																																author$project$Utilities$translate(
-																																author$project$Grid$Vector$toVector2d(
-																																	A2(author$project$Grid$Vector$gridVector, 17, 0)))
-																															])),
-																														A2(
-																														author$project$Architecture$Equipment$BuiltInFridge,
-																														A2(author$project$Grid$Vector$gridVector, 29, -5),
-																														elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnClockwise)),
-																														author$project$Architecture$Equipment$Dishwasher,
-																														author$project$Architecture$Equipment$Oven
-																													])
-																											}),
-																										elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnCounterclockwise),
-																										A2(author$project$Grid$Vector$gridVector, -72, -76)),
+																										author$project$Architecture$Equipment$TableWithoutSeatsAtHead(author$project$Architecture$Equipment$BarTable),
+																										author$project$Grid$Rotation$QuarterTurnClockwise,
+																										A2(author$project$Grid$Vector$gridVector, -46, -74)),
 																									A2(
 																										author$project$Architecture$Item$withEquipment,
 																										A3(
 																											author$project$Architecture$Equipment$equipment,
-																											author$project$Architecture$Equipment$LoungeChairWithSideTable,
-																											elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn),
-																											A2(author$project$Grid$Vector$gridVector, 43, -83)),
+																											author$project$Architecture$Equipment$Kitchenette(
+																												{
+																													counterLength: 29,
+																													kitchenEquipment: _List_fromArray(
+																														[
+																															author$project$Architecture$Equipment$Stove(
+																															_List_fromArray(
+																																[
+																																	author$project$Utilities$translate(
+																																	author$project$Grid$Vector$toVector2d(
+																																		A2(author$project$Grid$Vector$gridVector, 5, 0)))
+																																])),
+																															author$project$Architecture$Equipment$Sink(
+																															_List_fromArray(
+																																[
+																																	author$project$Utilities$translate(
+																																	author$project$Grid$Vector$toVector2d(
+																																		A2(author$project$Grid$Vector$gridVector, 17, 0)))
+																																])),
+																															A2(
+																															author$project$Architecture$Equipment$BuiltInFridge,
+																															A2(author$project$Grid$Vector$gridVector, 29, -5),
+																															author$project$Grid$Rotation$QuarterTurnClockwise),
+																															author$project$Architecture$Equipment$Dishwasher,
+																															author$project$Architecture$Equipment$Oven
+																														])
+																												}),
+																											author$project$Grid$Rotation$QuarterTurnCounterclockwise,
+																											A2(author$project$Grid$Vector$gridVector, -72, -76)),
 																										A2(
 																											author$project$Architecture$Item$withEquipment,
 																											A3(
 																												author$project$Architecture$Equipment$equipment,
-																												A2(
-																													author$project$Architecture$Equipment$Desk,
-																													author$project$Architecture$Equipment$NoDeskPanel,
-																													{chairOffsets: _List_Nil, length: 14, width: 7}),
-																												elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnCounterclockwise),
-																												A2(author$project$Grid$Vector$gridVector, 71, -79)),
+																												author$project$Architecture$Equipment$LoungeChairWithSideTable,
+																												author$project$Grid$Rotation$HalfTurn,
+																												A2(author$project$Grid$Vector$gridVector, 43, -83)),
 																											A2(
 																												author$project$Architecture$Item$withEquipment,
 																												A3(
 																													author$project$Architecture$Equipment$equipment,
 																													A2(
 																														author$project$Architecture$Equipment$Desk,
-																														author$project$Architecture$Equipment$VerticalDeskPanel(
-																															{from: 8, to: -4}),
-																														{
-																															chairOffsets: _List_fromArray(
-																																[7]),
-																															length: 14,
-																															width: 7
-																														}),
-																													elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnCounterclockwise),
-																													A2(author$project$Grid$Vector$gridVector, 59, -79)),
+																														author$project$Architecture$Equipment$NoDeskPanel,
+																														{chairOffsets: _List_Nil, length: 14, width: 7}),
+																													author$project$Grid$Rotation$QuarterTurnCounterclockwise,
+																													A2(author$project$Grid$Vector$gridVector, 71, -79)),
 																												A2(
 																													author$project$Architecture$Item$withEquipment,
 																													A3(
 																														author$project$Architecture$Equipment$equipment,
-																														author$project$Architecture$Equipment$Shelving(22),
-																														elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnClockwise),
-																														A2(author$project$Grid$Vector$gridVector, 63, -88)),
+																														A2(
+																															author$project$Architecture$Equipment$Desk,
+																															author$project$Architecture$Equipment$VerticalDeskPanel(
+																																{from: 8, to: -4}),
+																															{
+																																chairOffsets: _List_fromArray(
+																																	[7]),
+																																length: 14,
+																																width: 7
+																															}),
+																														author$project$Grid$Rotation$QuarterTurnCounterclockwise,
+																														A2(author$project$Grid$Vector$gridVector, 59, -79)),
 																													A2(
 																														author$project$Architecture$Item$withEquipment,
 																														A3(
 																															author$project$Architecture$Equipment$equipment,
-																															author$project$Architecture$Equipment$Pegwall(37),
-																															elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnClockwise),
-																															A2(author$project$Grid$Vector$gridVector, 55, -62)),
+																															author$project$Architecture$Equipment$Shelving(22),
+																															author$project$Grid$Rotation$QuarterTurnClockwise,
+																															A2(author$project$Grid$Vector$gridVector, 63, -88)),
 																														A2(
 																															author$project$Architecture$Item$withEquipment,
 																															A3(
 																																author$project$Architecture$Equipment$equipment,
-																																author$project$Architecture$Equipment$TableWithoutSeatsAtHead(
-																																	author$project$Architecture$Equipment$DiningTable(
-																																		{length: 20, width: 10})),
-																																elm$core$Maybe$Nothing,
-																																A2(author$project$Grid$Vector$gridVector, 1, -80)),
+																																author$project$Architecture$Equipment$Pegwall(37),
+																																author$project$Grid$Rotation$QuarterTurnClockwise,
+																																A2(author$project$Grid$Vector$gridVector, 55, -62)),
 																															A2(
-																																author$project$Architecture$Item$withWall,
+																																author$project$Architecture$Item$withEquipment,
 																																A3(
-																																	author$project$Architecture$Wall$betweenControlPoints,
-																																	author$project$Architecture$Wall$DividingWall,
-																																	A2(author$project$Grid$Point$gridPoint, -14, 87),
-																																	A2(author$project$Grid$Point$gridPoint, -14, -32)),
+																																	author$project$Architecture$Equipment$equipment,
+																																	author$project$Architecture$Equipment$TableWithoutSeatsAtHead(
+																																		author$project$Architecture$Equipment$DiningTable(
+																																			{length: 20, width: 10})),
+																																	author$project$Grid$Rotation$NoRotation,
+																																	A2(author$project$Grid$Vector$gridVector, 1, -80)),
 																																A2(
 																																	author$project$Architecture$Item$withWall,
 																																	A3(
 																																		author$project$Architecture$Wall$betweenControlPoints,
-																																		author$project$Architecture$Wall$DividingWall,
-																																		A2(author$project$Grid$Point$gridPoint, -57, -56),
-																																		A2(author$project$Grid$Point$gridPoint, -57, -60)),
+																																		author$project$Architecture$Wall$GlassPartition,
+																																		A2(author$project$Grid$Point$gridPoint, -13, 50),
+																																		A2(author$project$Grid$Point$gridPoint, 6, 50)),
 																																	A2(
 																																		author$project$Architecture$Item$withWall,
 																																		A3(
 																																			author$project$Architecture$Wall$betweenControlPoints,
 																																			author$project$Architecture$Wall$DividingWall,
-																																			A2(author$project$Grid$Point$gridPoint, -65, -54),
-																																			A2(author$project$Grid$Point$gridPoint, -65, -56)),
+																																			A2(author$project$Grid$Point$gridPoint, 8, 51),
+																																			A2(author$project$Grid$Point$gridPoint, 73, 51)),
 																																		A2(
 																																			author$project$Architecture$Item$withWall,
 																																			A3(
 																																				author$project$Architecture$Wall$betweenControlPoints,
 																																				author$project$Architecture$Wall$DividingWall,
-																																				A2(author$project$Grid$Point$gridPoint, -63, -54),
-																																				A2(author$project$Grid$Point$gridPoint, -57, -54)),
+																																				A2(author$project$Grid$Point$gridPoint, -14, 87),
+																																				A2(author$project$Grid$Point$gridPoint, -14, -32)),
 																																			A2(
 																																				author$project$Architecture$Item$withWall,
+																																				A3(
+																																					author$project$Architecture$Wall$betweenControlPoints,
+																																					author$project$Architecture$Wall$DividingWall,
+																																					A2(author$project$Grid$Point$gridPoint, -57, -56),
+																																					A2(author$project$Grid$Point$gridPoint, -57, -60)),
 																																				A2(
-																																					author$project$Architecture$Wall$withDoor,
-																																					A3(doorBetweenRooms, author$project$Architecture$Door$SouthOrEast, author$project$Architecture$Door$HingesOnLeft, 45),
+																																					author$project$Architecture$Item$withWall,
 																																					A3(
 																																						author$project$Architecture$Wall$betweenControlPoints,
 																																						author$project$Architecture$Wall$DividingWall,
-																																						A2(author$project$Grid$Point$gridPoint, -55, -60),
-																																						A2(author$project$Grid$Point$gridPoint, 20, -60))),
-																																				A2(
-																																					author$project$Architecture$Item$withWall,
-																																					A2(
-																																						author$project$Architecture$Wall$withDoor,
-																																						A3(doorBetweenRooms, author$project$Architecture$Door$SouthOrEast, author$project$Architecture$Door$HingesOnRight, 2),
-																																						A3(
-																																							author$project$Architecture$Wall$betweenControlPoints,
-																																							author$project$Architecture$Wall$GlassPartition,
-																																							A2(author$project$Grid$Point$gridPoint, -20, -62),
-																																							A2(author$project$Grid$Point$gridPoint, -20, -90))),
+																																						A2(author$project$Grid$Point$gridPoint, -65, -54),
+																																						A2(author$project$Grid$Point$gridPoint, -65, -56)),
 																																					A2(
 																																						author$project$Architecture$Item$withWall,
-																																						A2(
-																																							author$project$Architecture$Wall$withDoor,
-																																							A3(doorBetweenRooms, author$project$Architecture$Door$SouthOrEast, author$project$Architecture$Door$HingesOnRight, 2),
-																																							A3(
-																																								author$project$Architecture$Wall$betweenControlPoints,
-																																								author$project$Architecture$Wall$GlassPartition,
-																																								A2(author$project$Grid$Point$gridPoint, 20, -62),
-																																								A2(author$project$Grid$Point$gridPoint, 20, -90))),
+																																						A3(
+																																							author$project$Architecture$Wall$betweenControlPoints,
+																																							author$project$Architecture$Wall$DividingWall,
+																																							A2(author$project$Grid$Point$gridPoint, -63, -54),
+																																							A2(author$project$Grid$Point$gridPoint, -57, -54)),
 																																						A2(
 																																							author$project$Architecture$Item$withWall,
 																																							A2(
 																																								author$project$Architecture$Wall$withDoor,
-																																								A3(doorBetweenRooms, author$project$Architecture$Door$SouthOrEast, author$project$Architecture$Door$HingesOnRight, 2),
-																																								A3(
-																																									author$project$Architecture$Wall$betweenControlPoints,
-																																									author$project$Architecture$Wall$GlassPartition,
-																																									A2(author$project$Grid$Point$gridPoint, -14, -34),
-																																									A2(author$project$Grid$Point$gridPoint, -14, -59))),
-																																							A2(
-																																								author$project$Architecture$Item$withWall,
+																																								A3(doorBetweenRooms, author$project$Architecture$Door$SouthOrEast, author$project$Architecture$Door$HingesOnLeft, 45),
 																																								A3(
 																																									author$project$Architecture$Wall$betweenControlPoints,
 																																									author$project$Architecture$Wall$DividingWall,
-																																									A2(author$project$Grid$Point$gridPoint, 38, -60),
-																																									A2(author$project$Grid$Point$gridPoint, 73, -60)),
+																																									A2(author$project$Grid$Point$gridPoint, -55, -60),
+																																									A2(author$project$Grid$Point$gridPoint, 20, -60))),
+																																							A2(
+																																								author$project$Architecture$Item$withWall,
 																																								A2(
-																																									author$project$Architecture$Item$withWall,
+																																									author$project$Architecture$Wall$withDoor,
+																																									A3(doorBetweenRooms, author$project$Architecture$Door$SouthOrEast, author$project$Architecture$Door$HingesOnRight, 2),
 																																									A3(
 																																										author$project$Architecture$Wall$betweenControlPoints,
-																																										author$project$Architecture$Wall$DividingWall,
-																																										A2(author$project$Grid$Point$gridPoint, 8, -44),
-																																										A2(author$project$Grid$Point$gridPoint, 53, -44)),
+																																										author$project$Architecture$Wall$GlassPartition,
+																																										A2(author$project$Grid$Point$gridPoint, -20, -62),
+																																										A2(author$project$Grid$Point$gridPoint, -20, -90))),
+																																								A2(
+																																									author$project$Architecture$Item$withWall,
 																																									A2(
-																																										author$project$Session$withExistingWall,
+																																										author$project$Architecture$Wall$withDoor,
+																																										A3(doorBetweenRooms, author$project$Architecture$Door$SouthOrEast, author$project$Architecture$Door$HingesOnRight, 2),
 																																										A3(
-																																											withEntrance,
-																																											author$project$Architecture$Door$HingesOnLeft,
-																																											9600,
-																																											A3(
-																																												withEntrance,
-																																												author$project$Architecture$Door$HingesOnRight,
-																																												4100,
-																																												A3(
-																																													author$project$Architecture$ExistingWall$betweenPoints,
-																																													{thickness: 300},
-																																													ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																														_Utils_Tuple2(7400, -9000)),
-																																													ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																														_Utils_Tuple2(-7500, -9000))))),
+																																											author$project$Architecture$Wall$betweenControlPoints,
+																																											author$project$Architecture$Wall$GlassPartition,
+																																											A2(author$project$Grid$Point$gridPoint, 20, -62),
+																																											A2(author$project$Grid$Point$gridPoint, 20, -90))),
+																																									A2(
+																																										author$project$Architecture$Item$withWall,
 																																										A2(
-																																											author$project$Session$withExistingWall,
+																																											author$project$Architecture$Wall$withDoor,
+																																											A3(doorBetweenRooms, author$project$Architecture$Door$SouthOrEast, author$project$Architecture$Door$HingesOnRight, 2),
+																																											A3(
+																																												author$project$Architecture$Wall$betweenControlPoints,
+																																												author$project$Architecture$Wall$GlassPartition,
+																																												A2(author$project$Grid$Point$gridPoint, -14, -34),
+																																												A2(author$project$Grid$Point$gridPoint, -14, -59))),
+																																										A2(
+																																											author$project$Architecture$Item$withWall,
+																																											A3(
+																																												author$project$Architecture$Wall$betweenControlPoints,
+																																												author$project$Architecture$Wall$DividingWall,
+																																												A2(author$project$Grid$Point$gridPoint, 38, -60),
+																																												A2(author$project$Grid$Point$gridPoint, 73, -60)),
 																																											A2(
-																																												withExteriorWindow,
-																																												16150,
-																																												A2(
-																																													withExteriorWindow,
-																																													12500,
-																																													A2(
-																																														withExteriorWindow,
-																																														10100,
-																																														A2(
-																																															withExteriorWindow,
-																																															6600,
-																																															A2(
-																																																withExteriorWindow,
-																																																4200,
-																																																A2(
-																																																	withExteriorWindow,
-																																																	600,
-																																																	A3(
-																																																		author$project$Architecture$ExistingWall$betweenPoints,
-																																																		{thickness: 300},
-																																																		ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																																			_Utils_Tuple2(7400, 9200)),
-																																																		ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																																			_Utils_Tuple2(7400, -9300))))))))),
-																																											A2(
-																																												author$project$Session$withExistingWall,
+																																												author$project$Architecture$Item$withWall,
 																																												A3(
-																																													author$project$Architecture$ExistingWall$withWindow,
-																																													{width: 2000},
-																																													6100,
-																																													A3(
-																																														author$project$Architecture$ExistingWall$betweenPoints,
-																																														{thickness: 400},
-																																														ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																															_Utils_Tuple2(-7400, 8800)),
-																																														ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																															_Utils_Tuple2(7400, 8800)))),
+																																													author$project$Architecture$Wall$betweenControlPoints,
+																																													author$project$Architecture$Wall$DividingWall,
+																																													A2(author$project$Grid$Point$gridPoint, 8, -44),
+																																													A2(author$project$Grid$Point$gridPoint, 53, -44)),
 																																												A2(
 																																													author$project$Session$withExistingWall,
-																																													A2(
-																																														withExteriorWindow,
-																																														3750,
-																																														A2(
-																																															withExteriorWindow,
-																																															750,
+																																													A3(
+																																														withEntrance,
+																																														author$project$Architecture$Door$HingesOnLeft,
+																																														9600,
+																																														A3(
+																																															withEntrance,
+																																															author$project$Architecture$Door$HingesOnRight,
+																																															4100,
 																																															A3(
 																																																author$project$Architecture$ExistingWall$betweenPoints,
-																																																{thickness: 400},
+																																																{thickness: 300},
 																																																ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																																	_Utils_Tuple2(-7400, 2800)),
+																																																	_Utils_Tuple2(7400, -9000)),
 																																																ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																																	_Utils_Tuple2(-7400, 9200))))),
+																																																	_Utils_Tuple2(-7500, -9000))))),
 																																													A2(
 																																														author$project$Session$withExistingWall,
 																																														A2(
 																																															withExteriorWindow,
-																																															9850,
+																																															16150,
 																																															A2(
 																																																withExteriorWindow,
-																																																6850,
+																																																12500,
 																																																A2(
 																																																	withExteriorWindow,
-																																																	3850,
+																																																	10100,
 																																																	A2(
 																																																		withExteriorWindow,
-																																																		850,
-																																																		A3(
-																																																			author$project$Architecture$ExistingWall$betweenPoints,
-																																																			{thickness: 300},
-																																																			ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																																				_Utils_Tuple2(-7500, -9300)),
-																																																			ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																																				_Utils_Tuple2(-7500, 2800))))))),
+																																																		6600,
+																																																		A2(
+																																																			withExteriorWindow,
+																																																			4200,
+																																																			A2(
+																																																				withExteriorWindow,
+																																																				600,
+																																																				A3(
+																																																					author$project$Architecture$ExistingWall$betweenPoints,
+																																																					{thickness: 300},
+																																																					ianmackenzie$elm_geometry$Point2d$fromCoordinates(
+																																																						_Utils_Tuple2(7400, 9200)),
+																																																					ianmackenzie$elm_geometry$Point2d$fromCoordinates(
+																																																						_Utils_Tuple2(7400, -9300))))))))),
 																																														A2(
 																																															author$project$Session$withExistingWall,
 																																															A3(
-																																																author$project$Architecture$ExistingWall$betweenPoints,
-																																																{thickness: 400},
-																																																ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																																	_Utils_Tuple2(-7500, -6100)),
-																																																ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																																	_Utils_Tuple2(-6400, -6100))),
+																																																author$project$Architecture$ExistingWall$withWindow,
+																																																{width: 2000},
+																																																6100,
+																																																A3(
+																																																	author$project$Architecture$ExistingWall$betweenPoints,
+																																																	{thickness: 400},
+																																																	ianmackenzie$elm_geometry$Point2d$fromCoordinates(
+																																																		_Utils_Tuple2(-7400, 8800)),
+																																																	ianmackenzie$elm_geometry$Point2d$fromCoordinates(
+																																																		_Utils_Tuple2(7400, 8800)))),
 																																															A2(
-																																																author$project$Session$withExistingSlab,
-																																																author$project$Architecture$ExistingSlab$activeFloorAreaWith(
-																																																	{
-																																																		northEastCorner: ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																																			_Utils_Tuple2(7400 + 300, 9200)),
-																																																		southWestCorner: ianmackenzie$elm_geometry$Point2d$fromCoordinates(
-																																																			_Utils_Tuple2((-7500) - 300, -9300))
-																																																	}),
-																																																session)))))))))))))))))))))))))))))))))))))))))))))));
+																																																author$project$Session$withExistingWall,
+																																																A2(
+																																																	withExteriorWindow,
+																																																	3750,
+																																																	A2(
+																																																		withExteriorWindow,
+																																																		750,
+																																																		A3(
+																																																			author$project$Architecture$ExistingWall$betweenPoints,
+																																																			{thickness: 400},
+																																																			ianmackenzie$elm_geometry$Point2d$fromCoordinates(
+																																																				_Utils_Tuple2(-7400, 2800)),
+																																																			ianmackenzie$elm_geometry$Point2d$fromCoordinates(
+																																																				_Utils_Tuple2(-7400, 9200))))),
+																																																A2(
+																																																	author$project$Session$withExistingWall,
+																																																	A2(
+																																																		withExteriorWindow,
+																																																		9850,
+																																																		A2(
+																																																			withExteriorWindow,
+																																																			6850,
+																																																			A2(
+																																																				withExteriorWindow,
+																																																				3850,
+																																																				A2(
+																																																					withExteriorWindow,
+																																																					850,
+																																																					A3(
+																																																						author$project$Architecture$ExistingWall$betweenPoints,
+																																																						{thickness: 300},
+																																																						ianmackenzie$elm_geometry$Point2d$fromCoordinates(
+																																																							_Utils_Tuple2(-7500, -9300)),
+																																																						ianmackenzie$elm_geometry$Point2d$fromCoordinates(
+																																																							_Utils_Tuple2(-7500, 2800))))))),
+																																																	A2(
+																																																		author$project$Session$withExistingWall,
+																																																		A3(
+																																																			author$project$Architecture$ExistingWall$betweenPoints,
+																																																			{thickness: 400},
+																																																			ianmackenzie$elm_geometry$Point2d$fromCoordinates(
+																																																				_Utils_Tuple2(-7500, -6100)),
+																																																			ianmackenzie$elm_geometry$Point2d$fromCoordinates(
+																																																				_Utils_Tuple2(-6400, -6100))),
+																																																		A2(
+																																																			author$project$Session$withExistingSlab,
+																																																			author$project$Architecture$ExistingSlab$activeFloorAreaWith(
+																																																				{
+																																																					northEastCorner: ianmackenzie$elm_geometry$Point2d$fromCoordinates(
+																																																						_Utils_Tuple2(7400 + 300, 9200)),
+																																																					southWestCorner: ianmackenzie$elm_geometry$Point2d$fromCoordinates(
+																																																						_Utils_Tuple2((-7500) - 300, -9300))
+																																																				}),
+																																																			session))))))))))))))))))))))))))))))))))))))))))))))))));
 };
 var author$project$Main$init = F3(
 	function (flags, url, navigationKey) {
@@ -13659,7 +14122,7 @@ var author$project$Grid$Point$fromPosition = F2(
 		return A2(
 			author$project$Grid$Point$GridPoint,
 			fromPixels((position.x - (session.viewport.width / 2)) + viewportOffset.x),
-			fromPixels((position.y - (session.viewport.height / 2)) + viewportOffset.y));
+			-fromPixels((position.y - (session.viewport.height / 2)) + viewportOffset.y));
 	});
 var author$project$Architecture$Item$drawWall = F4(
 	function (model, wallType, startPosition, endPosition) {
@@ -13775,6 +14238,55 @@ var author$project$Architecture$Item$takeEquipmentFromDrawer = F2(
 				level: model.level
 			});
 	});
+var author$project$Architecture$Curtain$update = F2(
+	function (message, _n0) {
+		var data = _n0.a;
+		var _n1 = _Utils_Tuple3(
+			message,
+			elm$core$List$head(data.statusesLeftwardsOfCurrent),
+			elm$core$List$head(data.statusesRightwardsOfCurrent));
+		_n1$2:
+		while (true) {
+			if (_n1.a.$ === 'PullCurtainLeft') {
+				if (_n1.b.$ === 'Just') {
+					var _n2 = _n1.a;
+					var newStatus = _n1.b.a;
+					return author$project$Architecture$Curtain$Curtain(
+						_Utils_update(
+							data,
+							{
+								currentStatus: newStatus,
+								statusesLeftwardsOfCurrent: A2(
+									elm$core$Maybe$withDefault,
+									_List_Nil,
+									elm$core$List$tail(data.statusesLeftwardsOfCurrent)),
+								statusesRightwardsOfCurrent: A2(elm$core$List$cons, data.currentStatus, data.statusesRightwardsOfCurrent)
+							}));
+				} else {
+					break _n1$2;
+				}
+			} else {
+				if (_n1.c.$ === 'Just') {
+					var _n3 = _n1.a;
+					var newStatus = _n1.c.a;
+					return author$project$Architecture$Curtain$Curtain(
+						_Utils_update(
+							data,
+							{
+								currentStatus: newStatus,
+								statusesLeftwardsOfCurrent: A2(elm$core$List$cons, data.currentStatus, data.statusesLeftwardsOfCurrent),
+								statusesRightwardsOfCurrent: A2(
+									elm$core$Maybe$withDefault,
+									_List_Nil,
+									elm$core$List$tail(data.statusesRightwardsOfCurrent))
+							}));
+				} else {
+					break _n1$2;
+				}
+			}
+		}
+		return author$project$Architecture$Curtain$Curtain(data);
+	});
 var author$project$Architecture$Equipment$availableRotations = function (equipmentTypeValue) {
 	return author$project$Architecture$Equipment$rawProperties(equipmentTypeValue).availableRotations;
 };
@@ -13806,27 +14318,21 @@ var author$project$Architecture$Equipment$nextRotation = F2(
 		nextRotation:
 		while (true) {
 			var bid = function () {
-				if (currentRotation.$ === 'Just') {
-					switch (currentRotation.a.$) {
-						case 'QuarterTurnClockwise':
-							var _n2 = currentRotation.a;
-							return elm$core$Maybe$Just(author$project$Grid$Rotation$HalfTurn);
-						case 'HalfTurn':
-							var _n3 = currentRotation.a;
-							return elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnCounterclockwise);
-						default:
-							var _n4 = currentRotation.a;
-							return elm$core$Maybe$Nothing;
-					}
-				} else {
-					return elm$core$Maybe$Just(author$project$Grid$Rotation$QuarterTurnClockwise);
+				switch (currentRotation.$) {
+					case 'NoRotation':
+						return author$project$Grid$Rotation$QuarterTurnClockwise;
+					case 'QuarterTurnClockwise':
+						return author$project$Grid$Rotation$HalfTurn;
+					case 'HalfTurn':
+						return author$project$Grid$Rotation$QuarterTurnCounterclockwise;
+					default:
+						return author$project$Grid$Rotation$NoRotation;
 				}
 			}();
-			if (bid.$ === 'Nothing') {
+			if (bid.$ === 'NoRotation') {
 				return bid;
 			} else {
-				var bidValue = bid.a;
-				if (A2(turboMaCk$any_set$Set$Any$member, bidValue, availableSpaceRotations)) {
+				if (A2(turboMaCk$any_set$Set$Any$member, bid, availableSpaceRotations)) {
 					return bid;
 				} else {
 					var $temp$availableSpaceRotations = availableSpaceRotations,
@@ -13854,14 +14360,14 @@ var author$project$Architecture$Equipment$update = F2(
 					{rotation: newRotation}));
 		} else {
 			if (_n1.b.$ === 'Curtain') {
-				var newStatus = _n1.a.a;
-				var _n3 = _n1.b;
-				var dimensions = _n3.a;
+				var curtainMessage = _n1.a.a;
+				var curtain = _n1.b.a;
 				return author$project$Architecture$Equipment$Equipment(
 					_Utils_update(
 						data,
 						{
-							equipmentType: A2(author$project$Architecture$Equipment$Curtain, dimensions, newStatus)
+							equipmentType: author$project$Architecture$Equipment$Curtain(
+								A2(author$project$Architecture$Curtain$update, curtainMessage, curtain))
 						}));
 			} else {
 				return author$project$Architecture$Equipment$Equipment(data);
@@ -14563,27 +15069,6 @@ var mdgriffith$elm_style_animation$Animation$Model$isDone = function (property) 
 var mdgriffith$elm_style_animation$Animation$Model$Easing = function (a) {
 	return {$: 'Easing', a: a};
 };
-var elm$core$List$repeatHelp = F3(
-	function (result, n, value) {
-		repeatHelp:
-		while (true) {
-			if (n <= 0) {
-				return result;
-			} else {
-				var $temp$result = A2(elm$core$List$cons, value, result),
-					$temp$n = n - 1,
-					$temp$value = value;
-				result = $temp$result;
-				n = $temp$n;
-				value = $temp$value;
-				continue repeatHelp;
-			}
-		}
-	});
-var elm$core$List$repeat = F2(
-	function (n, value) {
-		return A3(elm$core$List$repeatHelp, _List_Nil, n, value);
-	});
 var mdgriffith$elm_style_animation$Animation$Model$matchPoints = F2(
 	function (points1, points2) {
 		var diff = elm$core$List$length(points1) - elm$core$List$length(points2);
@@ -18654,7 +19139,6 @@ var author$project$Session$toIfcString = F2(
 	});
 var elm$browser$Browser$Navigation$load = _Browser_load;
 var elm$browser$Browser$Navigation$pushUrl = _Browser_pushUrl;
-var elm$core$Debug$log = _Debug_log;
 var elm$core$Platform$Cmd$map = _Platform_map;
 var elm$time$Time$Name = function (a) {
 	return {$: 'Name', a: a};
@@ -18712,9 +19196,7 @@ var author$project$Main$update = F2(
 	function (message, model) {
 		var navigationKey = author$project$Session$navigationKey(
 			author$project$Main$toSession(model));
-		var _n0 = _Utils_Tuple2(
-			message,
-			A2(elm$core$Debug$log, 'model', model));
+		var _n0 = _Utils_Tuple2(message, model);
 		switch (_n0.a.$) {
 			case 'RequestedIfc':
 				return _Utils_Tuple2(
@@ -18785,6 +19267,11 @@ var author$project$Main$update = F2(
 var author$project$Main$GotLayoutMessage = function (a) {
 	return {$: 'GotLayoutMessage', a: a};
 };
+var author$project$Architecture$Curtain$costEstimateForRtckLoft = F2(
+	function (curtainSystemHeight, _n0) {
+		var data = _n0.a;
+		return 0;
+	});
 var author$project$Architecture$Door$doorType = function (_n0) {
 	var door = _n0.a;
 	return door.doorType;
@@ -18830,7 +19317,7 @@ var author$project$Architecture$Equipment$allAvailable = function () {
 		return A3(
 			author$project$Architecture$Equipment$equipment,
 			equipmentTypeValue,
-			elm$core$Maybe$Nothing,
+			author$project$Grid$Rotation$NoRotation,
 			A2(author$project$Grid$Vector$gridVector, 0, 0));
 	};
 	return A2(
@@ -18897,12 +19384,12 @@ var author$project$Architecture$Equipment$allAvailable = function () {
 							A2(
 							author$project$Architecture$Equipment$BuiltInFridge,
 							A2(author$project$Grid$Vector$gridVector, 30, 0),
-							elm$core$Maybe$Nothing),
+							author$project$Grid$Rotation$NoRotation),
 							A3(
 							author$project$Architecture$Equipment$FullHeightCupboard,
 							{width: 2},
 							A2(author$project$Grid$Vector$gridVector, 36, 0),
-							elm$core$Maybe$Nothing),
+							author$project$Grid$Rotation$NoRotation),
 							author$project$Architecture$Equipment$Sink(
 							_List_fromArray(
 								[
@@ -18944,11 +19431,7 @@ var author$project$Architecture$Equipment$allAvailable = function () {
 					basinOffsets: _List_fromArray(
 						[2, 2]),
 					remainingSpace: 2
-				}),
-				A2(
-				author$project$Architecture$Equipment$Curtain,
-				{lengthAcrossRoom: 30, lengthOverWindow: 10},
-				author$project$Architecture$Equipment$DrawnAcrossRoom)
+				})
 			]));
 }();
 var author$project$Architecture$ExistingItem$getSlab = function (existingItem) {
@@ -19385,10 +19868,6 @@ var author$project$Architecture$Door$renderDoorSymbol = F2(
 				]));
 	});
 var author$project$Styles$SvgStyle$existingDoor = author$project$Styles$SvgStyle$className('existingDoor');
-var author$project$TypedSvg$Types$Scale = F2(
-	function (a, b) {
-		return {$: 'Scale', a: a, b: b};
-	});
 var author$project$Utilities$flipHorizontally = A2(author$project$TypedSvg$Types$Scale, -1, 1);
 var author$project$Utilities$flipVertically = A2(author$project$TypedSvg$Types$Scale, 1, -1);
 var author$project$Architecture$ExistingWall$viewExistingDoor = F3(
@@ -20795,11 +21274,8 @@ var author$project$Pages$Interior$viewBox = function (_n0) {
 		' ',
 		A2(elm$core$List$map, elm$core$String$fromFloat, viewBoxNumbers));
 };
-var author$project$Architecture$Equipment$PulledAway = {$: 'PulledAway'};
-var author$project$Architecture$Equipment$SetCurtainStatus = function (a) {
-	return {$: 'SetCurtainStatus', a: a};
-};
-var author$project$Architecture$Equipment$SetNextRotation = {$: 'SetNextRotation'};
+var author$project$Architecture$Curtain$PullCurtainLeft = {$: 'PullCurtainLeft'};
+var author$project$Architecture$Curtain$PullCurtainRight = {$: 'PullCurtainRight'};
 var author$project$ContextMenuOption$Option = F3(
 	function (icon, clickAction, content) {
 		return {clickAction: clickAction, content: content, icon: icon};
@@ -20830,6 +21306,41 @@ var author$project$Views$Icon$icon = F2(
 						_List_Nil)
 					])));
 	});
+var author$project$Views$Icon$leftArrow = author$project$Views$Icon$icon('M 13.28125 6.78125 L 4.78125 15.28125 L 4.09375 16 L 4.78125 16.71875 L 13.28125 25.21875 L 14.71875 23.78125 L 7.9375 17 L 28 17 L 28 15 L 7.9375 15 L 14.71875 8.21875 Z');
+var author$project$Views$Icon$rightArrow = author$project$Views$Icon$icon('M 18.71875 6.78125 L 17.28125 8.21875 L 24.0625 15 L 4 15 L 4 17 L 24.0625 17 L 17.28125 23.78125 L 18.71875 25.21875 L 27.21875 16.71875 L 27.90625 16 L 27.21875 15.28125 Z');
+var author$project$Architecture$Curtain$options = F2(
+	function (toMessage, _n0) {
+		var data = _n0.a;
+		var pullRight = elm$core$List$isEmpty(data.statusesRightwardsOfCurrent) ? _List_Nil : _List_fromArray(
+			[
+				A3(
+				author$project$ContextMenuOption$Option,
+				author$project$Views$Icon$rightArrow,
+				elm$core$Maybe$Just(
+					toMessage(author$project$Architecture$Curtain$PullCurtainRight)),
+				_List_fromArray(
+					[
+						mdgriffith$style_elements$Element$text('draw curtain')
+					]))
+			]);
+		var pullLeft = elm$core$List$isEmpty(data.statusesLeftwardsOfCurrent) ? _List_Nil : _List_fromArray(
+			[
+				A3(
+				author$project$ContextMenuOption$Option,
+				author$project$Views$Icon$leftArrow,
+				elm$core$Maybe$Just(
+					toMessage(author$project$Architecture$Curtain$PullCurtainLeft)),
+				_List_fromArray(
+					[
+						mdgriffith$style_elements$Element$text('draw curtain')
+					]))
+			]);
+		return _Utils_ap(pullLeft, pullRight);
+	});
+var author$project$Architecture$Equipment$SetNextRotation = {$: 'SetNextRotation'};
+var author$project$Architecture$Equipment$UpdateCurtain = function (a) {
+	return {$: 'UpdateCurtain', a: a};
+};
 var author$project$Views$Icon$clockwiseDownwardArrow = author$project$Views$Icon$icon('M 5 5 L 5 7 C 13.296875 7 20 13.703125 20 22 L 20 23.1875 L 15.71875 18.90625 L 14.28125 20.34375 L 20.28125 26.34375 L 21 27.03125 L 21.71875 26.34375 L 27.71875 20.34375 L 26.28125 18.90625 L 22 23.1875 L 22 22 C 22 12.621094 14.378906 5 5 5 Z');
 var author$project$Views$Icon$clockwiseLeftwardArrow = author$project$Views$Icon$icon('M 25 5 C 25 13.296875 18.296875 20 10 20 L 8.8125 20 L 13.09375 15.71875 L 11.65625 14.28125 L 5.65625 20.28125 L 4.96875 21 L 5.65625 21.71875 L 11.65625 27.71875 L 13.09375 26.28125 L 8.8125 22 L 10 22 C 19.378906 22 27 14.378906 27 5 Z');
 var author$project$Views$Icon$clockwiseRightwardArrow = author$project$Views$Icon$icon('M 20.34375 4.28125 L 18.90625 5.71875 L 23.1875 10 L 22 10 C 12.621094 10 5 17.621094 5 27 L 7 27 C 7 18.703125 13.703125 12 22 12 L 23.1875 12 L 18.90625 16.28125 L 20.34375 17.71875 L 26.34375 11.71875 L 27.03125 11 L 26.34375 10.28125 Z');
@@ -20867,20 +21378,15 @@ var author$project$Architecture$Equipment$options = F2(
 		var data = _n0.a;
 		var rotationIcon = function () {
 			var _n2 = data.rotation;
-			if (_n2.$ === 'Just') {
-				switch (_n2.a.$) {
-					case 'QuarterTurnClockwise':
-						var _n3 = _n2.a;
-						return author$project$Views$Icon$clockwiseLeftwardArrow;
-					case 'HalfTurn':
-						var _n4 = _n2.a;
-						return author$project$Views$Icon$clockwiseUpwardArrow;
-					default:
-						var _n5 = _n2.a;
-						return author$project$Views$Icon$clockwiseRightwardArrow;
-				}
-			} else {
-				return author$project$Views$Icon$clockwiseDownwardArrow;
+			switch (_n2.$) {
+				case 'NoRotation':
+					return author$project$Views$Icon$clockwiseDownwardArrow;
+				case 'QuarterTurnClockwise':
+					return author$project$Views$Icon$clockwiseLeftwardArrow;
+				case 'HalfTurn':
+					return author$project$Views$Icon$clockwiseUpwardArrow;
+				default:
+					return author$project$Views$Icon$clockwiseRightwardArrow;
 			}
 		}();
 		var rotationOptions = (!turboMaCk$any_set$Set$Any$size(
@@ -20896,21 +21402,17 @@ var author$project$Architecture$Equipment$options = F2(
 						mdgriffith$style_elements$Element$text('rotate')
 					]))
 			]);
-		var pullCurtainAway = function (icon) {
-			return A3(
-				author$project$ContextMenuOption$Option,
-				icon,
-				elm$core$Maybe$Just(
-					toMessage(
-						author$project$Architecture$Equipment$SetCurtainStatus(author$project$Architecture$Equipment$PulledAway))),
-				_List_fromArray(
-					[
-						mdgriffith$style_elements$Element$text('pull away')
-					]));
-		};
 		var equipmentOptions = function () {
 			var _n1 = data.equipmentType;
-			return _List_Nil;
+			if (_n1.$ === 'Curtain') {
+				var curtain = _n1.a;
+				return A2(
+					author$project$Architecture$Curtain$options,
+					A2(elm$core$Basics$composeR, author$project$Architecture$Equipment$UpdateCurtain, toMessage),
+					curtain);
+			} else {
+				return _List_Nil;
+			}
 		}();
 		return _Utils_ap(equipmentOptions, rotationOptions);
 	});
@@ -28948,7 +29450,6 @@ var author$project$Views$Icon$magnifyingGlassMinus = author$project$Views$Icon$i
 var author$project$Views$Icon$plus = author$project$Views$Icon$icon('m 17,10 0,5 5,0 0,2 -5,0 0,5 -2,0 0,-5 -5,0 0,-2 5,0 0,-5 z M 16,3 C 8.832031,3 3,8.832031 3,16 3,23.167969 8.832031,29 16,29 23.167969,29 29,23.167969 29,16 29,8.832031 23.167969,3 16,3 Z');
 var author$project$Views$Icon$radioButtonDeselected = author$project$Views$Icon$icon('M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z');
 var author$project$Views$Icon$radioButtonSelected = author$project$Views$Icon$icon('M 16 4 C 9.382813 4 4 9.382813 4 16 C 4 22.617188 9.382813 28 16 28 C 22.617188 28 28 22.617188 28 16 C 28 9.382813 22.617188 4 16 4 Z M 16 6 C 21.535156 6 26 10.464844 26 16 C 26 21.535156 21.535156 26 16 26 C 10.464844 26 6 21.535156 6 16 C 6 10.464844 10.464844 6 16 6 Z M 16 13 C 14.34375 13 13 14.34375 13 16 C 13 17.65625 14.34375 19 16 19 C 17.65625 19 19 17.65625 19 16 C 19 14.34375 17.65625 13 16 13 Z');
-var author$project$Views$Icon$rightArrow = author$project$Views$Icon$icon('M 18.71875 6.78125 L 17.28125 8.21875 L 24.0625 15 L 4 15 L 4 17 L 24.0625 17 L 17.28125 23.78125 L 18.71875 25.21875 L 27.21875 16.71875 L 27.90625 16 L 27.21875 15.28125 Z');
 var author$project$Views$Icon$stairsDown = author$project$Views$Icon$icon('M 20 5 L 20 10 L 15 10 L 15 15 L 10 15 L 10 20 L 5 20 L 5 27 L 7 27 L 7 22 L 12 22 L 12 17 L 17 17 L 17 12 L 22 12 L 22 7 L 27 7 L 27 5 Z M 25.28125 18.28125 L 20 23.5625 L 20 20 L 18 20 L 18 27 L 25 27 L 25 25 L 21.4375 25 L 26.71875 19.71875 Z');
 var author$project$Views$Icon$stairsUp = author$project$Views$Icon$icon('M 20 5 L 20 10 L 15 10 L 15 15 L 10 15 L 10 20 L 5 20 L 5 27 L 7 27 L 7 22 L 12 22 L 12 17 L 17 17 L 17 12 L 22 12 L 22 7 L 27 7 L 27 5 Z M 20 18 L 20 20 L 23.5625 20 L 18.28125 25.28125 L 19.71875 26.71875 L 25 21.4375 L 25 25 L 27 25 L 27 18 Z');
 var author$project$Views$Icon$tapeMeasure = author$project$Views$Icon$icon('M 16 5 C 12.578125 5 9.464844 5.546875 7.09375 6.65625 C 4.722656 7.765625 3 9.601563 3 12 L 3 21 C 3 22.015625 3.511719 22.929688 4.25 23.65625 C 4.988281 24.382813 5.957031 24.980469 7.125 25.46875 C 9.464844 26.441406 12.574219 27 16 27 C 19.425781 27 22.535156 26.441406 24.875 25.46875 C 26.042969 24.980469 27.011719 24.382813 27.75 23.65625 C 28.488281 22.929688 29 22.015625 29 21 L 29 11 L 27 11 L 27 12 C 27 12.890625 26.546875 13.492188 25.59375 14.09375 C 24.640625 14.695313 23.246094 15.144531 21.8125 15.4375 C 18.945313 16.019531 16 16 16 16 C 12.800781 16 9.910156 15.460938 7.90625 14.625 C 6.902344 14.207031 6.132813 13.6875 5.65625 13.21875 C 5.179688 12.75 5 12.367188 5 12 C 5 10.523438 5.964844 9.359375 7.9375 8.4375 C 9.910156 7.515625 12.792969 7 16 7 C 19.207031 7 21.035156 7.515625 21.96875 8.0625 C 22.902344 8.609375 23 9.082031 23 9.40625 C 23 9.867188 22.898438 10.175781 22.65625 10.46875 C 22.414063 10.761719 22.003906 11.042969 21.40625 11.28125 C 20.210938 11.757813 18.289063 12 16 12 C 16 12 14.566406 11.996094 13.1875 11.71875 C 12.5 11.578125 11.835938 11.359375 11.4375 11.125 C 11.132813 10.945313 11.125 10.859375 11.09375 10.75 C 11.285156 10.636719 11.664063 10.496094 12.15625 10.375 C 13.167969 10.128906 14.613281 9.980469 16 10 L 16 8 C 14.46875 7.976563 12.914063 8.101563 11.65625 8.40625 C 11.027344 8.558594 10.484375 8.765625 10 9.0625 C 9.515625 9.359375 9 9.878906 9 10.625 C 9 11.636719 9.710938 12.414063 10.4375 12.84375 C 11.164063 13.273438 12 13.492188 12.8125 13.65625 C 14.433594 13.984375 16 14 16 14 C 18.417969 14 20.5 13.773438 22.125 13.125 C 22.9375 12.800781 23.664063 12.378906 24.1875 11.75 C 24.710938 11.121094 25 10.277344 25 9.40625 C 25 8.394531 24.410156 7.171875 23 6.34375 C 21.589844 5.515625 19.417969 5 16 5 Z M 5 15.28125 C 5.609375 15.734375 6.3125 16.128906 7.125 16.46875 C 9.464844 17.441406 12.574219 18 16 18 C 16 18 19.054688 18.042969 22.1875 17.40625 C 23.753906 17.089844 25.359375 16.597656 26.65625 15.78125 C 26.773438 15.707031 26.886719 15.613281 27 15.53125 L 27 21 C 27 21.367188 26.820313 21.75 26.34375 22.21875 C 26.023438 22.535156 25.570313 22.871094 25 23.1875 L 25 19 L 23 19 L 23 24 C 22.378906 24.1875 21.71875 24.355469 21 24.5 L 21 22 L 19 22 L 19 24.8125 C 18.351563 24.882813 17.691406 24.945313 17 24.96875 L 17 20 L 15 20 L 15 24.96875 C 14.3125 24.945313 13.648438 24.882813 13 24.8125 L 13 22 L 11 22 L 11 24.53125 C 10.269531 24.390625 9.621094 24.199219 9 24 L 9 19 L 7 19 L 7 23.1875 C 6.429688 22.871094 5.976563 22.535156 5.65625 22.21875 C 5.179688 21.75 5 21.367188 5 21 Z');
@@ -29371,7 +29872,6 @@ var ianmackenzie$elm_geometry$Frame2d$relativeTo = function (otherFrame) {
 	};
 };
 var ianmackenzie$elm_geometry$Frame2d$xy = ianmackenzie$elm_geometry$Frame2d$atOrigin;
-var elm$svg$Svg$g = elm$svg$Svg$trustedNode('g');
 var ianmackenzie$elm_geometry_svg$Geometry$Svg$placeIn = F2(
 	function (frame, element) {
 		var _n0 = ianmackenzie$elm_geometry$Direction2d$components(
@@ -29558,7 +30058,6 @@ var mgold$elm_nonempty_list$List$Nonempty$map = F2(
 	});
 var author$project$Pages$Interior$view = function (model) {
 	var windowWidth = 1.8;
-	var warpRatio = 1.18;
 	var wallsControlsButton = author$project$Session$RtckLoft$customWallsEnabled ? _List_fromArray(
 		[
 			A3(
@@ -29613,7 +30112,6 @@ var author$project$Pages$Interior$view = function (model) {
 					]),
 				mdgriffith$style_elements$Element$empty);
 		});
-	var turnRadius = 0.4;
 	var toScrollHandler = F3(
 		function (ctrlKey, deltaX, deltaY) {
 			return {
@@ -29627,10 +30125,10 @@ var author$project$Pages$Interior$view = function (model) {
 	var numberOfWideSills = 2;
 	var numberOfSkylights = 5;
 	var numberOfNarrowSills = 10;
-	var noAccessToEdgeMessage = function (_n35) {
-		var item = _n35.item;
-		var locationPreposition = _n35.locationPreposition;
-		var locationLabel = _n35.locationLabel;
+	var noAccessToEdgeMessage = function (_n33) {
+		var item = _n33.item;
+		var locationPreposition = _n33.locationPreposition;
+		var locationLabel = _n33.locationLabel;
 		return locationPreposition + (' the ' + (author$project$Architecture$Item$name(item) + (', there’s not enough space ' + (locationLabel + '.'))));
 	};
 	var loftWidth = 17.7;
@@ -29638,10 +30136,10 @@ var author$project$Pages$Interior$view = function (model) {
 	var loftHeight = 3.2;
 	var itemsOnCurrentLevel = author$project$Pages$Interior$items(model);
 	var itemsOnPlan = function () {
-		var _n33 = model.dragAndDropState;
-		if ((_n33.$ === 'DraggingOrTapping') && (_n33.a.$ === 'GrabbedFromPlan')) {
-			var _n34 = _n33.a;
-			var item = _n33.b;
+		var _n31 = model.dragAndDropState;
+		if ((_n31.$ === 'DraggingOrTapping') && (_n31.a.$ === 'GrabbedFromPlan')) {
+			var _n32 = _n31.a;
+			var item = _n31.b;
 			return A2(elm$core$List$cons, item, itemsOnCurrentLevel);
 		} else {
 			return itemsOnCurrentLevel;
@@ -29651,20 +30149,6 @@ var author$project$Pages$Interior$view = function (model) {
 		elm$core$List$map,
 		author$project$Grid$Footprint$toBoundingBoxes,
 		A2(elm$core$List$map, author$project$Architecture$Item$footprint, itemsOnPlan));
-	var spacesOnPlan = A2(elm$core$List$filterMap, author$project$Architecture$Item$getEquipment, itemsOnPlan);
-	var numberOfConferenceTables = elm$core$List$length(
-		A2(
-			elm$core$List$filter,
-			function (equipment) {
-				var _n32 = author$project$Architecture$Equipment$equipmentType(equipment);
-				if ((_n32.$ === 'TableWithoutSeatsAtHead') && (_n32.a.$ === 'DiningTable')) {
-					return true;
-				} else {
-					return false;
-				}
-			},
-			spacesOnPlan));
-	var numberOfConferenceChairs = numberOfConferenceTables * 6;
 	var wallsOnPlan = function (expectedWallType) {
 		return A2(
 			elm$core$List$filter,
@@ -29693,29 +30177,29 @@ var author$project$Pages$Interior$view = function (model) {
 		});
 	var totalNumberOfInteriorDoors = A2(numberOfInteriorDoors, author$project$Architecture$Wall$DividingWall, author$project$Architecture$Door$Basic) + A2(numberOfInteriorDoors, author$project$Architecture$Wall$DividingWall, author$project$Architecture$Door$GlassFullHeight);
 	var itemsDisplayed = function () {
-		var _n29 = A4(author$project$Pages$Interior$ItemsViewData, model.uiMode, model.dragAndDropState, model.lastMouseDownPosition, model.currentMouseMovePosition);
-		_n29$2:
+		var _n28 = A4(author$project$Pages$Interior$ItemsViewData, model.uiMode, model.dragAndDropState, model.lastMouseDownPosition, model.currentMouseMovePosition);
+		_n28$2:
 		while (true) {
-			switch (_n29.b.$) {
+			switch (_n28.b.$) {
 				case 'DrawingWall':
-					if (((_n29.a.$ === 'BuildingWalls') && (_n29.c.$ === 'Just')) && (_n29.d.$ === 'Just')) {
-						var wallType = _n29.a.a;
-						var _n30 = _n29.b;
-						var startPosition = _n29.c.a;
-						var endPosition = _n29.d.a;
+					if (((_n28.a.$ === 'BuildingWalls') && (_n28.c.$ === 'Just')) && (_n28.d.$ === 'Just')) {
+						var wallType = _n28.a.a;
+						var _n29 = _n28.b;
+						var startPosition = _n28.c.a;
+						var endPosition = _n28.d.a;
 						return A2(
 							elm$core$List$cons,
 							A4(author$project$Architecture$Item$drawWall, model, wallType, startPosition, endPosition),
 							itemsOnCurrentLevel);
 					} else {
-						break _n29$2;
+						break _n28$2;
 					}
 				case 'DraggingOrTapping':
-					var _n31 = _n29.b;
-					var item = _n31.b;
+					var _n30 = _n28.b;
+					var item = _n30.b;
 					return A2(elm$core$List$cons, item, itemsOnCurrentLevel);
 				default:
-					break _n29$2;
+					break _n28$2;
 			}
 		}
 		return itemsOnCurrentLevel;
@@ -29734,6 +30218,20 @@ var author$project$Pages$Interior$view = function (model) {
 	var itemBoundingBoxes = elm$core$List$concat(
 		_Utils_ap(otherItemsBoundingBoxes, existingItemsBoundingBoxes));
 	var existingItems = author$project$Architecture$ExistingItem$planView(model.session.existingItems);
+	var equipmentOnPlan = A2(elm$core$List$filterMap, author$project$Architecture$Item$getEquipment, itemsOnPlan);
+	var numberOfConferenceTables = elm$core$List$length(
+		A2(
+			elm$core$List$filter,
+			function (equipment) {
+				var _n27 = author$project$Architecture$Equipment$equipmentType(equipment);
+				if ((_n27.$ === 'TableWithoutSeatsAtHead') && (_n27.a.$ === 'DiningTable')) {
+					return true;
+				} else {
+					return false;
+				}
+			},
+			equipmentOnPlan));
+	var numberOfConferenceChairs = numberOfConferenceTables * 6;
 	var drawerHeading2 = function (heading) {
 		return A3(
 			mdgriffith$style_elements$Element$el,
@@ -29752,18 +30250,6 @@ var author$project$Pages$Interior$view = function (model) {
 				[mdgriffith$style_elements$Element$Attributes$alignLeft]),
 			mdgriffith$style_elements$Element$text(content));
 	};
-	var curtainDimensions = A2(
-		elm$core$List$filterMap,
-		function (equipment) {
-			var _n28 = author$project$Architecture$Equipment$equipmentType(equipment);
-			if (_n28.$ === 'Curtain') {
-				var dimensions = _n28.a;
-				return elm$core$Maybe$Just(dimensions);
-			} else {
-				return elm$core$Maybe$Nothing;
-			}
-		},
-		spacesOnPlan);
 	var cumulativeLengthOfWalls = function (expectedWallType) {
 		return author$project$Grid$Units$toMeters(
 			A3(
@@ -29775,26 +30261,6 @@ var author$project$Pages$Interior$view = function (model) {
 				0,
 				wallsOnPlan(expectedWallType)));
 	};
-	var cumulativeLengthOfCurtains = A3(
-		elm$core$List$foldl,
-		F2(
-			function (_n27, totalLength) {
-				var lengthAcrossRoom = _n27.lengthAcrossRoom;
-				return ((totalLength + author$project$Grid$Units$toMeters(lengthAcrossRoom)) + (((elm$core$Basics$pi / 2) - 1) * turnRadius)) * warpRatio;
-			}),
-		0,
-		curtainDimensions);
-	var cumulativeLengthOfCurtainTracks = author$project$Grid$Units$toMeters(
-		A3(
-			elm$core$List$foldl,
-			F2(
-				function (_n26, totalLength) {
-					var lengthAcrossRoom = _n26.lengthAcrossRoom;
-					var lengthOverWindow = _n26.lengthOverWindow;
-					return (totalLength + lengthAcrossRoom) + lengthOverWindow;
-				}),
-			0,
-			curtainDimensions));
 	var countOfEquipment = function (expectedEquipmentType) {
 		return elm$core$List$length(
 			A2(
@@ -29804,7 +30270,7 @@ var author$project$Pages$Interior$view = function (model) {
 						author$project$Architecture$Equipment$equipmentType(equipment),
 						expectedEquipmentType);
 				},
-				spacesOnPlan));
+				equipmentOnPlan));
 	};
 	var numberOfBarTables = countOfEquipment(
 		author$project$Architecture$Equipment$TableWithoutSeatsAtHead(author$project$Architecture$Equipment$BarTable));
@@ -29835,7 +30301,6 @@ var author$project$Pages$Interior$view = function (model) {
 	var costOfElectricalInstallation = ((200 * 32) + (7 * 170)) + (16 * (200 + 90));
 	var costOfDividingWalls = ((200 * loftHeight) * cumulativeLengthOfWalls(author$project$Architecture$Wall$DividingWall)) + ((50 * loftHeight) * 13.2);
 	var costOfDetailedDesign = 15 * floorArea;
-	var costOfCurtainSystem = (((loftHeight - 0.6) * cumulativeLengthOfCurtains) * 220) + (cumulativeLengthOfCurtainTracks * 350);
 	var costOfConferenceTables = numberOfConferenceTables * 800;
 	var costOfConferenceChairs = numberOfConferenceChairs * 150;
 	var costOfConceptualDesign = 30 * floorArea;
@@ -29869,9 +30334,9 @@ var author$project$Pages$Interior$view = function (model) {
 	var conjunctions = _List_fromArray(
 		['Also,', 'As well as that,', 'Don’t forget that', 'In addition,', 'Moreover,', 'Keep in mind that']);
 	var comfortUi = function () {
-		var _n25 = model.comfortIssueCache;
-		if (_n25.$ === 'Just') {
-			var edges = _n25.a.a;
+		var _n26 = model.comfortIssueCache;
+		if (_n26.$ === 'Just') {
+			var edges = _n26.a.a;
 			return {
 				buttonType: author$project$Styles$Style$WithWarning,
 				icon: author$project$Views$Icon$tapeMeasure,
@@ -29924,6 +30389,23 @@ var author$project$Pages$Interior$view = function (model) {
 					return A2(breakdownRow, singularLabel + 's', price);
 			}
 		});
+	var allCurtains = A2(
+		elm$core$List$filterMap,
+		function (equipment) {
+			var _n24 = author$project$Architecture$Equipment$equipmentType(equipment);
+			if (_n24.$ === 'Curtain') {
+				var curtain = _n24.a;
+				return elm$core$Maybe$Just(curtain);
+			} else {
+				return elm$core$Maybe$Nothing;
+			}
+		},
+		equipmentOnPlan);
+	var costOfCurtainSystem = elm$core$List$sum(
+		A2(
+			elm$core$List$map,
+			author$project$Architecture$Curtain$costEstimateForRtckLoft(loftHeight - 0.6),
+			allCurtains));
 	var _n0 = A3(
 		elm$core$List$foldl,
 		F2(
@@ -29946,7 +30428,7 @@ var author$project$Pages$Interior$view = function (model) {
 					return elm$core$Maybe$Nothing;
 				}
 			},
-			spacesOnPlan));
+			equipmentOnPlan));
 	var numberOfStorageUnits = _n0.a;
 	var costOfStorage = _n0.b;
 	var _n3 = A3(
@@ -29971,7 +30453,7 @@ var author$project$Pages$Interior$view = function (model) {
 					return elm$core$Maybe$Nothing;
 				}
 			},
-			spacesOnPlan));
+			equipmentOnPlan));
 	var numberOfPegwalls = _n3.a;
 	var costOfPegwalls = _n3.b;
 	var _n6 = A3(
@@ -30000,7 +30482,7 @@ var author$project$Pages$Interior$view = function (model) {
 						return elm$core$Maybe$Nothing;
 				}
 			},
-			spacesOnPlan));
+			equipmentOnPlan));
 	var numberOfLoungeChairs = _n6.a;
 	var costOfLoungeChairs = _n6.b;
 	var _n10 = A3(
@@ -30016,8 +30498,8 @@ var author$project$Pages$Interior$view = function (model) {
 					((price + (elm$core$Basics$ceiling((counterLength - 10) / 4) * 460)) + (counterLength * 10)) + A3(
 						elm$core$List$foldl,
 						F2(
-							function (equipmentType, equimpentPrice) {
-								return equimpentPrice + function () {
+							function (equipmentType, equipmentPrice) {
+								return equipmentPrice + function () {
 									switch (equipmentType.$) {
 										case 'Sink':
 											return 300 + 300;
@@ -30053,7 +30535,7 @@ var author$project$Pages$Interior$view = function (model) {
 					return elm$core$Maybe$Nothing;
 				}
 			},
-			spacesOnPlan));
+			equipmentOnPlan));
 	var numberOfKitchens = _n10.a;
 	var costOfKitchens = _n10.b;
 	var _n15 = A3(
@@ -30092,7 +30574,7 @@ var author$project$Pages$Interior$view = function (model) {
 					return elm$core$Maybe$Nothing;
 				}
 			},
-			spacesOnPlan));
+			equipmentOnPlan));
 	var numberOfDesks = _n15.a;
 	var numberOfDeskChairs = _n15.b;
 	var costOfDesks = _n15.c;
