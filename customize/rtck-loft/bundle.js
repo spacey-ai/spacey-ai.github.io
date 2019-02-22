@@ -6394,6 +6394,196 @@ var author$project$Architecture$Curtain$view = function (_n0) {
 	var currentStatus = _n0.a.currentStatus;
 	return A2(elm$core$List$map, author$project$Architecture$Curtain$viewSegment, currentStatus);
 };
+var author$project$Styles$SvgStyle$className = function (original) {
+	return original + '-329874629';
+};
+var author$project$Styles$SvgStyle$doorPanel = author$project$Styles$SvgStyle$className('doorPanel');
+var author$project$Svg$Path$Internal$ArcTo = F4(
+	function (a, b, c, d) {
+		return {$: 'ArcTo', a: a, b: b, c: c, d: d};
+	});
+var author$project$Svg$Path$arcTo = F4(
+	function (radius, xstartangle, _n0, point) {
+		var largeArcFlag = _n0.a;
+		var sweepFlag = _n0.b;
+		return A4(
+			author$project$Svg$Path$Internal$ArcTo,
+			radius,
+			xstartangle,
+			_Utils_Tuple2(largeArcFlag, sweepFlag),
+			point);
+	});
+var author$project$Svg$Path$closed = author$project$Svg$Path$CloseOption(true);
+var author$project$Svg$Path$Internal$LineAbsolute = function (a) {
+	return {$: 'LineAbsolute', a: a};
+};
+var author$project$Svg$Path$lineTo = author$project$Svg$Path$Internal$LineAbsolute;
+var author$project$Svg$Path$pathToString = function (path) {
+	return A2(
+		author$project$Svg$Path$instructionsToString,
+		elm$core$Maybe$Nothing,
+		A3(elm$core$List$foldr, author$project$Svg$Path$subPathToInstructions, _List_Nil, path));
+};
+var author$project$TypedSvg$line = author$project$TypedSvg$Core$node('line');
+var author$project$TypedSvg$Attributes$class = function (names) {
+	return A2(
+		author$project$TypedSvg$Core$attribute,
+		'class',
+		A2(elm$core$String$join, ' ', names));
+};
+var author$project$TypedSvg$Attributes$d = author$project$TypedSvg$Core$attribute('d');
+var author$project$TypedSvg$Attributes$stroke = function (value) {
+	return A2(
+		author$project$TypedSvg$Core$attribute,
+		'stroke',
+		author$project$Color$Convert$colorToCssRgba(value));
+};
+var author$project$TypedSvg$TypesToStrings$strokeLinecapToString = function (linecap) {
+	switch (linecap.$) {
+		case 'StrokeLinecapButt':
+			return 'butt';
+		case 'StrokeLinecapRound':
+			return 'round';
+		case 'StrokeLinecapSquare':
+			return 'square';
+		default:
+			return 'inherit';
+	}
+};
+var author$project$TypedSvg$Attributes$strokeLinecap = A2(
+	elm$core$Basics$composeL,
+	author$project$TypedSvg$Core$attribute('stroke-linecap'),
+	author$project$TypedSvg$TypesToStrings$strokeLinecapToString);
+var author$project$TypedSvg$TypesToStrings$lengthToString = function (length) {
+	switch (length.$) {
+		case 'Cm':
+			var x = length.a;
+			return elm$core$String$fromFloat(x) + 'cm';
+		case 'Em':
+			var x = length.a;
+			return elm$core$String$fromFloat(x) + 'em';
+		case 'Ex':
+			var x = length.a;
+			return elm$core$String$fromFloat(x) + 'ex';
+		case 'In':
+			var x = length.a;
+			return elm$core$String$fromFloat(x) + 'in';
+		case 'Mm':
+			var x = length.a;
+			return elm$core$String$fromFloat(x) + 'mm';
+		case 'Num':
+			var x = length.a;
+			return elm$core$String$fromFloat(x);
+		case 'Pc':
+			var x = length.a;
+			return elm$core$String$fromFloat(x) + 'pc';
+		case 'Percent':
+			var x = length.a;
+			return elm$core$String$fromFloat(x) + '%';
+		case 'Pt':
+			var x = length.a;
+			return elm$core$String$fromFloat(x) + 'pt';
+		default:
+			var x = length.a;
+			return elm$core$String$fromFloat(x) + 'px';
+	}
+};
+var author$project$TypedSvg$Attributes$x1 = function (position) {
+	return A2(
+		author$project$TypedSvg$Core$attribute,
+		'x1',
+		author$project$TypedSvg$TypesToStrings$lengthToString(position));
+};
+var author$project$TypedSvg$Types$Px = function (a) {
+	return {$: 'Px', a: a};
+};
+var author$project$TypedSvg$Types$px = author$project$TypedSvg$Types$Px;
+var author$project$TypedSvg$Attributes$InPx$x1 = function (value) {
+	return author$project$TypedSvg$Attributes$x1(
+		author$project$TypedSvg$Types$px(value));
+};
+var author$project$TypedSvg$Attributes$x2 = function (position) {
+	return A2(
+		author$project$TypedSvg$Core$attribute,
+		'x2',
+		author$project$TypedSvg$TypesToStrings$lengthToString(position));
+};
+var author$project$TypedSvg$Attributes$InPx$x2 = function (value) {
+	return author$project$TypedSvg$Attributes$x2(
+		author$project$TypedSvg$Types$px(value));
+};
+var author$project$TypedSvg$Attributes$y1 = function (position) {
+	return A2(
+		author$project$TypedSvg$Core$attribute,
+		'y1',
+		author$project$TypedSvg$TypesToStrings$lengthToString(position));
+};
+var author$project$TypedSvg$Attributes$InPx$y1 = function (value) {
+	return author$project$TypedSvg$Attributes$y1(
+		author$project$TypedSvg$Types$px(value));
+};
+var author$project$TypedSvg$Attributes$y2 = function (position) {
+	return A2(
+		author$project$TypedSvg$Core$attribute,
+		'y2',
+		author$project$TypedSvg$TypesToStrings$lengthToString(position));
+};
+var author$project$TypedSvg$Attributes$InPx$y2 = function (value) {
+	return author$project$TypedSvg$Attributes$y2(
+		author$project$TypedSvg$Types$px(value));
+};
+var author$project$TypedSvg$Types$StrokeLinecapSquare = {$: 'StrokeLinecapSquare'};
+var author$project$Architecture$Door$renderDoorSymbol = F2(
+	function (attributes, door) {
+		return A2(
+			author$project$TypedSvg$g,
+			attributes,
+			_List_fromArray(
+				[
+					A2(
+					author$project$TypedSvg$line,
+					_List_fromArray(
+						[
+							author$project$TypedSvg$Attributes$InPx$x1(0),
+							author$project$TypedSvg$Attributes$InPx$y1(door.wallThickness),
+							author$project$TypedSvg$Attributes$InPx$x2(0),
+							author$project$TypedSvg$Attributes$InPx$y2((-door.clearance) + door.inset),
+							author$project$TypedSvg$Attributes$strokeLinecap(author$project$TypedSvg$Types$StrokeLinecapSquare),
+							author$project$TypedSvg$Attributes$stroke(door.panelColor)
+						]),
+					_List_Nil),
+					A2(
+					author$project$TypedSvg$path,
+					_List_fromArray(
+						[
+							author$project$TypedSvg$Attributes$d(
+							author$project$Svg$Path$pathToString(
+								elm$core$List$singleton(
+									A3(
+										author$project$Svg$Path$subpath,
+										author$project$Svg$Path$startAt(
+											_Utils_Tuple2(0, door.wallThickness)),
+										author$project$Svg$Path$closed,
+										_List_fromArray(
+											[
+												author$project$Svg$Path$lineTo(
+												_Utils_Tuple2(0, (-door.clearance) + door.inset)),
+												A4(
+												author$project$Svg$Path$arcTo,
+												_Utils_Tuple2(door.clearance, door.clearance),
+												0,
+												_Utils_Tuple2(author$project$Svg$Path$smallestArc, author$project$Svg$Path$clockwise),
+												_Utils_Tuple2(door.clearance, door.inset)),
+												author$project$Svg$Path$lineTo(
+												_Utils_Tuple2(door.clearance, door.wallThickness))
+											]))))),
+							author$project$TypedSvg$Attributes$class(
+							_List_fromArray(
+								[author$project$Styles$SvgStyle$doorPanel]))
+						]),
+					_List_Nil)
+				]));
+	});
 var author$project$Grid$Rotation$HalfTurn = {$: 'HalfTurn'};
 var author$project$Grid$Rotation$QuarterTurnCounterclockwise = {$: 'QuarterTurnCounterclockwise'};
 var author$project$Grid$Rotation$rotationKey = function (rotation) {
@@ -6578,50 +6768,12 @@ var author$project$Svg$Path$Internal$LineRelative = function (a) {
 };
 var author$project$Svg$Path$lineBy = author$project$Svg$Path$Internal$LineRelative;
 var author$project$TypedSvg$rect = author$project$TypedSvg$Core$node('rect');
-var author$project$TypedSvg$TypesToStrings$lengthToString = function (length) {
-	switch (length.$) {
-		case 'Cm':
-			var x = length.a;
-			return elm$core$String$fromFloat(x) + 'cm';
-		case 'Em':
-			var x = length.a;
-			return elm$core$String$fromFloat(x) + 'em';
-		case 'Ex':
-			var x = length.a;
-			return elm$core$String$fromFloat(x) + 'ex';
-		case 'In':
-			var x = length.a;
-			return elm$core$String$fromFloat(x) + 'in';
-		case 'Mm':
-			var x = length.a;
-			return elm$core$String$fromFloat(x) + 'mm';
-		case 'Num':
-			var x = length.a;
-			return elm$core$String$fromFloat(x);
-		case 'Pc':
-			var x = length.a;
-			return elm$core$String$fromFloat(x) + 'pc';
-		case 'Percent':
-			var x = length.a;
-			return elm$core$String$fromFloat(x) + '%';
-		case 'Pt':
-			var x = length.a;
-			return elm$core$String$fromFloat(x) + 'pt';
-		default:
-			var x = length.a;
-			return elm$core$String$fromFloat(x) + 'px';
-	}
-};
 var author$project$TypedSvg$Attributes$height = function (length) {
 	return A2(
 		author$project$TypedSvg$Core$attribute,
 		'height',
 		author$project$TypedSvg$TypesToStrings$lengthToString(length));
 };
-var author$project$TypedSvg$Types$Px = function (a) {
-	return {$: 'Px', a: a};
-};
-var author$project$TypedSvg$Types$px = author$project$TypedSvg$Types$Px;
 var author$project$TypedSvg$Attributes$InPx$height = function (value) {
 	return author$project$TypedSvg$Attributes$height(
 		author$project$TypedSvg$Types$px(value));
@@ -6832,10 +6984,6 @@ var author$project$Architecture$Equipment$stoveDepth = 480;
 var author$project$Styles$SvgStyle$strokeWidthOnPlan = 20;
 var author$project$Architecture$Equipment$stoveFrameOffset = 30 + (author$project$Styles$SvgStyle$strokeWidthOnPlan / 2);
 var author$project$Architecture$Equipment$thingToCounterEdge = 60;
-var author$project$Styles$SvgStyle$className = function (original) {
-	return original + '-329874629';
-};
-var author$project$Styles$SvgStyle$doorPanel = author$project$Styles$SvgStyle$className('doorPanel');
 var author$project$Color$RGBA = F4(
 	function (a, b, c, d) {
 		return {$: 'RGBA', a: a, b: b, c: c, d: d};
@@ -6846,33 +6994,6 @@ var author$project$Color$rgb = F3(
 	});
 var author$project$Styles$Color$almostBlack = A3(author$project$Color$rgb, 51, 51, 51);
 var author$project$Styles$SvgStyle$itemStrokeColor = author$project$Styles$Color$almostBlack;
-var author$project$Svg$Path$Internal$ArcTo = F4(
-	function (a, b, c, d) {
-		return {$: 'ArcTo', a: a, b: b, c: c, d: d};
-	});
-var author$project$Svg$Path$arcTo = F4(
-	function (radius, xstartangle, _n0, point) {
-		var largeArcFlag = _n0.a;
-		var sweepFlag = _n0.b;
-		return A4(
-			author$project$Svg$Path$Internal$ArcTo,
-			radius,
-			xstartangle,
-			_Utils_Tuple2(largeArcFlag, sweepFlag),
-			point);
-	});
-var author$project$Svg$Path$closed = author$project$Svg$Path$CloseOption(true);
-var author$project$Svg$Path$Internal$LineAbsolute = function (a) {
-	return {$: 'LineAbsolute', a: a};
-};
-var author$project$Svg$Path$lineTo = author$project$Svg$Path$Internal$LineAbsolute;
-var author$project$TypedSvg$Attributes$class = function (names) {
-	return A2(
-		author$project$TypedSvg$Core$attribute,
-		'class',
-		A2(elm$core$String$join, ' ', names));
-};
-var author$project$TypedSvg$Attributes$d = author$project$TypedSvg$Core$attribute('d');
 var author$project$TypedSvg$Types$Fill = function (a) {
 	return {$: 'Fill', a: a};
 };
@@ -7842,7 +7963,6 @@ var author$project$Styles$SvgStyle$wall = author$project$Styles$SvgStyle$classNa
 var author$project$Svg$Path$Internal$AntiClockwise = {$: 'AntiClockwise'};
 var author$project$Svg$Path$antiClockwise = author$project$Svg$Path$Internal$AntiClockwise;
 var author$project$TypedSvg$circle = author$project$TypedSvg$Core$node('circle');
-var author$project$TypedSvg$line = author$project$TypedSvg$Core$node('line');
 var author$project$TypedSvg$Attributes$cx = function (length) {
 	return A2(
 		author$project$TypedSvg$Core$attribute,
@@ -7891,46 +8011,6 @@ var author$project$TypedSvg$Attributes$strokeWidth = function (length) {
 };
 var author$project$TypedSvg$Attributes$InPx$strokeWidth = function (value) {
 	return author$project$TypedSvg$Attributes$strokeWidth(
-		author$project$TypedSvg$Types$px(value));
-};
-var author$project$TypedSvg$Attributes$x1 = function (position) {
-	return A2(
-		author$project$TypedSvg$Core$attribute,
-		'x1',
-		author$project$TypedSvg$TypesToStrings$lengthToString(position));
-};
-var author$project$TypedSvg$Attributes$InPx$x1 = function (value) {
-	return author$project$TypedSvg$Attributes$x1(
-		author$project$TypedSvg$Types$px(value));
-};
-var author$project$TypedSvg$Attributes$x2 = function (position) {
-	return A2(
-		author$project$TypedSvg$Core$attribute,
-		'x2',
-		author$project$TypedSvg$TypesToStrings$lengthToString(position));
-};
-var author$project$TypedSvg$Attributes$InPx$x2 = function (value) {
-	return author$project$TypedSvg$Attributes$x2(
-		author$project$TypedSvg$Types$px(value));
-};
-var author$project$TypedSvg$Attributes$y1 = function (position) {
-	return A2(
-		author$project$TypedSvg$Core$attribute,
-		'y1',
-		author$project$TypedSvg$TypesToStrings$lengthToString(position));
-};
-var author$project$TypedSvg$Attributes$InPx$y1 = function (value) {
-	return author$project$TypedSvg$Attributes$y1(
-		author$project$TypedSvg$Types$px(value));
-};
-var author$project$TypedSvg$Attributes$y2 = function (position) {
-	return A2(
-		author$project$TypedSvg$Core$attribute,
-		'y2',
-		author$project$TypedSvg$TypesToStrings$lengthToString(position));
-};
-var author$project$TypedSvg$Attributes$InPx$y2 = function (value) {
-	return author$project$TypedSvg$Attributes$y2(
 		author$project$TypedSvg$Types$px(value));
 };
 var elm$core$List$append = F2(
@@ -10109,7 +10189,7 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 						]),
 					singleBasin(0))
 			};
-		default:
+		case 'WashbasinCounter':
 			var basinOffsets = equipmentTypeValue.a.basinOffsets;
 			var remainingSpace = equipmentTypeValue.a.remainingSpace;
 			var requiredSpaceOffsetFromEdge = 2;
@@ -10192,6 +10272,63 @@ var author$project$Architecture$Equipment$rawProperties = function (equipmentTyp
 							_List_Nil)
 						]),
 					basinsMarkup)
+			};
+		default:
+			var properties = equipmentTypeValue.a;
+			var exactWidth = author$project$Grid$Units$toMillimeters(properties.width);
+			var doorClearance = 7;
+			var doorOffset = ((properties.width - doorClearance) / 2) | 0;
+			var exactDoorClearance = author$project$Grid$Units$toMillimeters(doorClearance);
+			var boundary = A2(
+				author$project$Grid$Boundary$gridBoundary,
+				A2(author$project$Grid$Point$gridPoint, 0, 0),
+				A2(author$project$Grid$Point$gridPoint, properties.width, properties.depth));
+			var armOffset = 1;
+			return {
+				availableRotations: author$project$Architecture$Equipment$allRotations,
+				locationPreposition: 'in front of',
+				name: 'phone booth',
+				rawEdgeAccessAlternatives: _List_fromArray(
+					[
+						_List_fromArray(
+						[
+							author$project$Grid$EdgeAccess$with(
+							{
+								edgeDirection: author$project$Grid$Direction$SouthEastToWest,
+								exceptions: elm$core$Maybe$Nothing,
+								length: (properties.width - (2 * doorOffset)) + (2 * armOffset),
+								locationLabel: 'to open the door',
+								spaceRequired: doorClearance + 5,
+								start: A2(author$project$Grid$Point$gridPoint, (properties.width - doorOffset) + armOffset, 0)
+							})
+						])
+					]),
+				rawFootprint: author$project$Grid$Footprint$footprint(
+					_List_fromArray(
+						[boundary])),
+				rawMarkup: _List_fromArray(
+					[
+						A2(
+						author$project$TypedSvg$rect,
+						_List_fromArray(
+							[
+								author$project$TypedSvg$Attributes$InPx$width(exactWidth),
+								author$project$TypedSvg$Attributes$InPx$height(
+								author$project$Grid$Units$toMillimeters(properties.depth))
+							]),
+						_List_Nil),
+						A2(
+						author$project$Architecture$Door$renderDoorSymbol,
+						_List_fromArray(
+							[
+								author$project$TypedSvg$Attributes$transform(
+								_List_fromArray(
+									[
+										A2(author$project$TypedSvg$Types$Translate, (exactWidth - exactDoorClearance) / 2, 0)
+									]))
+							]),
+						{clearance: exactDoorClearance, inset: 0, panelColor: author$project$Styles$SvgStyle$itemStrokeColor, wallThickness: 0})
+					])
 			};
 	}
 };
@@ -12238,10 +12375,6 @@ var elm$url$Url$Parser$parse = F2(
 var author$project$Route$fromUrl = function (url) {
 	return A2(elm$url$Url$Parser$parse, author$project$Route$route, url);
 };
-var author$project$Architecture$Curtain$AsymetricalStraightSegment = F3(
-	function (a, b, c) {
-		return {$: 'AsymetricalStraightSegment', a: a, b: b, c: c};
-	});
 var author$project$Architecture$Curtain$FoldedSegment = F2(
 	function (a, b) {
 		return {$: 'FoldedSegment', a: a, b: b};
@@ -12249,14 +12382,9 @@ var author$project$Architecture$Curtain$FoldedSegment = F2(
 var author$project$Architecture$Curtain$OnEastWestAxis = {$: 'OnEastWestAxis'};
 var author$project$Architecture$Curtain$OnSouthNorthAxis = {$: 'OnSouthNorthAxis'};
 var author$project$Architecture$Curtain$Radius400 = {$: 'Radius400'};
-var author$project$Architecture$Curtain$Radius690 = {$: 'Radius690'};
 var author$project$Architecture$Curtain$StraightSegment = F3(
 	function (a, b, c) {
 		return {$: 'StraightSegment', a: a, b: b, c: c};
-	});
-var author$project$Architecture$Curtain$TurnOffsetSegment = F2(
-	function (a, b) {
-		return {$: 'TurnOffsetSegment', a: a, b: b};
 	});
 var author$project$Architecture$Curtain$TurnSegment = F2(
 	function (a, b) {
@@ -12559,6 +12687,86 @@ var author$project$Session$withExistingWall = F2(
 					session.existingItems)
 			});
 	});
+var author$project$Architecture$Curtain$AsymetricalStraightSegment = F3(
+	function (a, b, c) {
+		return {$: 'AsymetricalStraightSegment', a: a, b: b, c: c};
+	});
+var author$project$Architecture$Curtain$Radius690 = {$: 'Radius690'};
+var author$project$Architecture$Curtain$TurnOffsetSegment = F2(
+	function (a, b) {
+		return {$: 'TurnOffsetSegment', a: a, b: b};
+	});
+var author$project$Session$RtckLoft$dividingCurtain = function (_n0) {
+	var lengthAlongRoom = _n0.lengthAlongRoom;
+	var lengthAlongWindow = _n0.lengthAlongWindow;
+	var foldedSegmentYTranslation = _n0.foldedSegmentYTranslation;
+	return author$project$Architecture$Equipment$Curtain(
+		function () {
+			var lengthAcrossRoom = 53;
+			var straightSegmentAcrossRoom = author$project$Architecture$Curtain$curtainSegment(
+				{
+					segmentType: A3(author$project$Architecture$Curtain$StraightSegment, lengthAcrossRoom, author$project$Grid$Flip$VerticalFlip, author$project$Architecture$Curtain$OnEastWestAxis),
+					translation: A2(author$project$Grid$Vector$gridVector, 3, 0)
+				});
+			var windowTurn = author$project$Architecture$Curtain$curtainSegment(
+				{
+					segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius400, author$project$Grid$Rotation$QuarterTurnCounterclockwise),
+					translation: A2(author$project$Grid$Vector$gridVector, lengthAcrossRoom + 7, -4)
+				});
+			return A3(
+				author$project$Architecture$Curtain$curtain,
+				_List_fromArray(
+					[
+						_List_fromArray(
+						[
+							author$project$Architecture$Curtain$curtainSegment(
+							{
+								segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$HalfTurn),
+								translation: A2(author$project$Grid$Vector$gridVector, 3, lengthAlongRoom + 14)
+							}),
+							author$project$Architecture$Curtain$curtainSegment(
+							{
+								segmentType: A3(author$project$Architecture$Curtain$AsymetricalStraightSegment, lengthAlongRoom, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
+								translation: A2(author$project$Grid$Vector$gridVector, -4, lengthAlongRoom + 7)
+							}),
+							author$project$Architecture$Curtain$curtainSegment(
+							{
+								segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$QuarterTurnClockwise),
+								translation: A2(author$project$Grid$Vector$gridVector, -4, 7)
+							}),
+							straightSegmentAcrossRoom,
+							windowTurn
+						])
+					]),
+				_List_fromArray(
+					[straightSegmentAcrossRoom, windowTurn]),
+				_List_fromArray(
+					[
+						_List_fromArray(
+						[
+							windowTurn,
+							author$project$Architecture$Curtain$curtainSegment(
+							{
+								segmentType: A2(author$project$Architecture$Curtain$TurnOffsetSegment, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
+								translation: A2(author$project$Grid$Vector$gridVector, lengthAcrossRoom + 7, -4)
+							}),
+							author$project$Architecture$Curtain$curtainSegment(
+							{
+								segmentType: A3(author$project$Architecture$Curtain$StraightSegment, lengthAlongWindow, author$project$Grid$Flip$NoFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
+								translation: A2(author$project$Grid$Vector$gridVector, lengthAcrossRoom + 2, -12)
+							})
+						]),
+						_List_fromArray(
+						[
+							author$project$Architecture$Curtain$curtainSegment(
+							{
+								segmentType: A2(author$project$Architecture$Curtain$FoldedSegment, (((lengthAcrossRoom + lengthAlongRoom) / 5) | 0) + 4, author$project$Architecture$Curtain$OnSouthNorthAxis),
+								translation: A2(author$project$Grid$Vector$gridVector, lengthAcrossRoom + 2, foldedSegmentYTranslation)
+							})
+						])
+					]));
+		}());
+};
 var author$project$Session$RtckLoft$withInitialItems = function (session) {
 	var withExteriorWindow = author$project$Architecture$ExistingWall$withWindow(
 		{width: 1800});
@@ -12883,148 +13091,18 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																							author$project$Architecture$Item$withEquipment,
 																							A3(
 																								author$project$Architecture$Equipment$equipment,
-																								author$project$Architecture$Equipment$Curtain(
-																									function () {
-																										var windowTurn = author$project$Architecture$Curtain$curtainSegment(
-																											{
-																												segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius400, author$project$Grid$Rotation$QuarterTurnCounterclockwise),
-																												translation: A2(author$project$Grid$Vector$gridVector, 62, -4)
-																											});
-																										var lengthAlongRoom = 4;
-																										var lengthAcrossRoom = 55;
-																										var straightSegmentAcrossRoom = author$project$Architecture$Curtain$curtainSegment(
-																											{
-																												segmentType: A3(author$project$Architecture$Curtain$StraightSegment, lengthAcrossRoom, author$project$Grid$Flip$VerticalFlip, author$project$Architecture$Curtain$OnEastWestAxis),
-																												translation: A2(author$project$Grid$Vector$gridVector, 3, 0)
-																											});
-																										return A3(
-																											author$project$Architecture$Curtain$curtain,
-																											_List_fromArray(
-																												[
-																													_List_fromArray(
-																													[
-																														author$project$Architecture$Curtain$curtainSegment(
-																														{
-																															segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$HalfTurn),
-																															translation: A2(author$project$Grid$Vector$gridVector, 3, 18)
-																														}),
-																														author$project$Architecture$Curtain$curtainSegment(
-																														{
-																															segmentType: A3(author$project$Architecture$Curtain$AsymetricalStraightSegment, lengthAlongRoom, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
-																															translation: A2(author$project$Grid$Vector$gridVector, -4, 11)
-																														}),
-																														author$project$Architecture$Curtain$curtainSegment(
-																														{
-																															segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$QuarterTurnClockwise),
-																															translation: A2(author$project$Grid$Vector$gridVector, -4, 7)
-																														}),
-																														straightSegmentAcrossRoom,
-																														windowTurn
-																													])
-																												]),
-																											_List_fromArray(
-																												[straightSegmentAcrossRoom, windowTurn]),
-																											_List_fromArray(
-																												[
-																													_List_fromArray(
-																													[
-																														windowTurn,
-																														author$project$Architecture$Curtain$curtainSegment(
-																														{
-																															segmentType: A2(author$project$Architecture$Curtain$TurnOffsetSegment, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
-																															translation: A2(author$project$Grid$Vector$gridVector, 62, -4)
-																														}),
-																														author$project$Architecture$Curtain$curtainSegment(
-																														{
-																															segmentType: A3(author$project$Architecture$Curtain$StraightSegment, 25, author$project$Grid$Flip$NoFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
-																															translation: A2(author$project$Grid$Vector$gridVector, 57, -12)
-																														})
-																													]),
-																													_List_fromArray(
-																													[
-																														author$project$Architecture$Curtain$curtainSegment(
-																														{
-																															segmentType: A2(author$project$Architecture$Curtain$FoldedSegment, (((lengthAcrossRoom + lengthAlongRoom) / 5) | 0) + 4, author$project$Architecture$Curtain$OnSouthNorthAxis),
-																															translation: A2(author$project$Grid$Vector$gridVector, 57, -20)
-																														})
-																													])
-																												]));
-																									}()),
+																								author$project$Session$RtckLoft$dividingCurtain(
+																									{foldedSegmentYTranslation: -20, lengthAlongRoom: 4, lengthAlongWindow: 25}),
 																								author$project$Grid$Rotation$NoRotation,
-																								A2(author$project$Grid$Vector$gridVector, 44, 30)),
+																								A2(author$project$Grid$Vector$gridVector, 45, 30)),
 																							A2(
 																								author$project$Architecture$Item$withEquipment,
 																								A3(
 																									author$project$Architecture$Equipment$equipment,
-																									author$project$Architecture$Equipment$Curtain(
-																										function () {
-																											var windowTurn = author$project$Architecture$Curtain$curtainSegment(
-																												{
-																													segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius400, author$project$Grid$Rotation$QuarterTurnCounterclockwise),
-																													translation: A2(author$project$Grid$Vector$gridVector, 62, -4)
-																												});
-																											var lengthAlongRoom = 21;
-																											var lengthAcrossRoom = 55;
-																											var straightSegmentAcrossRoom = author$project$Architecture$Curtain$curtainSegment(
-																												{
-																													segmentType: A3(author$project$Architecture$Curtain$StraightSegment, lengthAcrossRoom, author$project$Grid$Flip$VerticalFlip, author$project$Architecture$Curtain$OnEastWestAxis),
-																													translation: A2(author$project$Grid$Vector$gridVector, 3, 0)
-																												});
-																											return A3(
-																												author$project$Architecture$Curtain$curtain,
-																												_List_fromArray(
-																													[
-																														_List_fromArray(
-																														[
-																															author$project$Architecture$Curtain$curtainSegment(
-																															{
-																																segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$HalfTurn),
-																																translation: A2(author$project$Grid$Vector$gridVector, 3, 35)
-																															}),
-																															author$project$Architecture$Curtain$curtainSegment(
-																															{
-																																segmentType: A3(author$project$Architecture$Curtain$AsymetricalStraightSegment, lengthAlongRoom, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
-																																translation: A2(author$project$Grid$Vector$gridVector, -4, 28)
-																															}),
-																															author$project$Architecture$Curtain$curtainSegment(
-																															{
-																																segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$QuarterTurnClockwise),
-																																translation: A2(author$project$Grid$Vector$gridVector, -4, 7)
-																															}),
-																															straightSegmentAcrossRoom,
-																															windowTurn
-																														])
-																													]),
-																												_List_fromArray(
-																													[straightSegmentAcrossRoom, windowTurn]),
-																												_List_fromArray(
-																													[
-																														_List_fromArray(
-																														[
-																															windowTurn,
-																															author$project$Architecture$Curtain$curtainSegment(
-																															{
-																																segmentType: A2(author$project$Architecture$Curtain$TurnOffsetSegment, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
-																																translation: A2(author$project$Grid$Vector$gridVector, 62, -4)
-																															}),
-																															author$project$Architecture$Curtain$curtainSegment(
-																															{
-																																segmentType: A3(author$project$Architecture$Curtain$StraightSegment, 43, author$project$Grid$Flip$NoFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
-																																translation: A2(author$project$Grid$Vector$gridVector, 57, -12)
-																															})
-																														]),
-																														_List_fromArray(
-																														[
-																															author$project$Architecture$Curtain$curtainSegment(
-																															{
-																																segmentType: A2(author$project$Architecture$Curtain$FoldedSegment, (((lengthAcrossRoom + lengthAlongRoom) / 5) | 0) + 4, author$project$Architecture$Curtain$OnSouthNorthAxis),
-																																translation: A2(author$project$Grid$Vector$gridVector, 57, -34)
-																															})
-																														])
-																													]));
-																										}()),
+																									author$project$Session$RtckLoft$dividingCurtain(
+																										{foldedSegmentYTranslation: -34, lengthAlongRoom: 21, lengthAlongWindow: 43}),
 																									author$project$Grid$Rotation$NoRotation,
-																									A2(author$project$Grid$Vector$gridVector, 44, -7)),
+																									A2(author$project$Grid$Vector$gridVector, 45, -7)),
 																								A2(
 																									author$project$Architecture$Item$withEquipment,
 																									A3(
@@ -19344,6 +19422,13 @@ var author$project$Architecture$Equipment$Washbasin = {$: 'Washbasin'};
 var author$project$Architecture$Equipment$WashbasinCounter = function (a) {
 	return {$: 'WashbasinCounter', a: a};
 };
+var author$project$Architecture$Equipment$PhoneBooth = function (a) {
+	return {$: 'PhoneBooth', a: a};
+};
+var author$project$Architecture$Equipment$frameryOPhoneBooth = author$project$Architecture$Equipment$PhoneBooth(
+	{depth: 10, width: 10});
+var author$project$Architecture$Equipment$frameryQPhoneBooth = author$project$Architecture$Equipment$PhoneBooth(
+	{depth: 12, width: 22});
 var author$project$Architecture$Equipment$allAvailable = function () {
 	var place = function (equipmentTypeValue) {
 		return A3(
@@ -19357,73 +19442,6 @@ var author$project$Architecture$Equipment$allAvailable = function () {
 		place,
 		_List_fromArray(
 			[
-				author$project$Architecture$Equipment$Curtain(
-				function () {
-					var windowTurn = author$project$Architecture$Curtain$curtainSegment(
-						{
-							segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius400, author$project$Grid$Rotation$QuarterTurnCounterclockwise),
-							translation: A2(author$project$Grid$Vector$gridVector, 62, -4)
-						});
-					var lengthAlongRoom = 21;
-					var lengthAcrossRoom = 55;
-					var straightSegmentAcrossRoom = author$project$Architecture$Curtain$curtainSegment(
-						{
-							segmentType: A3(author$project$Architecture$Curtain$StraightSegment, lengthAcrossRoom, author$project$Grid$Flip$VerticalFlip, author$project$Architecture$Curtain$OnEastWestAxis),
-							translation: A2(author$project$Grid$Vector$gridVector, 3, 0)
-						});
-					return A3(
-						author$project$Architecture$Curtain$curtain,
-						_List_fromArray(
-							[
-								_List_fromArray(
-								[
-									author$project$Architecture$Curtain$curtainSegment(
-									{
-										segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$HalfTurn),
-										translation: A2(author$project$Grid$Vector$gridVector, 3, 35)
-									}),
-									author$project$Architecture$Curtain$curtainSegment(
-									{
-										segmentType: A3(author$project$Architecture$Curtain$AsymetricalStraightSegment, lengthAlongRoom, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
-										translation: A2(author$project$Grid$Vector$gridVector, -4, 28)
-									}),
-									author$project$Architecture$Curtain$curtainSegment(
-									{
-										segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$QuarterTurnClockwise),
-										translation: A2(author$project$Grid$Vector$gridVector, -4, 7)
-									}),
-									straightSegmentAcrossRoom,
-									windowTurn
-								])
-							]),
-						_List_fromArray(
-							[straightSegmentAcrossRoom, windowTurn]),
-						_List_fromArray(
-							[
-								_List_fromArray(
-								[
-									windowTurn,
-									author$project$Architecture$Curtain$curtainSegment(
-									{
-										segmentType: A2(author$project$Architecture$Curtain$TurnOffsetSegment, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
-										translation: A2(author$project$Grid$Vector$gridVector, 62, -4)
-									}),
-									author$project$Architecture$Curtain$curtainSegment(
-									{
-										segmentType: A3(author$project$Architecture$Curtain$StraightSegment, 43, author$project$Grid$Flip$NoFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
-										translation: A2(author$project$Grid$Vector$gridVector, 57, -12)
-									})
-								]),
-								_List_fromArray(
-								[
-									author$project$Architecture$Curtain$curtainSegment(
-									{
-										segmentType: A2(author$project$Architecture$Curtain$FoldedSegment, (((lengthAcrossRoom + lengthAlongRoom) / 5) | 0) + 4, author$project$Architecture$Curtain$OnSouthNorthAxis),
-										translation: A2(author$project$Grid$Vector$gridVector, 57, -34)
-									})
-								])
-							]));
-				}()),
 				author$project$Architecture$Equipment$LoungeWithSofaAndTwoArmchairs,
 				author$project$Architecture$Equipment$LoungeWithTwoPerpendicularSofas,
 				author$project$Architecture$Equipment$LoungeChairWithSideTable,
@@ -19517,6 +19535,8 @@ var author$project$Architecture$Equipment$allAvailable = function () {
 					width: 7
 				}),
 				author$project$Architecture$Equipment$Pegwall(12),
+				author$project$Architecture$Equipment$frameryOPhoneBooth,
+				author$project$Architecture$Equipment$frameryQPhoneBooth,
 				author$project$Architecture$Equipment$FreestandingBathtub,
 				author$project$Architecture$Equipment$BuiltInBathtub,
 				author$project$Architecture$Equipment$Pissoir,
@@ -19726,12 +19746,6 @@ var author$project$TypedSvg$Attributes$patternUnits = function (coordinateSystem
 		'patternUnits',
 		author$project$TypedSvg$TypesToStrings$coordinateSystemToString(coordinateSystem));
 };
-var author$project$TypedSvg$Attributes$stroke = function (value) {
-	return A2(
-		author$project$TypedSvg$Core$attribute,
-		'stroke',
-		author$project$Color$Convert$colorToCssRgba(value));
-};
 var author$project$TypedSvg$Types$CoordinateSystemUserSpaceOnUse = {$: 'CoordinateSystemUserSpaceOnUse'};
 var elm$svg$Svg$Attributes$id = _VirtualDom_attribute('id');
 var author$project$Architecture$ExistingSlab$planView = function (existingSlabs) {
@@ -19892,80 +19906,6 @@ var author$project$Architecture$ExistingWall$length = function (_n0) {
 	var properties = _n0.a;
 	return properties.length;
 };
-var author$project$Svg$Path$pathToString = function (path) {
-	return A2(
-		author$project$Svg$Path$instructionsToString,
-		elm$core$Maybe$Nothing,
-		A3(elm$core$List$foldr, author$project$Svg$Path$subPathToInstructions, _List_Nil, path));
-};
-var author$project$TypedSvg$TypesToStrings$strokeLinecapToString = function (linecap) {
-	switch (linecap.$) {
-		case 'StrokeLinecapButt':
-			return 'butt';
-		case 'StrokeLinecapRound':
-			return 'round';
-		case 'StrokeLinecapSquare':
-			return 'square';
-		default:
-			return 'inherit';
-	}
-};
-var author$project$TypedSvg$Attributes$strokeLinecap = A2(
-	elm$core$Basics$composeL,
-	author$project$TypedSvg$Core$attribute('stroke-linecap'),
-	author$project$TypedSvg$TypesToStrings$strokeLinecapToString);
-var author$project$TypedSvg$Types$StrokeLinecapSquare = {$: 'StrokeLinecapSquare'};
-var author$project$Architecture$Door$renderDoorSymbol = F2(
-	function (attributes, door) {
-		return A2(
-			author$project$TypedSvg$g,
-			attributes,
-			_List_fromArray(
-				[
-					A2(
-					author$project$TypedSvg$line,
-					_List_fromArray(
-						[
-							author$project$TypedSvg$Attributes$InPx$x1(0),
-							author$project$TypedSvg$Attributes$InPx$y1(door.wallThickness),
-							author$project$TypedSvg$Attributes$InPx$x2(0),
-							author$project$TypedSvg$Attributes$InPx$y2((-door.clearance) + door.inset),
-							author$project$TypedSvg$Attributes$strokeLinecap(author$project$TypedSvg$Types$StrokeLinecapSquare),
-							author$project$TypedSvg$Attributes$stroke(door.panelColor)
-						]),
-					_List_Nil),
-					A2(
-					author$project$TypedSvg$path,
-					_List_fromArray(
-						[
-							author$project$TypedSvg$Attributes$d(
-							author$project$Svg$Path$pathToString(
-								elm$core$List$singleton(
-									A3(
-										author$project$Svg$Path$subpath,
-										author$project$Svg$Path$startAt(
-											_Utils_Tuple2(0, door.wallThickness)),
-										author$project$Svg$Path$closed,
-										_List_fromArray(
-											[
-												author$project$Svg$Path$lineTo(
-												_Utils_Tuple2(0, (-door.clearance) + door.inset)),
-												A4(
-												author$project$Svg$Path$arcTo,
-												_Utils_Tuple2(door.clearance, door.clearance),
-												0,
-												_Utils_Tuple2(author$project$Svg$Path$smallestArc, author$project$Svg$Path$clockwise),
-												_Utils_Tuple2(door.clearance, door.inset)),
-												author$project$Svg$Path$lineTo(
-												_Utils_Tuple2(door.clearance, door.wallThickness))
-											]))))),
-							author$project$TypedSvg$Attributes$class(
-							_List_fromArray(
-								[author$project$Styles$SvgStyle$doorPanel]))
-						]),
-					_List_Nil)
-				]));
-	});
 var author$project$Styles$SvgStyle$existingDoor = author$project$Styles$SvgStyle$className('existingDoor');
 var author$project$Utilities$flipHorizontally = A2(author$project$TypedSvg$Types$Scale, -1, 1);
 var author$project$Utilities$flipVertically = A2(author$project$TypedSvg$Types$Scale, 1, -1);
@@ -30375,6 +30315,7 @@ var author$project$Pages$Interior$view = function (model) {
 		author$project$Architecture$Equipment$TableWithoutSeatsAtHead(author$project$Architecture$Equipment$BarTable));
 	var numberOfBarStools = numberOfBarTables * 6;
 	var numberOfLounges = countOfEquipment(author$project$Architecture$Equipment$LoungeWithSofaAndTwoArmchairs);
+	var numberOfPhoneBooths = countOfEquipment(author$project$Architecture$Equipment$frameryOPhoneBooth) + countOfEquipment(author$project$Architecture$Equipment$frameryQPhoneBooth);
 	var numberOfSideTables = countOfEquipment(author$project$Architecture$Equipment$LoungeChairWithSideTable);
 	var costOfWindowSillsMaterial = 450 * (((numberOfNarrowSills * windowWidth) * 0.2) + ((numberOfWideSills * windowWidth) * 0.3));
 	var costOfWindowSillsAssembly = 40 * (numberOfNarrowSills + numberOfWideSills);
@@ -30386,6 +30327,7 @@ var author$project$Pages$Interior$view = function (model) {
 	var costOfSideTables = numberOfSideTables * 370;
 	var costOfSanitaryOpinion = 500;
 	var costOfPlumbingProject = 1500;
+	var costOfPhoneBooths = (countOfEquipment(author$project$Architecture$Equipment$frameryOPhoneBooth) * 29000) + (countOfEquipment(author$project$Architecture$Equipment$frameryQPhoneBooth) * 42000);
 	var costOfLoungeTables = 750 * numberOfLounges;
 	var costOfLights = 60 * 120;
 	var costOfInteriorDoors = (800 * A2(numberOfInteriorDoors, author$project$Architecture$Wall$DividingWall, author$project$Architecture$Door$Basic)) + (2600 * A2(numberOfInteriorDoors, author$project$Architecture$Wall$DividingWall, author$project$Architecture$Door$GlassFullHeight));
@@ -30662,7 +30604,7 @@ var author$project$Pages$Interior$view = function (model) {
 	var numberOfDeskChairs = _n15.b;
 	var costOfDesks = _n15.c;
 	var costOfDeskChairs = numberOfDeskChairs * 800;
-	var totalPrice = (((((((((((((((((((((((((((((((((0 + costOfFloorScreed) + costOfFloorImpregnation) + costOfSkylights) + costOfExteriorWallsFinish) + costOfWindowSills) + costOfDividingWalls) + costOfGlassPartitions) + costOfInteriorDoors) + costOfCurtainSystem) + costOfSignage) + costOfElectricalProject) + costOfPlumbingProject) + costOfElectricalInstallation) + costOfHeating) + costOfVentilation) + costOfLights) + costOfConferenceTables) + costOfConferenceChairs) + costOfBarTables) + costOfBarStools) + costOfKitchens) + costOfStorage) + costOfPegwalls) + costOfDesks) + costOfDeskChairs) + costOfSofas) + costOfLoungeTables) + costOfLoungeChairs) + costOfSideTables) + costOfConceptualDesign) + costOfDetailedDesign) + costOfFieldSupervision) + costOfSanitaryOpinion) + costOfFireProtectionOpinion;
+	var totalPrice = ((((((((((((((((((((((((((((((((((0 + costOfFloorScreed) + costOfFloorImpregnation) + costOfSkylights) + costOfExteriorWallsFinish) + costOfWindowSills) + costOfDividingWalls) + costOfGlassPartitions) + costOfInteriorDoors) + costOfCurtainSystem) + costOfSignage) + costOfElectricalProject) + costOfPlumbingProject) + costOfElectricalInstallation) + costOfHeating) + costOfVentilation) + costOfLights) + costOfConferenceTables) + costOfConferenceChairs) + costOfBarTables) + costOfBarStools) + costOfKitchens) + costOfStorage) + costOfPegwalls) + costOfDesks) + costOfDeskChairs) + costOfSofas) + costOfLoungeTables) + costOfLoungeChairs) + costOfSideTables) + costOfPhoneBooths) + costOfConceptualDesign) + costOfDetailedDesign) + costOfFieldSupervision) + costOfSanitaryOpinion) + costOfFireProtectionOpinion;
 	var costButton = author$project$Session$RtckLoft$costPaneEnabled ? _List_fromArray(
 		[
 			A3(
@@ -30836,6 +30778,7 @@ var author$project$Pages$Interior$view = function (model) {
 								A3(itemizedBreakdownRow, 'lounge table', numberOfLounges, costOfLoungeTables),
 								A3(itemizedBreakdownRow, 'lounge chair', numberOfLoungeChairs, costOfLoungeChairs),
 								A3(itemizedBreakdownRow, 'side table', numberOfSideTables, costOfSideTables),
+								A3(itemizedBreakdownRow, 'phone booth', numberOfPhoneBooths, costOfPhoneBooths),
 								drawerHeading2('design'),
 								A2(breakdownRow, 'conceptual design', costOfConceptualDesign),
 								A2(breakdownRow, 'detailed design', costOfDetailedDesign),
