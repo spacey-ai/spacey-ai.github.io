@@ -12401,7 +12401,7 @@ var author$project$Architecture$Curtain$curtain = F3(
 				footprint: author$project$Grid$Footprint$footprint(
 					elm$core$List$concat(
 						A2(elm$core$List$map, author$project$Architecture$Curtain$segmentBoundaries, defaultStatus))),
-				statusesLeftwardsOfCurrent: statusesLeftwardsOfDefault,
+				statusesLeftwardsOfCurrent: elm$core$List$reverse(statusesLeftwardsOfDefault),
 				statusesRightwardsOfCurrent: statusesRightwardsOfDefault
 			});
 	});
@@ -12702,6 +12702,16 @@ var author$project$Session$RtckLoft$dividingCurtain = function (_n0) {
 	var foldedSegmentYTranslation = _n0.foldedSegmentYTranslation;
 	return author$project$Architecture$Equipment$Curtain(
 		function () {
+			var turnWithPassage = author$project$Architecture$Curtain$curtainSegment(
+				{
+					segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$QuarterTurnClockwise),
+					translation: A2(author$project$Grid$Vector$gridVector, -4, 7)
+				});
+			var straightSegmentAlongRoom = author$project$Architecture$Curtain$curtainSegment(
+				{
+					segmentType: A3(author$project$Architecture$Curtain$AsymetricalStraightSegment, lengthAlongRoom, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
+					translation: A2(author$project$Grid$Vector$gridVector, -4, lengthAlongRoom + 7)
+				});
 			var lengthAcrossRoom = 53;
 			var straightSegmentAcrossRoom = author$project$Architecture$Curtain$curtainSegment(
 				{
@@ -12713,30 +12723,19 @@ var author$project$Session$RtckLoft$dividingCurtain = function (_n0) {
 					segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius400, author$project$Grid$Rotation$QuarterTurnCounterclockwise),
 					translation: A2(author$project$Grid$Vector$gridVector, lengthAcrossRoom + 7, -4)
 				});
+			var leftmostTurn = author$project$Architecture$Curtain$curtainSegment(
+				{
+					segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$HalfTurn),
+					translation: A2(author$project$Grid$Vector$gridVector, 3, lengthAlongRoom + 14)
+				});
 			return A3(
 				author$project$Architecture$Curtain$curtain,
 				_List_fromArray(
 					[
 						_List_fromArray(
-						[
-							author$project$Architecture$Curtain$curtainSegment(
-							{
-								segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$HalfTurn),
-								translation: A2(author$project$Grid$Vector$gridVector, 3, lengthAlongRoom + 14)
-							}),
-							author$project$Architecture$Curtain$curtainSegment(
-							{
-								segmentType: A3(author$project$Architecture$Curtain$AsymetricalStraightSegment, lengthAlongRoom, author$project$Grid$Flip$HorizontalFlip, author$project$Architecture$Curtain$OnSouthNorthAxis),
-								translation: A2(author$project$Grid$Vector$gridVector, -4, lengthAlongRoom + 7)
-							}),
-							author$project$Architecture$Curtain$curtainSegment(
-							{
-								segmentType: A2(author$project$Architecture$Curtain$TurnSegment, author$project$Architecture$Curtain$Radius690, author$project$Grid$Rotation$QuarterTurnClockwise),
-								translation: A2(author$project$Grid$Vector$gridVector, -4, 7)
-							}),
-							straightSegmentAcrossRoom,
-							windowTurn
-						])
+						[leftmostTurn, straightSegmentAlongRoom, turnWithPassage]),
+						_List_fromArray(
+						[leftmostTurn, straightSegmentAlongRoom, turnWithPassage, straightSegmentAcrossRoom, windowTurn])
 					]),
 				_List_fromArray(
 					[straightSegmentAcrossRoom, windowTurn]),
@@ -12787,7 +12786,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 			author$project$Architecture$Item$withEquipment,
 			A3(
 				author$project$Architecture$Equipment$equipment,
-				author$project$Architecture$Equipment$Shelving(23),
+				author$project$Architecture$Equipment$Shelving(22),
 				author$project$Grid$Rotation$NoRotation,
 				A2(author$project$Grid$Vector$gridVector, 72, 7)),
 			A2(
@@ -12801,9 +12800,9 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 					author$project$Architecture$Item$withEquipment,
 					A3(
 						author$project$Architecture$Equipment$equipment,
-						author$project$Architecture$Equipment$Shelving(14),
+						author$project$Architecture$Equipment$Shelving(15),
 						author$project$Grid$Rotation$NoRotation,
-						A2(author$project$Grid$Vector$gridVector, 72, 40)),
+						A2(author$project$Grid$Vector$gridVector, 72, 39)),
 					A2(
 						author$project$Architecture$Item$withEquipment,
 						A3(
@@ -12818,7 +12817,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 									width: 7
 								}),
 							author$project$Grid$Rotation$HalfTurn,
-							A2(author$project$Grid$Vector$gridVector, 28, 39)),
+							A2(author$project$Grid$Vector$gridVector, 28, 38)),
 						A2(
 							author$project$Architecture$Item$withEquipment,
 							A3(
@@ -12833,7 +12832,7 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 										width: 7
 									}),
 								author$project$Grid$Rotation$HalfTurn,
-								A2(author$project$Grid$Vector$gridVector, 52, 39)),
+								A2(author$project$Grid$Vector$gridVector, 52, 38)),
 							A2(
 								author$project$Architecture$Item$withEquipment,
 								A3(
@@ -13092,15 +13091,15 @@ var author$project$Session$RtckLoft$withInitialItems = function (session) {
 																							A3(
 																								author$project$Architecture$Equipment$equipment,
 																								author$project$Session$RtckLoft$dividingCurtain(
-																									{foldedSegmentYTranslation: -20, lengthAlongRoom: 4, lengthAlongWindow: 25}),
+																									{foldedSegmentYTranslation: -20, lengthAlongRoom: 5, lengthAlongWindow: 25}),
 																								author$project$Grid$Rotation$NoRotation,
-																								A2(author$project$Grid$Vector$gridVector, 45, 30)),
+																								A2(author$project$Grid$Vector$gridVector, 45, 29)),
 																							A2(
 																								author$project$Architecture$Item$withEquipment,
 																								A3(
 																									author$project$Architecture$Equipment$equipment,
 																									author$project$Session$RtckLoft$dividingCurtain(
-																										{foldedSegmentYTranslation: -34, lengthAlongRoom: 21, lengthAlongWindow: 43}),
+																										{foldedSegmentYTranslation: -34, lengthAlongRoom: 20, lengthAlongWindow: 43}),
 																									author$project$Grid$Rotation$NoRotation,
 																									A2(author$project$Grid$Vector$gridVector, 45, -7)),
 																								A2(
