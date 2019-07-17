@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+:not(br) {
+    line-height: 1.5;
+}
+
 html, body {
     height: 100%;
 }
@@ -54,7 +58,7 @@ html {
 }
 
 .header__background {
-  background-image: url(header-background.jpg);
+  background-image: url(/images/header-background.jpg);
   transition: opacity ease-in-out 1s;
 }
 
@@ -86,4 +90,5 @@ html {
     font-size: 1em;
     margin: calc(2vw + 1vh) 0;
     text-shadow: 0 0 2em rgba(58, 37, 33, 1);
+    line-height: 1.1;
 }

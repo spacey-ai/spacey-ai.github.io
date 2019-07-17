@@ -22,7 +22,7 @@
     <meta name="twitter:creator" content="@architectcodes">
     <meta name="description" content="Spacey is in private alpha. Get in touch at hello@spacey.ai to learn about our AI platform for creating custom architectural spaces.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <header class="header">
@@ -30,7 +30,7 @@
         <div class="header__background"></div>
 
         <div class="header__layout">
-            <img src="logo.svg" alt="Spacey (logo)" class="header__logo" width="132" height="55">
+            <img src="/images/logo.svg" alt="Spacey (logo)" class="header__logo" width="132" height="55">
             <h1 class="header__tagline">Wirtualny<br/>projektant<br/>wnętrz.</h1>
         </div>
 
@@ -45,7 +45,7 @@
                     new Promise(resolve => loader.addEventListener('load', resolve)),
                     new Promise(resolve => setTimeout(resolve, 500)),
                 ]).then(finish);
-                loader.src = 'header-background.jpg';
+                loader.src = '/images/header-background.jpg';
                 if (!loader.complete) {
                     background.classList.add('header__background--hidden');
                 }
@@ -55,18 +55,21 @@
 
     <div class="features">
         <div class="features__feature">
+            <img src="/images/icons8-paint_palette.svg" alt="">
             <h3>jak działa Spacey?</h3>
-            <p>Spacey jest wirtualnym projektantem wnętrz. Podobnie jak tradycyjny projektant, najpierw zada Ci kilka pytań żeby poznać Twoje potrzeby i Twój gust, a później zaproponuje Ci kilka wariantów projektu Twojego wnętrza 🎨</p>
+            <p>Spacey jest wirtualnym projektantem wnętrz. Podobnie jak tradycyjny projektant, najpierw zada Ci kilka pytań żeby poznać Twoje potrzeby i&nbsp;Twój gust, a&nbsp;później zaproponuje Ci kilka wariantów projektu Twojego wnętrza.</p>
         </div>
 
         <div class="features__feature">
+            <img src="/images/icons8-design.svg" alt="">
             <h3>jak długo powstaje projekt?</h3>
-            <p>Spacey jest zasilana za pomocą sztucznej inteligencji. Dlatego nie musisz umawiać się na spotkanie ani czekać na swój projekt wielu dni. Zobaczysz go błyskawicznie, o każdej porze dnia i nocy 🕗</p>
+            <p>Spacey jest zasilana za&nbsp;pomocą sztucznej inteligencji. Dlatego nie&nbsp;musisz umawiać się na&nbsp;spotkanie ani&nbsp;czekać na&nbsp;swój projekt wielu dni. Zobaczysz go błyskawicznie, o&nbsp;każdej porze dnia i&nbsp;nocy.</p>
         </div>
 
         <div class="features__feature">
+            <img src="/images/icons8-check_all.svg" alt="">
             <h3>ile to kosztuje?</h3>
-            <p>Jeśli zakwalifikujesz się do naszego programu pilotażowego, projekt wnętrza możesz dostać od nas za darmo. Projekt stworzony przez Spacey zawsze będzie kosztował znacznie mniej niż u tradycyjnego projektanta 🚀</p>
+            <p>Jeśli zakwalifikujesz się do&nbsp;naszego programu pilotażowego, projekt wnętrza możesz dostać od&nbsp;nas za&nbsp;darmo. Projekt stworzony przez&nbsp;Spacey zawsze będzie kosztował znacznie mniej niż u&nbsp;tradycyjnego projektanta.</p>
         </div>
     </div>
 </body>
