@@ -103,7 +103,8 @@ html {
     top: 0;
     left: 0;
     right: 0;
-    transition: all .2s ease-in-out;
+    transition: none .2s ease-in-out;
+    transition-property: color, background-color, box-shadow;
 }
 
 .topMenu:not(.topMenu--withJs) {
@@ -140,16 +141,14 @@ html {
     text-transform: uppercase;
     font-weight: 600;
     display: flex;
+    align-items: center;
     font-size: 14px;
-}
-
-.topMenu__list li {
     margin-left: 1em;
 }
 
 .topMenu__list a {
     color: inherit;
-    padding: 0.5em;
+    display: block;
 }
 
 .topMenu__list a:hover {
@@ -160,10 +159,37 @@ html {
     opacity: 0.4;
 }
 
-.topMenu__list li:last-child {
+.topMenu__option {
+    margin-right: 1em;
+}
+
+.topMenu__option a {
+    padding: 0.5em;
+}
+
+.topMenu__option:last-child a {
     margin-right: -0.5em;
 }
 
+.topMenu__iconOption {
+    margin-left: 0.3em;
+}
+
+.topMenu__iconOption {
+    display: block;
+}
+
+.topMenu__iconOption a {
+    padding: 0.2em;
+}
+
+.topMenu__iconOption:last-child a {
+    margin-right: -0.2em;
+}
+
+.topMenu__iconOption svg {
+    display: block;
+}
 
 /* LOGO */
 
