@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <title>Spacey. Wirtualny projektant wnętrz</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,900,600" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132681474-1"></script>
     <script>
@@ -26,14 +26,11 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=Promise"></script>
 </head>
 <body>
-    <header class="header">
+    <header class="header topMenu__spacer">
         <div class="header__backgroundPreview"></div>
         <div class="header__background"></div>
 
-        <div class="header__layout">
-            <img src="/images/logo.svg" alt="Spacey (logo)" class="header__logo" width="132" height="55">
-            <h1 class="header__tagline">Wirtualny<br/>projektant<br/>wnętrz.</h1>
-        </div>
+        <h1 class="header__tagline content">Wirtualny<br/>projektant<br/>wnętrz.</h1>
 
         <script>
             (function() {
@@ -57,6 +54,42 @@
             })();
         </script>
     </header>
+
+    <div class="topMenu header__horizontalPaddingMirror" id="topMenu">
+        <div class="content topMenu__content">
+            <div class="logo topMenu__logo">
+                <svg width="30" height="55" viewBox="0 0 30 55"><path d="M17.347 22.2712H29.0059L11.6588 54.764V32.4924H0L17.347 0V22.2712Z" fill="currentColor"/></svg>
+                <span>Spacey</span>
+            </div>
+
+            <ul class="topMenu__list">
+                <li><a href="#product">Produkt</a></li>
+                <li><a href="#pilot-program">Program pilotażowy</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+        </div>
+
+        <script>
+            (function() {
+                const topMenu = document.querySelector('#topMenu');
+                topMenu.classList.add('topMenu--withJs');
+
+                let scrolledDown = false;
+                function checkScroll() {
+                    if (window.scrollY > 0 && !scrolledDown) {
+                        topMenu.classList.add('topMenu--scrolledDown');
+                        scrolledDown = true;
+                    } else if (window.scrollY <= 0 && scrolledDown) {
+                        topMenu.classList.remove('topMenu--scrolledDown');
+                        scrolledDown = false;
+                    }
+                }
+
+                checkScroll();
+                document.addEventListener('scroll', checkScroll);
+            })()
+        </script>
+    </div>
 
     <div class="features">
         <div class="features__feature">
