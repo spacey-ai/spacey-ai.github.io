@@ -103,8 +103,9 @@ html {
     top: 0;
     left: 0;
     right: 0;
-    transition: none .2s ease-in-out;
-    transition-property: color, background-color, box-shadow;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
 .topMenu:not(.topMenu--withJs) {
@@ -115,11 +116,17 @@ html {
     position: fixed;
 }
 
-.topMenu:not(.topMenu--scrolledDown) {
+.topMenu--scrolledRecently {
+    transition: none .2s ease-in-out;
+    transition-property: color, background-color, box-shadow;
+}
+
+.topMenu:not(.topMenu--scrolledDown):not(.topMenu--unfolded) {
     color: white;
 }
 
-.topMenu--scrolledDown {
+.topMenu--scrolledDown,
+.topMenu--unfolded {
     background: white;
     box-shadow: 0 2px 3vh rgba(0, 0, 0, 0.2);
 }
@@ -128,68 +135,145 @@ html {
     font-size: 24px;
 }
 
-.topMenu__content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.topMenu__content,
+.topMenu__closeMenu,
+.topMenu__openMenu {
     padding: 3vh 0;
+    box-sizing: content-box;
+    min-height: 47px;
 }
 
-.topMenu__list {
+.topMenu__content {
+    position: relative;
+}
+
+.topMenu__textOptions,
+.topMenu__iconOptions {
     list-style: none;
-    text-transform: uppercase;
-    font-weight: 600;
+}
+
+.topMenu__toggleCheckbox {
+    position: absolute;
+    top: -999999px;
+}
+
+
+.topMenu__openMenu,
+.topMenu__closeMenu {
+    position: absolute;
+    top: 0;
+    right: 0;
     display: flex;
     align-items: center;
-    font-size: 14px;
-    margin-left: 1em;
 }
 
-.topMenu__list a {
+.topMenu__openMenu svg {
+    margin-left: 0.8em;
+    margin-bottom: 0.1em;
+}
+
+.topMenu {
+    display: flex;
+}
+
+.topMenu label {
+    cursor: pointer;
+    user-select: none;
+}
+
+.topMenu a {
     color: inherit;
     display: block;
 }
 
-.topMenu__list a:hover {
+.topMenu a:hover,
+.topMenu label:hover {
     opacity: 0.7;
 }
 
-.topMenu__list a:active {
+.topMenu a:active,
+.topMenu li:active {
     opacity: 0.4;
 }
 
-.topMenu__option {
+.topMenu__textOptions {
+    margin: 1em 0;
+}
+
+.topMenu__textOptions li {
     margin-right: 1em;
 }
 
-.topMenu__option a {
+.topMenu__textOptions a {
     padding: 0.5em;
 }
 
-.topMenu__option:last-child a {
+.topMenu__textOptions li:last-child a {
     margin-right: -0.5em;
 }
 
-.topMenu__iconOption {
-    margin-left: 0.3em;
+.topMenu__iconOptions {
+    display: flex;
+    align-items: center;
 }
 
-.topMenu__iconOption {
+.topMenu__iconOptions li {
+    margin-left: 0.1em;
+}
+
+.topMenu__iconOptions li {
     display: block;
 }
 
-.topMenu__iconOption a {
+.topMenu__iconOptions a {
     padding: 0.2em;
 }
 
-.topMenu__iconOption:last-child a {
+.topMenu__iconOptions li:last-child a {
     margin-right: -0.2em;
 }
 
-.topMenu__iconOption svg {
+.topMenu svg {
     display: block;
 }
+
+@media screen and (max-width: 719px) {
+    .topMenu__toggleCheckbox:checked ~ .topMenu__openMenu,
+    .topMenu__toggleCheckbox:not(:checked) ~ .topMenu__closeMenu,
+    .topMenu__toggleCheckbox:not(:checked) ~ .topMenu__textOptions,
+    .topMenu__toggleCheckbox:not(:checked) ~ .topMenu__iconOptions {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 720px) {
+    .topMenu__content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .topMenu__spacer {
+        flex-grow: 1;
+    }
+
+    .topMenu__textOptions,
+    .topMenu__iconOptions {
+        display: flex;
+        align-items: center;
+    }
+
+    .topMenu__textOptions {
+        margin: 0 0.8em;
+    }
+
+    .topMenu__openMenu,
+    .topMenu__closeMenu {
+        display: none;
+    }
+}
+
 
 /* LOGO */
 
@@ -197,6 +281,7 @@ html {
     display: flex;
     align-items: center;
     text-transform: lowercase;
+    font-weight: 300;
 }
 
 .logo span {

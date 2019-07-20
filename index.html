@@ -62,40 +62,56 @@
                 <span>Spacey</span>
             </div>
 
-            <ul class="topMenu__list">
-                <li class="topMenu__option">
+            <input type="checkbox" class="topMenu__toggleCheckbox" id="topMenuToggle">
+            <label for="topMenuToggle" class="topMenu__openMenu">
+                menu
+                <svg width="24" height="24" viewBox="0 0 24 24"><path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z" fill="currentColor"/></svg>
+            </label>
+            <label for="topMenuToggle" class="topMenu__closeMenu">
+                <svg width="24" height="24" viewBox="0 0 24 24"><path d="M 4.7070312 3.2929688 L 3.2929688 4.7070312 L 10.585938 12 L 3.2929688 19.292969 L 4.7070312 20.707031 L 12 13.414062 L 19.292969 20.707031 L 20.707031 19.292969 L 13.414062 12 L 20.707031 4.7070312 L 19.292969 3.2929688 L 12 10.585938 L 4.7070312 3.2929688 z" fill="currentColor"/></svg>
+            </label>
+
+            <div class="topMenu__spacer"></div>
+
+            <ul class="topMenu__textOptions">
+                <li>
                     <a href="#product">Produkt</a>
                 </li>
-                <li class="topMenu__option">
+                <li>
                     <a href="#pilot-program">Program pilotażowy</a>
                 </li>
-                <li class="topMenu__option">
+                <li>
                     <a href="#contact">Kontakt</a>
                 </li>
-                <li class="topMenu__iconOption">
+            </ul>
+
+            <ul class="topMenu__iconOptions">
+                <li>
                     <a href="https://www.instagram.com/spacey.ai/" title="Obserwuj nas na Instagramie" target="_blank">
                         <svg width="24" height-"24" viewBox="0 0 24 24"><path d="M 8 3 C 5.239 3 3 5.239 3 8 L 3 16 C 3 18.761 5.239 21 8 21 L 16 21 C 18.761 21 21 18.761 21 16 L 21 8 C 21 5.239 18.761 3 16 3 L 8 3 z M 18 5 C 18.552 5 19 5.448 19 6 C 19 6.552 18.552 7 18 7 C 17.448 7 17 6.552 17 6 C 17 5.448 17.448 5 18 5 z M 12 7 C 14.761 7 17 9.239 17 12 C 17 14.761 14.761 17 12 17 C 9.239 17 7 14.761 7 12 C 7 9.239 9.239 7 12 7 z M 12 9 A 3 3 0 0 0 9 12 A 3 3 0 0 0 12 15 A 3 3 0 0 0 15 12 A 3 3 0 0 0 12 9 z" fill="currentColor"/></svg>
                     </a>
                 </li>
-                <li class="topMenu__iconOption">
+                <li>
                     <a href="https://www.facebook.com/spacey.platform/" title="Polub nas na Facebooku" target="_blank">
                         <svg width="24" height="24" viewBox="0 0 24 24"><path d="M19,3H5C3.895,3,3,3.895,3,5v14c0,1.105,0.895,2,2,2h7.621v-6.961h-2.343v-2.725h2.343V9.309 c0-2.324,1.421-3.591,3.495-3.591c0.699-0.002,1.397,0.034,2.092,0.105v2.43h-1.428c-1.13,0-1.35,0.534-1.35,1.322v1.735h2.7 l-0.351,2.725h-2.365V21H19c1.105,0,2-0.895,2-2V5C21,3.895,20.105,3,19,3z" fill="currentColor"/></svg>
                     </a>
                 </li>
-                <li class="topMenu__iconOption">
+                <li>
                     <a href="https://www.linkedin.com/company/spacey-ai/" title="Obserwuj nas na LinkedIn" target="_blank">
                         <svg width="24" height="24" viewBox="0 0 24 24"><path d="M19,3H5C3.895,3,3,3.895,3,5v14c0,1.105,0.895,2,2,2h14c1.105,0,2-0.895,2-2V5C21,3.895,20.105,3,19,3z M9,17H6.477v-7H9 V17z M7.694,8.717c-0.771,0-1.286-0.514-1.286-1.2s0.514-1.2,1.371-1.2c0.771,0,1.286,0.514,1.286,1.2S8.551,8.717,7.694,8.717z M18,17h-2.442v-3.826c0-1.058-0.651-1.302-0.895-1.302s-1.058,0.163-1.058,1.302c0,0.163,0,3.826,0,3.826h-2.523v-7h2.523v0.977 C13.93,10.407,14.581,10,15.802,10C17.023,10,18,10.977,18,13.174V17z" fill="currentColor"/></svg>
                     </a>
                 </li>
             </ul>
         </div>
+
         <script>
             (function() {
                 const topMenu = document.querySelector('#topMenu');
-                topMenu.classList.add('topMenu--withJs');
+                const topMenuToggle = document.querySelector('#topMenuToggle');
 
                 let scrolledDown = false;
                 function checkScroll() {
+                    topMenu.classList.add('topMenu--scrolledRecently');
                     if (window.scrollY > 0 && !scrolledDown) {
                         topMenu.classList.add('topMenu--scrolledDown');
                         scrolledDown = true;
@@ -104,9 +120,21 @@
                         scrolledDown = false;
                     }
                 }
-
                 checkScroll();
                 document.addEventListener('scroll', checkScroll);
+
+                function checkUnfolded() {
+                    topMenu.classList.remove('topMenu--scrolledRecently');
+                    if (topMenuToggle.checked) {
+                        topMenu.classList.add('topMenu--unfolded');
+                    } else {
+                        topMenu.classList.remove('topMenu--unfolded');
+                    }
+                }
+                checkUnfolded();
+                topMenuToggle.addEventListener('change', checkUnfolded);
+
+                topMenu.classList.add('topMenu--withJs');
             })()
         </script>
     </div>
