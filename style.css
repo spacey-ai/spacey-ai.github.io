@@ -309,6 +309,13 @@ html {
 }
 
 
+/* PARALLAX */
+
+.parallax {
+    position: relative;
+}
+
+
 /* CTA */
 
 .cta {
@@ -380,7 +387,7 @@ html {
 /* FEATURES */
 
 .features {
-    margin-top: 3vh;
+    margin: 0 0 3em;
     padding: 0 2em;
     display: flex;
     flex-direction: column;

@@ -33,7 +33,7 @@
 
         <h1 class="header__tagline content">Wirtualny<br />projektant<br />wnętrz.</h1>
 
-        <div class="header__callout callout">
+        <div class="header__callout callout parallax">
             <h1>👋 Hej!</h1>
             <p>Mamy jeszcze kilka miejsc na&nbsp;nasz bezpłatny pilotaż. Przetestuj Spacey, a&nbsp;dostaniesz od&nbsp;nas bezpłatnie projekt Twojego wnętrza. To jedyna szansa! 😇</p>
             <form class="cta__form">
@@ -205,5 +205,18 @@
             </p>
         </section>
     </footer>
+
+    <script>
+        (function () {
+           const parallax = document.querySelectorAll('.parallax');
+           function updateScroll() {
+               parallax.forEach(function(element) {
+                   element.style.top = Math.min(-window.scrollY / 5) + 'px';
+               });
+           };
+           updateScroll
+           document.addEventListener('scroll', updateScroll);
+        })()
+    </script>
 </body>
 </html>
