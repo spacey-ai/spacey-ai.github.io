@@ -294,6 +294,18 @@ html {
 }
 
 
+/* CALLOUT */
+
+.callout {
+    width: 85vw;
+    float: right;
+    margin-top: -25vh;
+    padding: 5vw;
+    background: white;
+    box-shadow: 0 3vh 10vh rgba(0, 0, 0, 0.3);
+}
+
+
 /* FEATURES */
 
 .features {
