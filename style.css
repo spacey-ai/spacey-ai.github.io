@@ -346,3 +346,10 @@ html {
         max-width: 40ch;
     }
 }
+
+
+/* FOOTER */
+
+.footer {
+    background: #555555;
+}
