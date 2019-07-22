@@ -35,8 +35,7 @@ html {
 
 .header {
     position: relative;
-    height: 93%;
-    min-height: 65vw;
+    min-height: 95%;
     background-image: radial-gradient(ellipse 120vw 70vh at 0 10vh,
         rgba(58, 37, 33, 0.9),
         rgba(58, 37, 33, 0));
@@ -92,19 +91,37 @@ html {
     text-transform: uppercase;
     color: white;
     font-size: calc(3vw + 3vh + 10px);
-    margin: auto 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: calc(55/28 * 24px + 2 * 3vh) 0; /* top menu height */
+    flex: 0;
 }
 
 .header__callout {
     align-self: flex-end;
     width: 90vw;
-    margin-bottom: calc(-4vh - 4vw);
+    margin-bottom: calc(-5vh - 5vw);
     margin-top: -10vh;
     margin-right: calc(-1 * (2vw + 1vh)); /* Negative padding of header */
     float: right;
     padding: 5vw;
     background: white;
     box-shadow: 0 3vh 10vh rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (min-width: 650px) and (max-width: 1199px) {
+    .header__callout {
+        width: 585px;
+        padding: 32.5px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .header__callout {
+        width: calc(50vw - 15px);
+        padding: 32.5px;
+        padding-right: calc(50vw - 600px + 32.5px);
+    }
 }
 
 .header__callout p {
@@ -121,6 +138,7 @@ html {
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 600;
+    display: flex;
 }
 
 .topMenu:not(.topMenu--withJs) {
@@ -186,10 +204,6 @@ html {
     margin-bottom: 0.1em;
 }
 
-.topMenu {
-    display: flex;
-}
-
 .topMenu label {
     cursor: pointer;
     user-select: none;
@@ -252,7 +266,6 @@ html {
 }
 
 @media screen and (max-width: 719px) {
-
     .topMenu__toggleCheckbox:checked~.topMenu__openMenu,
     .topMenu__toggleCheckbox:not(:checked)~.topMenu__closeMenu,
     .topMenu__toggleCheckbox:not(:checked)~.topMenu__textOptions,
@@ -319,67 +332,114 @@ html {
 /* CTA */
 
 .cta {
-    background: #05B8C1;
-    font: inherit;
+    background: linear-gradient(45deg, #ffae00, #ff00c3);
     font-weight: 600;
     color: white;
-    padding: 0.7em 1em;
     display: block;
-    margin: 3vw auto 1vw;
     border: none;
-    border-radius: 8px;
     animation: cta__wiggle 5s infinite;
+    cursor: pointer;
 }
 
-@media screen and (min-width: 350px) {
-    .cta {
-        font-size: calc(18/16 * 1em);
-    }
+.cta,
+.cta__emailInput {
+    margin: 1vw auto 1vw;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0.7em 1em;
+    border-radius: 8px;
+}
+
+.cta:hover {
+    animation: none;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+}
+
+.cta:active {
+    box-shadow:
+        0 0 100vw rgba(0, 0, 0, 0.1) inset,
+        0 0.5em 1em rgba(0, 0, 0, 0.2);
+}
+
+.cta__form {
+    display: flex;
 }
 
 .cta__emailInput {
     display: none;
+    flex-grow: 1;
+    margin-right: -100px;
+    border: 3px solid #ddd;
+}
+
+.cta__emailInput:focus {
+    outline: none;
+    border-color: #ffae00;
+}
+
+@media screen and (min-width: 350px) {
+    .cta__form {
+        font-size: calc(18/16 * 1em);
+    }
+}
+
+@media screen and (min-width: 660px) {
+    .cta__emailInput {
+        display: block;
+    }
 }
 
 @keyframes cta__wiggle {
-    2% {
-        transform: translateX(3px) rotate(2deg)
+    0% {
+        transform: none;
+        box-shadow: 0 0 0 transparent;
     }
 
-    4% {
-        transform: translateX(-3px) rotate(-2deg)
+    78% {
+        transform: none;
+        box-shadow: 0 0 0 transparent;
     }
 
-    6% {
-        transform: translateX(3px) rotate(2deg)
+    80% {
+        transform: translateX(3px) rotate(2deg) scale(1.020);
+        box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
     }
 
-    8% {
-        transform: translateX(-3px) rotate(-2deg)
+    82% {
+        transform: translateX(-3px) rotate(-2deg) scale(1.018)
     }
 
-    10% {
-        transform: translateX(2px) rotate(1deg)
+    84% {
+        transform: translateX(3px) rotate(2deg) scale(1.016)
     }
 
-    12% {
-        transform: translateX(-2px) rotate(-1deg)
+    86% {
+        transform: translateX(-3px) rotate(-2deg) scale(1.014)
     }
 
-    14% {
-        transform: translateX(2px) rotate(1deg)
+    88% {
+        transform: translateX(2px) rotate(1deg) scale(1.012)
     }
 
-    16% {
-        transform: translateX(-2px) rotate(-1deg)
+    90% {
+        transform: translateX(-2px) rotate(-1deg) scale(1.010)
     }
 
-    18% {
-        transform: translateX(1px) rotate(0.5deg)
+    92% {
+        transform: translateX(2px) rotate(1deg) scale(1.008)
     }
 
-    20% {
-        transform: translateX(-1px) rotate(-0.5deg)
+    94% {
+        transform: translateX(-2px) rotate(-1deg) scale(1.006)
+    }
+
+    96% {
+        transform: translateX(1px) rotate(0.5deg) scale(1.004)
+    }
+
+    98% {
+        transform: translateX(-1px) rotate(-0.5deg) scale(1.002)
     }
 }
 
