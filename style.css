@@ -148,6 +148,7 @@ html {
     text-transform: uppercase;
     font-weight: 600;
     display: flex;
+    z-index: 1;
 }
 
 .topMenu:not(.topMenu--withJs) {
@@ -175,6 +176,16 @@ html {
 
 .topMenu__logo {
     font-size: 24px;
+}
+
+.topMenu__anchor {
+    position: absolute;
+    top: calc(-24px * 55/28 - 2 * 3vh + 1px); /* logo height + 2 × padding */
+    visibility: hidden;
+}
+
+.topMenu__anchorParent {
+    position: relative;
 }
 
 .topMenu__content,
@@ -224,12 +235,12 @@ html {
 
 .topMenu a:hover,
 .topMenu label:hover {
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .topMenu a:active,
 .topMenu li:active {
-    opacity: 0.4;
+    opacity: 0.6;
 }
 
 .topMenu__textOptions {

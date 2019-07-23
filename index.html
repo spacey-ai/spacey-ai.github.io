@@ -68,10 +68,10 @@
 
     <div class="topMenu content__paddingMirror" id="topMenu">
         <div class="content topMenu__content">
-            <div class="logo topMenu__logo">
+            <a class="logo topMenu__logo" href="https://spacey.ai" title="Spacey. Wirtualny projektant wnętrz">
                 <svg width="30" height="55" viewBox="0 0 30 55"><path d="M17.347 22.2712H29.0059L11.6588 54.764V32.4924H0L17.347 0V22.2712Z" fill="currentColor"/></svg>
                 <span class="logo__wordmark">Spacey</span>
-            </div>
+            </a>
 
             <input type="checkbox" class="topMenu__toggleCheckbox" id="topMenuToggle">
             <label for="topMenuToggle" class="topMenu__openMenu">
@@ -150,7 +150,8 @@
         </script>
     </div>
 
-    <div class="features content">
+    <div class="features content topMenu__anchorParent">
+        <a id="product" class="topMenu__anchor"></a>
         <div class="features__feature">
             <img src="/images/icons8-paint_palette.svg" alt="">
             <h3>jak działa Spacey?</h3>
@@ -174,7 +175,8 @@
         <div class="footer__filler footer__filler--image1"></div>
         <section class="footer__section footer__section--light footer__section--pilotProgram">
             <img src="/images/footer-filler-image-1.jpg" width="1300" height="531">
-            <div class="footer__sectionContent content content--noMaxWidth">
+            <div class="footer__sectionContent content content--noMaxWidth topMenu__anchorParent">
+                <a id="pilot-program" class="topMenu__anchor"></a>
                 <h3>Pilotaż trwa!</h3>
                 <p>Pierwsze 50&nbsp;osób które zakwalifikuje&nbsp;się do&nbsp;programu pilotażowego dostanie od&nbsp;nas bezpłatny projekt wnętrza. Udział w&nbsp;pilotażu polega na&nbsp;przetestowaniu aplikacji internetowej Spacey.</p>
                 <p>Aby wziąć udział w&nbsp;kwalifikacjach, wypełnij formularz poniżej.</p>
@@ -187,7 +189,8 @@
         <div class="footer__filler footer__filler--image2"></div>
         <section class="footer__section footer__section--dark">
             <div class="footer__sectionContent content content--noMaxWidth">
-                <div class="contactDetails">
+                <div class="contactDetails topMenu__anchorParent">
+                    <a id="contact" class="topMenu__anchor"></a>
                     <div class="logo contactDetails__logo">
                         <svg width="30" height="55" viewBox="0 0 30 55">
                             <path d="M17.347 22.2712H29.0059L11.6588 54.764V32.4924H0L17.347 0V22.2712Z" fill="currentColor" /></svg>
