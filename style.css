@@ -41,6 +41,10 @@ html {
     padding-right: calc(2vw + 1vh);
 }
 
+.content--noMaxWidth {
+    max-width: none
+}
+
 
 /* HEADER */
 
@@ -316,6 +320,7 @@ html {
     align-items: center;
     text-transform: lowercase;
     font-weight: 300;
+    white-space: nowrap;
 }
 
 .logo__wordmark {
@@ -473,8 +478,7 @@ html {
 /* FEATURES */
 
 .features {
-    margin: 0 0 3em;
-    padding: 0 2em;
+    margin-bottom: 3em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -519,9 +523,19 @@ html {
     margin: 1em 0;
 }
 
+.footer__section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .footer__section > img {
     width: 100%;
     height: auto;
+}
+
+.footer__section--pilotProgram {
+    max-width: 600px;
 }
 
 .footer__section--light {
@@ -543,6 +557,38 @@ html {
         display: flex;
     }
 }
+
+@media screen and (min-width: 550px) {
+    .footer {
+        display: flex;
+    }
+
+    .footer__section {
+        width: 50%;
+        flex-grow: 1;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .footer__section {
+        width: auto;
+    }
+
+    .footer__section--pilotProgram {
+        flex-grow: 50;
+    }
+
+    .footer__filler {
+        width: 50%;
+        background-image:
+            linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)),
+            url(/images/footer-filler.jpg);
+        background-position: center center;
+        background-size: cover;
+        flex-grow: 20;
+    }
+}
+
 
 /* FORM */
 
