@@ -216,7 +216,6 @@ html {
 
 .topMenu a {
     color: inherit;
-    display: block;
 }
 
 .topMenu a:hover,
@@ -238,6 +237,7 @@ html {
 }
 
 .topMenu__textOptions a {
+    display: block;
     padding: 0.5em;
 }
 
@@ -259,6 +259,7 @@ html {
 }
 
 .topMenu__iconOptions a {
+    display: block;
     padding: 0.2em;
 }
 
@@ -317,8 +318,17 @@ html {
     font-weight: 300;
 }
 
-.logo span {
-    padding: 0 0 calc(4/28 * 1em) calc(8/28 * 1em);
+.logo__wordmark {
+    padding-left: calc(4/28 * 1em);
+}
+
+.logo__wordmark--heavy {
+    font-weight: 600;
+    padding-left: calc(6/28 * 1em);
+}
+
+.logo__suffix {
+    padding-left: 0.3em;
 }
 
 .logo svg {
@@ -396,7 +406,7 @@ html {
 
 @media screen and (min-width: 350px) {
     .cta__form {
-        font-size: calc(18/16 * 1em);
+        font-size: calc(18/16 * 1rem);
     }
 }
 
@@ -505,9 +515,6 @@ html {
 
 /* FOOTER */
 
-.footer {
-}
-
 .footer p {
     margin: 1em 0;
 }
@@ -578,4 +585,59 @@ html {
 .form label {
     font-weight: 600;
     margin-bottom: 0;
+}
+
+
+/* CONTACT DETAILS */
+
+.contactDetails {
+    display: flex;
+    flex-flow: column;
+    padding: 0.5rem 0;
+    justify-content: center;
+}
+
+.contactDetails > * {
+    margin: 0.5rem 0;
+}
+
+.contactDetails a {
+    color: inherit;
+}
+
+.contactDetails a:hover {
+    opacity: 0.8;
+}
+
+.contactDetails__logo {
+    font-size: calc(20/16 * 1rem);
+}
+
+.contactDetails__details {
+    padding: 0.4em 0 0 calc(24/16 * 1rem);
+    display: flex;
+    flex-flow: column;
+}
+
+.contactDetails__details > * {
+    display: flex;
+    margin: 0.4em 0;
+    align-items: center;
+}
+
+.contactDetails__details dt {
+    margin-right: 0.5em;
+}
+
+.contactDetails__details dt svg {
+    width: 20px;
+    height: auto;
+    margin-bottom: -4px;
+}
+
+
+/* UTILS */
+
+.nowrap {
+    white-space: nowrap;
 }
