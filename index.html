@@ -120,6 +120,7 @@
                 const topMenu = document.querySelector('#topMenu');
                 const topMenuToggle = document.querySelector('#topMenuToggle');
 
+                // Fade on scroll
                 let scrolledDown = false;
                 function checkScroll() {
                     topMenu.classList.add('topMenu--scrolledRecently');
@@ -134,6 +135,7 @@
                 checkScroll();
                 document.addEventListener('scroll', checkScroll);
 
+                // No animation on mobile menu toggle
                 function checkUnfolded() {
                     topMenu.classList.remove('topMenu--scrolledRecently');
                     if (topMenuToggle.checked) {
@@ -145,6 +147,14 @@
                 checkUnfolded();
                 topMenuToggle.addEventListener('change', checkUnfolded);
 
+                // Hide menu after picking an option
+                topMenu.addEventListener('click', function(event) {
+                    if (event.target.tagName !== 'A') return;
+                    topMenuToggle.checked = false;
+                    checkUnfolded();
+                });
+
+                // Apply JS-dependent styles
                 topMenu.classList.add('topMenu--withJs');
             })()
         </script>
