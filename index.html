@@ -5,14 +5,25 @@
     <title>Spacey. Wirtualny projektant wnętrz</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,900,600" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132681474-1"></script>
     <script>
-        if (window.location.hostname !== 'localhost') {
+        (function() {
+            const localHost = /^(?:localhost|(?:\d+\.){3}\d+)(?:\:\d+)?$/;
+            if (localHost.test(window.location.host)) return;
+
+            const analyticsId = 'UA-132681474-1';
+            const analyticsScript = Object.assign(
+                document.createElement('script'),
+                {
+                    src: 'https://www.googletagmanager.com/gtag/js?id=' + analyticsId,
+                    async: true,
+                }
+            );
+            document.head.appendChild(analyticsScript);
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
             gtag('js', new Date());
             gtag('config', 'UA-132681474-1');
-        }
+        })();
     </script>
     <meta charset="utf-8">
     <meta property="og:title" content="Spacey. Wirtualny projektant wnętrz">
