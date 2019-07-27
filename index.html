@@ -6,6 +6,9 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,900,600" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
         (function() {
             const localHost = /^(?:localhost|(?:\d+\.){3}\d+)(?:\:\d+)?$/;
             if (localHost.test(window.location.host)) return;
@@ -19,8 +22,6 @@
                 }
             );
             document.head.appendChild(analyticsScript);
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
             gtag('js', new Date());
             gtag('config', analyticsId, {anonymize_ip: true});
         })();
@@ -47,7 +48,7 @@
         <div class="header__callout callout parallax">
             <h1>👋 Hej!</h1>
             <p>Mamy jeszcze kilka miejsc w&nbsp;naszym bezpłatnym pilotażu. Przetestuj Spacey, a&nbsp;dostaniesz od&nbsp;nas bezpłatnie projekt Twojego wnętrza. To jedyna szansa! 😇</p>
-            <form action="https://docs.google.com/forms/d/e/1FAIpQLSdycgx0QwDq-HJFxlUzK7ojCS6kKdoX-I9t9FWDu-A48WLaIg/viewform?usp=pp_url" target="_blank" class="cta__form">
+            <form action="https://docs.google.com/forms/d/e/1FAIpQLSdycgx0QwDq-HJFxlUzK7ojCS6kKdoX-I9t9FWDu-A48WLaIg/viewform?usp=pp_url" target="_blank" class="cta__form" data-analytics-label="Header form">
                 <input class="cta__emailInput" name="entry.1467209122" placeholder="mój adres email">
                 <input type="submit" class="cta" value="Testuj z moim wnętrzem">
             </form>
@@ -201,7 +202,7 @@
                 <h3>Pilotaż trwa!</h3>
                 <p>Pierwsze 50&nbsp;osób które zakwalifikuje&nbsp;się do&nbsp;programu pilotażowego dostanie od&nbsp;nas bezpłatny projekt wnętrza. Udział w&nbsp;pilotażu polega na&nbsp;przetestowaniu aplikacji internetowej Spacey.</p>
                 <p>Aby wziąć udział w&nbsp;kwalifikacjach, wypełnij formularz poniżej.</p>
-                <form class="form" action="https://docs.google.com/forms/d/e/1FAIpQLSdycgx0QwDq-HJFxlUzK7ojCS6kKdoX-I9t9FWDu-A48WLaIg/viewform?usp=pp_url" target="_blank">
+                <form class="form" action="https://docs.google.com/forms/d/e/1FAIpQLSdycgx0QwDq-HJFxlUzK7ojCS6kKdoX-I9t9FWDu-A48WLaIg/viewform?usp=pp_url" target="_blank" data-analytics-label="Footer form">
                     <input type="email" name="entry.1467209122" placeholder="adres email">
                     <input type="submit" value="Kontynuuj">
                 </form>
@@ -263,6 +264,17 @@
 
     <script>
         (function () {
+            // Form submit analytics
+            document.querySelectorAll('form').forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    gtag('event', 'Submit', {
+                        event_category: 'Forms',
+                        event_label: event.target.getAttribute('data-analytics-label'),
+                    });
+                });
+            })
+
+            // Parallax scrolling
            const parallax = document.querySelectorAll('.parallax');
            function updateScroll() {
                parallax.forEach(function(element) {
