@@ -10,8 +10,22 @@
         function gtag() { dataLayer.push(arguments); }
 
         (function() {
-            const localHost = /^(?:localhost|(?:\d+\.){3}\d+)(?:\:\d+)?$/;
-            if (localHost.test(window.location.host)) return;
+            // Add ?dnt to the search string to opt out of GA
+            const doNotTrackUrl = /[?&]dnt($|=|&)/.test(window.location.search);
+            if (doNotTrackUrl) {
+                document.cookie = 'doNotTrack=true; max-age=' + 60*60*24*365*10;
+                return;
+            }
+            const doNotTrackCookie = /(^|;)\s*doNotTrack=/.test(document.cookie)
+            if (doNotTrackCookie) {
+                return;
+            }
+
+            // Don’t track on local
+            const isLocalHost =
+                /^(?:localhost|(?:\d+\.){3}\d+)(?:\:\d+)?$/
+                .test(window.location.host);
+            if (isLocalHost) return;
 
             const analyticsId = 'UA-132681474-1';
             const analyticsScript = Object.assign(
